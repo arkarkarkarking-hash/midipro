@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MIDIPRO실용음악학원 - SPA</title>
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="css/style.css"/>
+  <!-- Font Awesome 아이콘 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <!-- 구글 폰트 -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- swiper 슬라이더 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+</head>
+<body>
+  <!-- 헤더 -->
+  <header>
+    <img src="image/logo.png" alt="메인로고">
+  </header>
+  
+  <!-- 내비게이션 -->
+  <nav>
+    <ul class="image-menu">
+      <li><a href="#" data-route="home"><img src="image/home.webp" alt="홈"></a></li>
+      <li><a href="#" data-route="album"><img src="image/midi.webp" alt="앨범발매"></a></li>
+      <li><a href="#" data-route="gallery"><img src="image/class.webp" alt="수업소개"></a></li>
+      <li><a href="#" data-route="instructors"><img src="image/meet the team.webp" alt="강사소개"></a></li>
+      <li><a href="#" data-route="admissions"><img src="image/admssions.webp" alt="입시현황"></a></li>
+      <li><a href="#" data-route="directions"><img src="image/directions.webp" alt="오는길"></a></li>
+    </ul>
+  </nav>
+  
+  <!-- 메인 컨테이너 (SPA 콘텐츠가 동적으로 로드됨) -->
+  <main id="app-content">
+    <!-- 기본 콘텐츠는 js에서 로드 -->
+  </main>
+  
+  <!-- 오른쪽 고정 음원 리스트 -->
+  <aside id="track-list">
+    <h3>음원 리스트</h3>
+    <ul>
+      <li data-audio-src="audio\송캠프\[24년 하반기 송캠프] Swag(김주빈,장정민) - Broken bell.mp3">Broken bell</li>
+      <li data-audio-src="audio\송캠프\[24년 하반기 송캠프] Nock(한건희,정하윤,박수빈) - Metrospect.mp3">Metrospect</li>
+      <li data-audio-src="audio\송캠프\[24년 하반기 송캠프] 우리들(김승연,정지윤,맹지환) - 온기.mp3">온기</li>
+      <li data-audio-src="audio\송캠프\[24년 하반기 송캠프] 무드먼트(이성민,안예진,박시은) - 잔향.mp3">잔향</li>
+      <li data-audio-src="audio\송캠프\[24년 하반기 송캠프] 갈팡질팡(김준우,박종한,박상혁) - Search An Answer.mp3">Search An Answer</li>
+      <li data-audio-src="audio\송캠프\[24년 하반기 송캠프] 18.5(김민규,안세린,권주연,장효정) - burn up! (feat.신하영).mp3">burn up!</li>
+      <li data-audio-src="audio\송캠프\[24년 상반기 송캠프] PERSONA(이태환,성우혁) - Prehnite&Morganite_PERSONA.mp3">Prehnite&Morganite_PERSONA</li>
+      <li data-audio-src="audio\송캠프\[24년 상반기 송캠프] GMKID(하민호,한건희) - 불빛.mp3">불빛</li>
+      <li data-audio-src="audio\송캠프\[24년 상반기 송캠프] 어차피우리가1등(김주빈,신이섭) - illusion.mp3">illusion</li>
+      <li data-audio-src="audio\송캠프\[24년 상반기 송캠프] 불당공팔(방인준,오승연) - Summer night.mp3">Summer night</li>
+      <li data-audio-src="audio\송캠프\[24년 상반기 송캠프] 고래(백서아,김민규) - 파도.mp3">파도</li>
+      <li data-audio-src="audio\송캠프\[24년 상반기 송캠프] 검은물(장효정,이성민) - 첫사랑.mp3">첫사랑</li>
+      <li data-audio-src="audio\송캠프\[23년 상반기 송캠프] PH(박시은팀) - Headache.mp3">Headache</li>
+      <li data-audio-src="audio\송캠프\[23년 상반기 송캠프] 하루살이(강윤우팀) - 평행우주.mp3">평행우주</li>
+      <li data-audio-src="audio\송캠프\[23년 상반기 송캠프] 작곡밥(이승연팀) - One-sided Love.mp3">One-sided Love</li>
+      <li data-audio-src="audio\송캠프\[22년 하반기 싸이퍼] 김서진,김민혁,김종후 - High!.mp3">High!</li>
+      <li data-audio-src="audio\송캠프\[22년 하반기 송캠프] 하민호,김서진,김민혁 - Present (feat. Huski).mp3">Present</li>
+      <li data-audio-src="audio\송캠프\[22년 하반기 송캠프] 김주빈,변동찬,김나영 - (untitled).mp3">(untitled)</li>
+      <li data-audio-src="audio\송캠프\[22년 상반기 송캠프] M4 (김선우,권혜찬,김지윤,곽승민) - 더위.mp3">더위</li>
+      <li data-audio-src="audio\송캠프\[22년 상반기 송캠프] Fantastic 4 (유호준,이종호,류인화,홍다연) - OceanWorld.mp3">OceanWorld</li>
+      <li data-audio-src="audio\송캠프\[22년 상반기 송캠프] 탬버린을 딩동딩동 (정우영,이훈,김이건) - BOY.mp3">BOY</li>
+      <li data-audio-src="audio\송캠프\[22년 상반기 송캠프] 크로아상 (이서진,김지형,설다빈) - Summer Night.mp3">Summer Night</li>
+      <li data-audio-src="audio\송캠프\[22년 상반기 성인 송캠프] 최연주,정결,조성수 - Personal Color.mp3">Personal Color</li>
+      <li data-audio-src="audio\송캠프\[21년 2분기 송캠프] 이윤아,강온유,윤하영  -  Fly Away.mp3">Fly Away</li>
+      <li data-audio-src="audio\송캠프\[21년 2분기 송캠프] 이승민,전정병,김태현 - 끝.mp3">끝</li>
+      <li data-audio-src="audio\송캠프\[21년 2분기 송캠프] 김선우,김민기,김호찬 - Untitled .mp3">Untitled</li>
+      <li data-audio-src="audio\송캠프\[21년 1분기 송캠프] 이윤아,김태현,김선호 - Back Call Me.mp3">Back Call Me</li>
+      <li data-audio-src="audio\송캠프\[21년 1분기 송캠프] 윤하영,김우솔,이승민 - Star of Sea.mp3">Star of Sea</li>
+      <li data-audio-src="audio/송캠프/[21년 1분기 송캠프] 강온유,전정병,김민기 - We Don’t Give Up.mp3">We Don’t Give Up</li>
+      <li data-audio-src="audio/입시곡/25_황시윤_입시곡.mp3">25_황시윤_입시곡</li>
+      <li data-audio-src="audio/입시곡/25_한건희_입시곡.mp3">25_한건희_입시곡</li>
+      <li data-audio-src="audio/입시곡/25_최가희_입시곡.mp3">25_최가희_입시곡</li>
+      <li data-audio-src="audio/입시곡/25_이승연_입시곡.mp3">25_이승연_입시곡</li>
+      <li data-audio-src="audio/입시곡/25_김혜민_입시곡.mp3">25_김혜민_입시곡</li>
+      <li data-audio-src="audio/입시곡/25_김지현_입시곡.mp3">25_김지현_입시곡</li>
+      <li data-audio-src="audio/입시곡/25_김승연_입시곡.mp3">25_김승연_입시곡</li>
+      <li data-audio-src="audio/입시곡/24_정우영_입시곡.mp3">24_정우영_입시곡</li>
+      <li data-audio-src="audio/입시곡/24_이훈_입시곡.mp3">24_이훈_입시곡</li>
+      <li data-audio-src="audio/입시곡/24_이종호_입시곡.mp3">24_이종호_입시곡</li>
+      <li data-audio-src="audio/입시곡/24_이서진_입시곡.mp3">24_이서진_입시곡</li>
+      <li data-audio-src="audio/입시곡/24_이교빈_입시곡.mp3">24_이교빈_입시곡</li>
+      <li data-audio-src="audio/입시곡/24_유호준_입시곡.mp3">24_유호준_입시곡</li>
+      <li data-audio-src="audio/입시곡/24_류인화_입시곡.mp3">24_류인화_입시곡</li>
+      <li data-audio-src="audio/입시곡/24_김지형_입시곡.mp3">24_김지형_입시곡</li>
+      <li data-audio-src="audio/입시곡/24_김지윤_입시곡.mp3">24_김지윤_입시곡</li>
+      <li data-audio-src="audio/입시곡/24_김이건_입시곡.mp3">24_김이건_입시곡</li>
+      <li data-audio-src="audio/입시곡/24_김선우_정시.mp3">24_김선우_정시</li>
+      <li data-audio-src="audio/입시곡/24_김선우_입시곡.mp3">24_김선우_입시곡</li>
+      <li data-audio-src="audio/입시곡/24_김선우_수시.mp3">24_김선우_수시</li>
+      <li data-audio-src="audio/입시곡/24_김서연_입시곡.mp3">24_김서연_입시곡</li>
+      <li data-audio-src="audio/입시곡/24_곽승민_입시곡.mp3">24_곽승민_입시곡</li>
+      <li data-audio-src="audio/입시곡/23_허지영_입시곡.mp3">23_허지영_입시곡</li>
+      <li data-audio-src="audio/입시곡/23_채민기_입시곡.mp3">23_채민기_입시곡</li>
+      <li data-audio-src="audio/입시곡/23_김현서_입시곡.mp3">23_김현서_입시곡</li>
+      <li data-audio-src="audio/입시곡/23_김민규_입시곡.mp3">23_김민규_입시곡</li>
+      <li data-audio-src="audio/입시곡/23_권휘성_입시곡.mp3">23_권휘성_입시곡</li>
+      <li data-audio-src="audio/입시곡/22_전정병_입시곡.mp3">22_전정병_입시곡</li>
+      <li data-audio-src="audio/입시곡/22_이윤아_입시곡.mp3">22_이윤아_입시곡</li>
+      <li data-audio-src="audio/입시곡/22_이승민_정시.mp3">22_이승민_정시</li>
+      <li data-audio-src="audio/입시곡/22_이승민_수시.mp3">22_이승민_수시</li>
+      <li data-audio-src="audio/입시곡/22_윤하영_정시.mp3">22_윤하영_정시</li>
+      <li data-audio-src="audio/입시곡/22_윤하영_수시.mp3">22_윤하영_수시</li>
+      <li data-audio-src="audio/입시곡/22_윤상현_입시곡.mp3">22_윤상현_입시곡</li>
+      <li data-audio-src="audio/입시곡/22_박채웅_입시곡.mp3">22_박채웅_입시곡</li>
+      <li data-audio-src="audio/입시곡/22_김호찬_입시곡.mp3">22_김호찬_입시곡</li>
+      <li data-audio-src="audio/입시곡/22_김태현_입시곡.mp3">22_김태현_입시곡</li>
+      <li data-audio-src="audio/입시곡/22_김우솔_입시곡.mp3">22_김우솔_입시곡</li>
+      <li data-audio-src="audio/입시곡/22_김선호_입시곡.mp3">22_김선호_입시곡</li>
+      <li data-audio-src="audio/입시곡/22_김민기_입시곡.mp3">22_김민기_입시곡</li>
+      <li data-audio-src="audio/입시곡/22_고필승_입시곡.mp3">22_고필승_입시곡</li>
+      <li data-audio-src="audio/입시곡/22_강온유_입시곡.mp3">22_강온유_입시곡</li>      
+      <li data-audio-src="audio/입시곡/21_강하늘_입시곡.mp3">21_강하늘_입시곡</li>
+      <li data-audio-src="audio/입시곡/21_고필승_입시곡.mp3">21_고필승_입시곡</li>
+      <li data-audio-src="audio/입시곡/21_목서연_입시곡.mp3">21_목서연_입시곡</li>
+      <li data-audio-src="audio/입시곡/21_박채웅_입시곡.mp3">21_박채웅_입시곡</li>
+      <li data-audio-src="audio/입시곡/21_양한나_입시곡.mp3">21_양한나_입시곡</li>
+      <li data-audio-src="audio/입시곡/21_유동건_입시곡.mp3">21_유동건_입시곡</li>
+      <li data-audio-src="audio/입시곡/21_이강민_입시곡.mp3">21_이강민_입시곡</li>
+    </ul>
+  </aside>
+  
+  <!-- 하단 고정 오디오 플레이어 -->
+  <div id="audio-player">
+    <button id="prevBtn" class="player-btn"><i class="fa fa-step-backward"></i></button>
+    <button id="playPauseBtn" class="player-btn"><i class="fa fa-play"></i></button>
+    <button id="nextBtn" class="player-btn"><i class="fa fa-step-forward"></i></button>
+    <input type="range" id="seekBar" value="0" min="0" max="100" />
+    <span id="currentTime">00:00</span>
+    <span class="volume-icon"><i class="fa fa-volume-up"></i></span>
+    <input type="range" id="volumeBar" value="1" min="0" max="1" step="0.01" />
+    <span id="currentTrack">Now Playing: ...</span>
+    <audio id="audioElement" preload="none"></audio>
+  </div>
+  
+  <!-- 푸터 -->
+  <footer>
+    <p>&copy; 2025 MIDIPRO실용음악학원. All rights reserved.</p>
+  </footer>
+  
+  <!-- 공통 JS -->
+  <script src="js/script.js"></script>
+</body>
+</html>
