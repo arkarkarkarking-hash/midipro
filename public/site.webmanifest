@@ -1,0 +1,20 @@
+{
+  "name": "미디프로실용음악학원",
+  "short_name": "MIDIPRO",
+  "start_url": "/",
+  "display": "browser",
+  "theme_color": "#111112",
+  "background_color": "#111112",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
