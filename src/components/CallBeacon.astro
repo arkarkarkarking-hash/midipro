@@ -1,0 +1,9 @@
+<script>
+  // Counts phone-button taps. Sends only the page path and referrer; no cookies or identifiers.
+  document.addEventListener('click', (e) => {
+    const a = (e.target as HTMLElement).closest('a[href^="tel:"]');
+    if (!a) return;
+    const body = JSON.stringify({ path: location.pathname, ref: document.referrer });
+    navigator.sendBeacon?.('/api/call', new Blob([body], { type: 'application/json' }));
+  });
+</script>
