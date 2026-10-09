@@ -1,0 +1,18 @@
+{
+  "name": "미디프로실용음악학원",
+  "address": "충청남도 천안시 서북구 불당21로 65, 6층",
+  "phone": "041-558-3101",
+  "phoneE164": "+82-41-558-3101",
+  "hours": {
+    "weekdays": "평일 13:00–22:00",
+    "saturday": "토 09:00–18:00",
+    "closed": "일요일·공휴일 휴무 (대체공휴일 운영)"
+  },
+  "links": {
+    "blog": "https://blog.naver.com/midi-pro",
+    "instagram": "https://www.instagram.com/midipro__/",
+    "youtube": "https://www.youtube.com/@midipro_159sound"
+  },
+  "showResultYears": true,
+  "slogan": "빛나는 곳에서 연주하기보단 내가 연주하는 곳이 빛나게 되길"
+}

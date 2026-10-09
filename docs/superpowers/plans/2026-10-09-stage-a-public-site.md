@@ -106,7 +106,7 @@ test('site.json matches spec values', () => {
 test('results.json holds the spec appendix A data in order', () => {
   const r = getResults();
   expect(r.map(x => x.school)).toEqual(['동아방송예술대학교','백석예술대학교','국제예술대학교','호원대학교','백석대학교','백제예술대학교','백석문화대학교','정화예술대학교','한국영상대학교']);
-  expect(r.flatMap(x => x.entries)).toHaveLength(37);
+  expect(r.flatMap(x => x.entries)).toHaveLength(34);
   expect(r[1].entries[0]).toEqual({ name: '김현서', major: '뮤직테크놀로지', year: 2023 });
 });
 test('courses have no price field', () => {
