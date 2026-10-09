@@ -1,0 +1,27 @@
+:root {
+  --bg: #111112;
+  --rail: #0e0e0f;
+  --panel-hi: #2a2a2d;
+  --panel-mid: #1e1e21;
+  --panel-lo: #1a1a1c;
+  --panel-dark-hi: #1b1b1d;
+  --panel-dark-lo: #141416;
+  --display: #0a0a0b;
+  --line: #2b2b2e;
+  --tx: #ecebe7;
+  --mu: #8e8c87;
+  --dim: #5f5e5a;
+  --engrave: #c4c2bc;
+  --b: #5b7cfa;
+  --v: #8f63f0;
+  --led: linear-gradient(90deg, var(--b), var(--v));
+  --ear: 16px;
+  --screw: 6px;
+  --radius: 3px;
+  --gutter: 22px;
+  --font: 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --bottom-h: 72px;
+  --player-h: 52px;
+  color-scheme: dark;
+}

@@ -1,0 +1,27 @@
+---
+import RackUnit from './rack/RackUnit.astro';
+import { getSite } from '../lib/content';
+const site = getSite();
+const year = new Date().getFullYear();
+---
+<RackUnit as="footer" tone="dark" seed={11} class="site-footer">
+  <dl class="info">
+    <dt class="label">Addr</dt><dd>{site.address}</dd>
+    <dt class="label">Hours</dt><dd>{site.hours.weekdays} · {site.hours.saturday}<br /><span class="muted">{site.hours.closed}</span></dd>
+    <dt class="label">Tel</dt><dd><a class="mono" href={`tel:${site.phone.replaceAll('-', '')}`} data-call>{site.phone}</a></dd>
+  </dl>
+  <ul class="sns">
+    <li><a href={site.links.blog} rel="noopener" target="_blank">네이버 블로그</a></li>
+    <li><a href={site.links.instagram} rel="noopener" target="_blank">인스타그램</a></li>
+    <li><a href={site.links.youtube} rel="noopener" target="_blank">유튜브</a></li>
+  </ul>
+  <p class="legal"><a href="/privacy">개인정보처리방침</a> · © {year} {site.name}</p>
+</RackUnit>
+
+<style>
+  .info { display: grid; grid-template-columns: 52px 1fr; gap: 8px 10px; font-size: 13px; line-height: 1.55; }
+  dt { padding-top: 3px; }
+  .sns { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 16px; font-size: 13px; color: var(--mu); }
+  .sns a:hover, .legal a:hover { color: var(--tx); }
+  .legal { margin-top: 12px; font-size: 11px; color: var(--dim); }
+</style>

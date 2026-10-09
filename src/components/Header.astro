@@ -1,0 +1,45 @@
+---
+import RackUnit from './rack/RackUnit.astro';
+import Icon from './Icon.astro';
+import logo from '../assets/logo.svg?raw';
+import { visibleNav, isActive } from '../lib/nav';
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
+---
+<RackUnit as="header" size="u1" seed={1} class="site-header">
+  <div class="hd">
+    <a href="/" class="hd__logo engrave" aria-label="MIDIPRO 홈"><Fragment set:html={logo} /></a>
+    <div class="hd__right">
+      <span class="pled" aria-hidden="true"></span>
+      <a href="/login" class="key" data-account-link>로그인</a>
+      <details class="hd__menu">
+        <summary class="key" aria-label="메뉴"><Icon name="menu-2" /></summary>
+        <nav aria-label="모바일 메뉴" class="hd__drawer">
+          <ul>
+            {visibleNav().map((n) => (
+              <li><a href={n.href} aria-current={isActive(n.href, path) ? 'page' : undefined}><span class="label">{n.code}</span>{n.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      </details>
+    </div>
+  </div>
+</RackUnit>
+
+<style>
+  .hd { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .hd__logo { width: 112px; color: var(--engrave); }
+  .hd__logo :global(svg) { width: 100%; height: auto; filter: drop-shadow(0 -1px 0 rgba(0,0,0,.85)) drop-shadow(0 1px 0 rgba(255,255,255,.08)); }
+  .hd__right { display: flex; align-items: center; gap: 8px; }
+  .hd__menu { position: relative; }
+  .hd__menu summary { list-style: none; padding: 6px 9px; }
+  .hd__menu summary::-webkit-details-marker { display: none; }
+  .hd__drawer { position: absolute; right: -4px; top: calc(100% + 10px); z-index: 50; width: 220px; padding: 6px; border-radius: 2px;
+    background: linear-gradient(180deg, #232326, #19191b); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 8px 24px rgba(0,0,0,.6); }
+  .hd__drawer ul { list-style: none; }
+  .hd__drawer a { display: flex; align-items: baseline; gap: 12px; padding: 11px 10px; font-size: 15px; border-bottom: 1px solid rgba(0,0,0,.5); box-shadow: 0 1px 0 rgba(255,255,255,.03); }
+  .hd__drawer li:last-child a { border: 0; box-shadow: none; }
+  .hd__drawer .label { width: 34px; }
+  .hd__drawer a[aria-current='page'] { color: #b9b3ff; }
+  .hd__drawer a[aria-current='page'] .label { color: var(--b); }
+  @media (min-width: 1024px) { .hd__menu { display: none; } .hd__logo { width: 128px; } }
+</style>

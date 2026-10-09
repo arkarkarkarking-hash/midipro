@@ -1,0 +1,31 @@
+---
+import Screw from './Screw.astro';
+
+interface Props {
+  tone?: 'metal' | 'dark';
+  size?: 'u1' | 'u2' | 'u3';
+  slots?: 0 | 1 | 2;
+  seed?: number;
+  as?: 'section' | 'div' | 'header' | 'nav' | 'footer' | 'article';
+  class?: string;
+  id?: string;
+  [key: string]: unknown;
+}
+const { tone = 'metal', size = 'u2', slots = 0, seed = 0, as: Tag = 'section', class: cls = '', ...rest } = Astro.props;
+// Deterministic screw angles so every build renders the same "hand-tightened" look.
+const angle = (i: number) => ((seed * 37 + i * 53) % 90) - 45;
+const single = size === 'u1';
+---
+<Tag class:list={['ru', `ru--${size}`, tone === 'dark' && 'ru--dark', cls]} {...rest}>
+  <span class:list={['ear ear--l', single && 'ear--single']} aria-hidden="true">
+    <Screw angle={angle(0)} />
+    {!single && Array.from({ length: slots }).map(() => <i class="slot" />)}
+    {!single && <Screw angle={angle(1)} />}
+  </span>
+  <span class:list={['ear ear--r', single && 'ear--single']} aria-hidden="true">
+    <Screw angle={angle(2)} />
+    {!single && Array.from({ length: slots }).map(() => <i class="slot" />)}
+    {!single && <Screw angle={angle(3)} />}
+  </span>
+  <div class="ru__in"><slot /></div>
+</Tag>

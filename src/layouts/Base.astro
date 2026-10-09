@@ -1,0 +1,35 @@
+---
+import '../styles/tokens.css';
+import '../styles/global.css';
+import '../styles/rack.css';
+import { ClientRouter } from 'astro:transitions';
+import SeoHead from '../components/SeoHead.astro';
+import Header from '../components/Header.astro';
+import SideNav from '../components/SideNav.astro';
+import BottomBar from '../components/BottomBar.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props { title: string; description: string; path: string; noindex?: boolean; ogImage?: string; jsonLd?: object[] }
+const props = Astro.props;
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <SeoHead {...props} />
+    <ClientRouter />
+  </head>
+  <body>
+    <div class="shell">
+      <SideNav />
+      <div>
+        <Header />
+        <main class="page" id="main"><slot /></main>
+        <Footer />
+      </div>
+    </div>
+    <slot name="player" />
+    <BottomBar />
+  </body>
+</html>

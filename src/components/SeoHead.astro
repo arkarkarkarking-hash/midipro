@@ -1,0 +1,8 @@
+---
+// Minimal stub; replaced in Task 10.
+interface Props { title: string; description: string; path: string; noindex?: boolean; ogImage?: string; jsonLd?: object[] }
+const { title, description, noindex } = Astro.props;
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex" />}

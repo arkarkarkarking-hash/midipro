@@ -1,0 +1,21 @@
+---
+import RackUnit from './rack/RackUnit.astro';
+import Keycap from './rack/Keycap.astro';
+import { getSite } from '../lib/content';
+const tel = `tel:${getSite().phone.replaceAll('-', '')}`;
+---
+<div class="bottombar">
+  <RackUnit as="div" size="u1" seed={5}>
+    <div class="bb">
+      <Keycap variant="primary" size="lg" href={tel} icon="phone" data-call>전화 상담</Keycap>
+      <Keycap size="lg" href="/location" icon="map-pin">오시는 길</Keycap>
+    </div>
+  </RackUnit>
+</div>
+
+<style>
+  .bottombar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 8px 0 calc(8px + env(safe-area-inset-bottom)); background: #0b0b0c; border-top: 1px solid #1f1f22; }
+  .bottombar :global(.ru) { margin: 0 6px; }
+  .bb { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  @media (min-width: 1024px) { .bottombar { display: none; } }
+</style>

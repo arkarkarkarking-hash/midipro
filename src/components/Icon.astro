@@ -1,0 +1,8 @@
+---
+import { readFileSync } from 'node:fs';
+interface Props { name: string; class?: string }
+const { name, class: cls } = Astro.props;
+const raw = readFileSync(new URL(`../../node_modules/@tabler/icons/icons/outline/${name}.svg`, import.meta.url), 'utf8');
+const svg = raw.replace(/<!--[\s\S]*?-->/g, '').replace('<svg', `<svg aria-hidden="true" focusable="false"${cls ? ` class="${cls}"` : ''}`);
+---
+<Fragment set:html={svg} />
