@@ -1,7 +1,35 @@
 ---
 import Base from '../layouts/Base.astro';
 import RackUnit from '../components/rack/RackUnit.astro';
+import Keycap from '../components/rack/Keycap.astro';
+import PageHead from '../components/PageHead.astro';
+import { getCourses, getSite } from '../lib/content';
+const courses = getCourses();
+const tel = `tel:${getSite().phone.replaceAll('-', '')}`;
 ---
-<Base title="과정 소개" description="과정 소개" path="/courses">
-  <RackUnit tone="dark"><h1 class="page-title">과정 소개</h1></RackUnit>
+<Base title="과정 소개" description="천안 미디 입시 과정 안내. 취미·중학생 단과, 입시 기본, 입시 종합, 음원 발매 과정까지 학년과 목표에 맞춰 구성합니다." path="/courses">
+  <PageHead code="Courses" title="과정 소개">
+    <p class="prose">미디·피아노·화성학·음향 강사가 한 팀으로 학생을 함께 봅니다. 입시 종합 과정은 매달 월말고사와 연 2회 모의고사로 실력을 점검합니다.</p>
+  </PageHead>
+  {courses.map((c, i) => (
+    <RackUnit tone={i % 2 ? 'dark' : 'metal'} seed={41 + i} data-course={c.id}>
+      <div class="c__top"><span class="label mono">CH{String(i + 1).padStart(2, '0')}</span></div>
+      <h2 class="c__name">{c.name}</h2>
+      <dl class="c__meta">
+        <dt class="label">For</dt><dd>{c.target}</dd>
+        <dt class="label">Plan</dt><dd>{c.composition}</dd>
+      </dl>
+      <p class="c__role">{c.role}</p>
+    </RackUnit>
+  ))}
+  <RackUnit tone="dark" size="u1" seed={49}>
+    <div class="c__cta"><span>수강료는 상담 시 안내합니다.</span><Keycap variant="primary" href={tel} icon="phone" data-call>전화 상담</Keycap></div>
+  </RackUnit>
 </Base>
+<style>
+  .c__name { font-size: 17px; font-weight: 600; margin-top: 4px; }
+  .c__meta { display: grid; grid-template-columns: 44px 1fr; gap: 6px 10px; margin-top: 10px; font-size: 14px; }
+  dt { padding-top: 3px; }
+  .c__role { margin-top: 10px; font-size: 13px; color: var(--mu); }
+  .c__cta { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 13px; color: var(--mu); }
+</style>

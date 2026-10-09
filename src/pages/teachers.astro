@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import RackUnit from '../components/rack/RackUnit.astro';
+import PageHead from '../components/PageHead.astro';
+import { getTeachers } from '../lib/content';
+const teachers = getTeachers();
+---
+<Base title="강사진" description="미디프로 강사진: 미디·피아노·화성학·음향을 한 팀으로 가르칩니다." path="/teachers" noindex={teachers.length === 0}>
+  <PageHead code="Teachers" title="강사진" />
+  {teachers.map((t, i) => (
+    <RackUnit tone={i % 2 ? 'dark' : 'metal'} seed={81 + i}>
+      <h2 class="t__name">{t.name}</h2>
+      <p class="label">{t.subjects.join(' · ')}</p>
+      <p class="prose t__bio">{t.bio}</p>
+    </RackUnit>
+  ))}
+</Base>
+<style>
+  .t__name { font-size: 17px; font-weight: 600; }
+  .t__bio { margin-top: 8px; font-size: 14px; }
+</style>

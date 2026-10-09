@@ -1,7 +1,26 @@
 ---
 import Base from '../layouts/Base.astro';
 import RackUnit from '../components/rack/RackUnit.astro';
+import PageHead from '../components/PageHead.astro';
+import { getResults, getSite } from '../lib/content';
+const results = getResults();
+const showYears = getSite().showResultYears;
 ---
-<Base title="입시 결과" description="입시 결과" path="/results">
-  <RackUnit tone="dark"><h1 class="page-title">입시 결과</h1></RackUnit>
+<Base title="입시 결과" description="미디프로 학생들의 실용음악 입시 결과입니다. 동아방송예술대, 백석예술대, 국제예술대 등 미디·작곡·음향 전공." path="/results">
+  <PageHead code="Results" title="입시 결과">
+    <p class="prose">새 결과가 나오는 대로 계속 업데이트합니다.</p>
+  </PageHead>
+  {results.map((r, i) => (
+    <RackUnit tone={i % 2 ? 'dark' : 'metal'} seed={31 + i} data-school={r.school}>
+      <h2 class="school">{r.school}</h2>
+      <ul class="entries">
+        {r.entries.map((e) => <li>{e.name} ({e.major}){showYears ? ` ${e.year}` : ''}</li>)}
+      </ul>
+    </RackUnit>
+  ))}
 </Base>
+<style>
+  .school { font-size: 16px; font-weight: 600; }
+  .entries { list-style: none; margin-top: 8px; display: grid; gap: 4px; font-size: 14px; color: var(--mu); }
+  @media (min-width: 768px) { .entries { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

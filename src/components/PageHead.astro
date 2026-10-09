@@ -1,0 +1,17 @@
+---
+import RackUnit from './rack/RackUnit.astro';
+interface Props { code: string; title: string; seed?: number }
+const { code, title, seed = 30 } = Astro.props;
+---
+<RackUnit tone="dark" slots={1} seed={seed}>
+  <div class="ph">
+    <div class="ph__top"><span class="label">{code}</span><span class="led-line"></span></div>
+    <h1 class="page-title">{title}</h1>
+    <slot />
+  </div>
+</RackUnit>
+<style>
+  .ph { padding: 6px 0 4px; }
+  .ph__top { display: flex; justify-content: space-between; align-items: center; }
+  .ph :global(p) { margin-top: 10px; }
+</style>

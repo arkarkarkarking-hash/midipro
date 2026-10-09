@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import RackUnit from '../components/rack/RackUnit.astro';
+import PageHead from '../components/PageHead.astro';
+import { getSite } from '../lib/content';
+const site = getSite();
+---
+<Base title="개인정보처리방침" description="미디프로실용음악학원 홈페이지 개인정보처리방침" path="/privacy">
+  <PageHead code="Privacy" title="개인정보처리방침">
+    <p class="prose">시행일: 2026-10-09</p>
+  </PageHead>
+  <RackUnit tone="dark" seed={71}>
+    <div class="doc prose">
+      <h2>1. 처리하는 개인정보</h2>
+      <p>홈페이지는 회원가입을 받지 않습니다. 학원이 재원생과 강사에게 발급하는 계정에 한해 다음 정보를 처리합니다.</p>
+      <ul><li>계정 정보: 아이디, 이름, 출생연도, 역할(관리자·강사·수강생)</li><li>수강생의 곡 정보와 월말고사·모의고사 평가 결과</li></ul>
+      <h2>2. 처리 목적</h2>
+      <p>수강생 본인의 곡과 평가 결과를 마이페이지에서 보여주고, 학원 운영에 활용합니다.</p>
+      <h2>3. 보유 기간</h2>
+      <p>계정이 삭제될 때까지 보유하며, 삭제 시 지체 없이 파기합니다.</p>
+      <h2>4. 14세 미만 아동</h2>
+      <p>14세 미만 학생의 계정은 학원 등록 시 법정대리인(보호자)의 동의를 받은 경우에만 발급합니다.</p>
+      <h2>5. 제3자 제공과 위탁</h2>
+      <p>개인정보를 제3자에게 제공하지 않습니다. 홈페이지 운영을 위해 Cloudflare, Inc.의 클라우드 서비스에 저장합니다.</p>
+      <h2>6. 방문 통계</h2>
+      <p>방문 통계는 쿠키를 사용하지 않는 방식으로 수집하며, 개인을 식별할 수 있는 정보를 저장하지 않습니다.</p>
+      <h2>7. 문의</h2>
+      <p>{site.name} · <span class="mono">{site.phone}</span></p>
+    </div>
+  </RackUnit>
+</Base>
+<style>
+  .doc h2 { font-size: 15px; font-weight: 600; color: var(--tx); margin: 18px 0 6px; }
+  .doc h2:first-child { margin-top: 0; }
+  .doc ul { padding-left: 18px; }
+</style>

@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import RackUnit from '../components/rack/RackUnit.astro';
+import Keycap from '../components/rack/Keycap.astro';
+import PageHead from '../components/PageHead.astro';
+---
+<Base title="페이지를 찾을 수 없습니다" description="요청한 페이지가 없습니다." path="/404" noindex>
+  <PageHead code="404 · No signal" title="페이지를 찾을 수 없습니다">
+    <p class="prose">주소가 바뀌었거나 없는 페이지입니다.</p>
+  </PageHead>
+  <RackUnit size="u1" seed={91}>
+    <div class="nf"><Keycap variant="primary" href="/">홈으로</Keycap><Keycap href="/music">음원 듣기</Keycap></div>
+  </RackUnit>
+</Base>
+<style>.nf { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }</style>
