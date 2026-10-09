@@ -1,0 +1,7 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "media", "runtimeExecutable": "/Users/imac4/.local/node/bin/node", "runtimeArgs": ["node_modules/tsx/dist/cli.mjs", "scripts/serve-media.ts"], "port": 4322 },
+    { "name": "site", "runtimeExecutable": "/Users/imac4/.local/node/bin/node", "runtimeArgs": ["node_modules/astro/astro.js", "preview", "--port", "4321"], "port": 4321 }
+  ]
+}

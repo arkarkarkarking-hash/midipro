@@ -1,7 +1,60 @@
 ---
 import Base from '../layouts/Base.astro';
 import RackUnit from '../components/rack/RackUnit.astro';
+import FeaturedTrack from '../components/FeaturedTrack.astro';
+import TrackList from '../components/TrackList.astro';
+import { getTracks } from '../lib/tracks';
+import { getResults, getSite } from '../lib/content';
+
+const tracks = getTracks();
+const featured = tracks.find((t) => t.featured) ?? tracks[0];
+const latest = tracks.filter((t) => t.category === 'admissions' && t.slug !== featured.slug).slice(0, 4);
+const schools = getResults().map((r) => r.school);
+const site = getSite();
 ---
-<Base title="미디프로실용음악학원" description="천안 불당동 미디 입시 학원" path="/">
-  <RackUnit tone="dark" slots={1}><h1 class="page-title">곡으로 합격을<br />만드는 학원.</h1></RackUnit>
+<Base title="" description="천안 불당동 미디 입시 학원 미디프로. 미디·피아노·화성학·음향 연계 수업과 매달 월말고사, 학생들이 만든 입시곡과 송캠프 곡을 공개합니다." path="/">
+  <RackUnit tone="dark" slots={1} seed={2}>
+    <div class="hero">
+      <div class="hero__top"><span class="label">MP-01 · Cheonan Bundang</span><span class="led-line"></span></div>
+      <h1 class="hero__title">곡으로 합격을<br />만드는 학원.</h1>
+      <p class="prose hero__lead">미디·피아노·화성학·음향을 한 팀이 함께 가르치고, 매달 월말고사로 실력을 확인합니다. 그렇게 만든 <b>입시곡을 그대로 공개합니다.</b></p>
+    </div>
+  </RackUnit>
+
+  <FeaturedTrack track={featured} eyebrow="Featured" listId="featured" />
+
+  <RackUnit tone="dark" slots={2} seed={6}>
+    <div class="sec"><h2>음원</h2><a href="/music">전체 보기 →</a></div>
+    <div class="tabs" role="list">
+      <a role="listitem" href="/music#admissions" class="tab tab--on">입시곡</a>
+      <a role="listitem" href="/music#songcamp" class="tab">송캠프</a>
+    </div>
+    <TrackList tracks={latest} listId="home-latest" />
+  </RackUnit>
+
+  <RackUnit seed={7}>
+    <div class="sec"><h2>입시 결과</h2><a href="/results">자세히 →</a></div>
+    <p class="schools">{schools.join(' · ')}</p>
+  </RackUnit>
+
+  <RackUnit tone="dark" size="u1" seed={8}>
+    <p class="slogan">{site.slogan}</p>
+  </RackUnit>
 </Base>
+
+<style>
+  .hero { padding: 12px 0 10px; }
+  .hero__top { display: flex; justify-content: space-between; align-items: center; }
+  .hero__title { font-size: 32px; font-weight: 700; line-height: 1.22; letter-spacing: -0.035em; margin-top: 14px; }
+  .hero__lead { margin-top: 12px; font-size: 14px; }
+  .sec { display: flex; justify-content: space-between; align-items: baseline; }
+  .sec h2 { font-size: 16px; font-weight: 600; }
+  .sec a { font-size: 12px; color: var(--mu); }
+  .tabs { display: flex; gap: 4px; margin: 10px 0 4px; }
+  .tab { font-size: 11px; padding: 5px 9px; border-radius: 2px; color: var(--mu); background: linear-gradient(180deg, #323236, #242427); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 1px 0 #000; }
+  .tab--on { color: var(--tx); background: #141416; box-shadow: inset 0 1px 2px #000; }
+  .tab--on::before { content: ''; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--b); margin-right: 6px; vertical-align: 1px; }
+  .schools { font-size: 13px; color: var(--mu); line-height: 1.7; margin-top: 8px; }
+  .slogan { font-size: 13px; color: var(--mu); text-align: center; }
+  @media (min-width: 768px) { .hero__title { font-size: 44px; } .hero__lead { font-size: 16px; max-width: 34em; } }
+</style>

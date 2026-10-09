@@ -2,9 +2,35 @@
 import Base from '../../layouts/Base.astro';
 import RackUnit from '../../components/rack/RackUnit.astro';
 import TrackList from '../../components/TrackList.astro';
-import { getTracks } from '../../lib/tracks';
-const admissions = getTracks().filter((t) => t.category === 'admissions');
+import { CATEGORY_LABEL, getTracks, type TrackCategory } from '../../lib/tracks';
+
+const order: TrackCategory[] = ['admissions', 'songcamp', 'release'];
+const groups = order
+  .map((c) => ({ c, tracks: getTracks().filter((t) => t.category === c) }))
+  .filter((g) => g.tracks.length > 0);
 ---
-<Base title="음원" description="미디프로 입시곡과 송캠프 곡" path="/music">
-  <RackUnit tone="dark"><h1 class="page-title">음원</h1><TrackList tracks={admissions} listId="admissions" /></RackUnit>
+<Base title="음원" description="미디프로 학생들이 직접 만든 미디 입시곡과 송캠프 곡을 들어보세요. 연도별로 정리했습니다." path="/music">
+  <RackUnit tone="dark" size="u1" seed={12}>
+    <div class="mh">
+      <h1 class="mh__title">음원</h1>
+      <nav class="mh__tabs" aria-label="음원 분류">
+        {groups.map((g) => <a href={`#${g.c}`} class="tab">{CATEGORY_LABEL[g.c]}</a>)}
+      </nav>
+    </div>
+  </RackUnit>
+  {groups.map((g, i) => (
+    <RackUnit tone={i % 2 ? 'dark' : 'metal'} slots={2} seed={13 + i} id={g.c}>
+      <h2 class="mg__title">{CATEGORY_LABEL[g.c]} <span class="label mono">{g.c}</span></h2>
+      <TrackList tracks={g.tracks} listId={g.c} />
+    </RackUnit>
+  ))}
 </Base>
+
+<style>
+  .mh { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .mh__title { font-size: 18px; font-weight: 700; }
+  .mh__tabs { display: flex; gap: 4px; }
+  .tab { font-size: 11px; padding: 5px 9px; border-radius: 2px; color: var(--mu); background: linear-gradient(180deg, #323236, #242427); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 1px 0 #000; }
+  .mg__title { font-size: 16px; font-weight: 600; display: flex; gap: 10px; align-items: baseline; margin-bottom: 4px; }
+  :global(section[id]) { scroll-margin-top: 12px; }
+</style>

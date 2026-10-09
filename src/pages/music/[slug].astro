@@ -1,0 +1,43 @@
+---
+import Base from '../../layouts/Base.astro';
+import RackUnit from '../../components/rack/RackUnit.astro';
+import FeaturedTrack from '../../components/FeaturedTrack.astro';
+import TrackList from '../../components/TrackList.astro';
+import { getTracks, type Track } from '../../lib/tracks';
+
+export function getStaticPaths() {
+  return getTracks().map((track) => ({ params: { slug: track.slug }, props: { track } }));
+}
+
+const { track } = Astro.props as { track: Track };
+const related = getTracks()
+  .filter((t) => t.slug !== track.slug && t.category === track.category && t.year === track.year)
+  .slice(0, 5);
+const who = track.artists.join(', ');
+const description = `${track.year} ${track.label}${track.team ? ` · ${track.team}` : ''} — ${who}. 미디프로 학생이 직접 만든 곡입니다.`;
+---
+<Base title={`${track.title} · ${track.label}`} description={description} path={`/music/${track.slug}`} ogImage={`/og/music/${track.slug}.png`}>
+  <nav class="crumbs label" aria-label="위치"><a href="/">Home</a> / <a href="/music">음원</a></nav>
+  <FeaturedTrack track={track} eyebrow={track.label} listId="this-track" headingLevel="h1" />
+  <RackUnit tone="dark" seed={20}>
+    <dl class="meta">
+      <dt class="label">Year</dt><dd class="mono">{track.year}{track.season ? ` · ${track.season}` : ''}</dd>
+      {track.team && (<><dt class="label">Team</dt><dd>{track.team}</dd></>)}
+      <dt class="label">Artist</dt><dd>{who}</dd>
+    </dl>
+  </RackUnit>
+  {related.length > 0 && (
+    <RackUnit slots={1} seed={21}>
+      <h2 class="rel">같은 해 {track.label}</h2>
+      <TrackList tracks={related} listId="related" />
+    </RackUnit>
+  )}
+</Base>
+
+<style>
+  .crumbs { padding: 6px 28px 8px; }
+  .crumbs a:hover { color: var(--tx); }
+  .meta { display: grid; grid-template-columns: 52px 1fr; gap: 8px 10px; font-size: 13px; }
+  dt { padding-top: 3px; }
+  .rel { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+</style>
