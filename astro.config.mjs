@@ -8,6 +8,6 @@ export default defineConfig({
   site: 'https://midipro.kr',
   output: 'static',
   trailingSlash: 'never',
-  build: { format: 'file' },
+  build: { format: 'file', inlineStylesheets: 'always' },
   integrations: [sitemap({ filter: (page) => !excluded.some((p) => new URL(page).pathname.replace(/\/$/, '') === p) })],
 });
