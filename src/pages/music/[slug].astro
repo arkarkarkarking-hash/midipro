@@ -4,6 +4,7 @@ import RackUnit from '../../components/rack/RackUnit.astro';
 import FeaturedTrack from '../../components/FeaturedTrack.astro';
 import TrackList from '../../components/TrackList.astro';
 import { getTracks, type Track } from '../../lib/tracks';
+import { absolute, trackJsonLd } from '../../lib/seo';
 
 export function getStaticPaths() {
   return getTracks().map((track) => ({ params: { slug: track.slug }, props: { track } }));
@@ -16,7 +17,7 @@ const related = getTracks()
 const who = track.artists.join(', ');
 const description = `${track.year} ${track.label}${track.team ? ` · ${track.team}` : ''} — ${who}. 미디프로 학생이 직접 만든 곡입니다.`;
 ---
-<Base title={`${track.title} · ${track.label}`} description={description} path={`/music/${track.slug}`} ogImage={`/og/music/${track.slug}.png`}>
+<Base title={`${track.title} · ${track.label}`} description={description} path={`/music/${track.slug}`} ogImage={`/og/music/${track.slug}.png`} jsonLd={[trackJsonLd(track, absolute(`/music/${track.slug}`))]}>
   <nav class="crumbs label" aria-label="위치"><a href="/">Home</a> / <a href="/music">음원</a></nav>
   <FeaturedTrack track={track} eyebrow={track.label} listId="this-track" headingLevel="h1" />
   <RackUnit tone="dark" seed={20}>

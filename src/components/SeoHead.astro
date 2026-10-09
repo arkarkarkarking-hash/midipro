@@ -1,8 +1,43 @@
 ---
-// Minimal stub; replaced in Task 10.
+import { getSite } from '../lib/content';
+import { absolute, breadcrumbJsonLd, pageTitle, schoolJsonLd } from '../lib/seo';
+
 interface Props { title: string; description: string; path: string; noindex?: boolean; ogImage?: string; jsonLd?: object[] }
-const { title, description, noindex } = Astro.props;
+const { title, description, path, noindex, ogImage = '/og/default.png', jsonLd = [] } = Astro.props;
+const fullTitle = pageTitle(title);
+const canonical = absolute(path);
+const site = getSite();
+const crumbs = path === '/' ? [] : [
+  { name: '홈', url: absolute('/') },
+  ...(path.startsWith('/music/') ? [{ name: '음원', url: absolute('/music') }] : []),
+  { name: title || site.name, url: canonical },
+];
+const ld = [schoolJsonLd(site), ...(crumbs.length ? [breadcrumbJsonLd(crumbs)] : []), ...jsonLd];
+const naver = import.meta.env.PUBLIC_NAVER_VERIFY;
+const google = import.meta.env.PUBLIC_GOOGLE_VERIFY;
+const beacon = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 ---
-<title>{title}</title>
+<title>{fullTitle}</title>
 <meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
 {noindex && <meta name="robots" content="noindex" />}
+<meta name="theme-color" content="#111112" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={absolute(ogImage)} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<link rel="alternate" type="application/rss+xml" title={site.name} href="/rss.xml" />
+{naver && <meta name="naver-site-verification" content={naver} />}
+{google && <meta name="google-site-verification" content={google} />}
+{ld.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o)} />)}
+{beacon && <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: beacon })}></script>}
