@@ -1,0 +1,41 @@
+---
+import Icon from './Icon.astro';
+import type { Track } from '../lib/tracks';
+import { formatTime, subtitleOf, toQueueItem } from '../lib/player/queue-items';
+interface Props { tracks: Track[]; listId: string; showSubtitle?: boolean }
+const { tracks, listId } = Astro.props;
+const queue = tracks.map(toQueueItem);
+---
+<ol class="tl">
+  {tracks.map((t, i) => (
+    <li data-track-row data-slug={t.slug}>
+      <button type="button" class="tl__play" data-play-list={listId} data-index={i} aria-label={`${t.title} 재생`}>
+        <span class="tl__ch mono">CH{String(i + 1).padStart(2, '0')}</span>
+        <Icon name="player-play" class="tl__icon" />
+      </button>
+      <div class="tl__meta">
+        <a href={`/music/${t.slug}`} class="tl__title">{t.title}</a>
+        <span class="tl__sub">{subtitleOf(t)}</span>
+      </div>
+      <span class="tl__dur mono">{formatTime(t.duration)}</span>
+    </li>
+  ))}
+</ol>
+<script type="application/json" id={`list-${listId}`} set:html={JSON.stringify(queue)} />
+
+<style>
+  .tl { list-style: none; }
+  li { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 9px 0; border-bottom: 1px solid rgba(0,0,0,.6); box-shadow: 0 1px 0 rgba(255,255,255,.035); }
+  li:last-child { border: 0; box-shadow: none; }
+  .tl__play { display: flex; align-items: center; height: 36px; color: var(--dim); }
+  .tl__ch { font-size: 10px; }
+  .tl__play :global(.tl__icon) { display: none; width: 18px; height: 18px; color: var(--tx); }
+  .tl__play:hover .tl__ch, .tl__play:focus-visible .tl__ch { display: none; }
+  .tl__play:hover :global(.tl__icon), .tl__play:focus-visible :global(.tl__icon) { display: block; }
+  .tl__meta { min-width: 0; display: flex; flex-direction: column; }
+  .tl__title { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tl__sub { font-size: 11px; color: var(--mu); }
+  .tl__dur { font-size: 11px; color: var(--dim); }
+  li[aria-current='true'] .tl__ch { color: var(--b); }
+  li[aria-current='true'] .tl__title { color: #b9b3ff; }
+</style>

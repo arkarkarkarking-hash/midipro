@@ -1,0 +1,105 @@
+---
+import RackUnit from '../rack/RackUnit.astro';
+import Icon from '../Icon.astro';
+---
+<div class="player" transition:persist="player" data-testid="mini-player" hidden>
+  <RackUnit as="div" size="u1" seed={3}>
+    <div class="pl__prog" aria-hidden="true"><i data-progress></i></div>
+    <div class="pl">
+      <span class="pled" aria-hidden="true"></span>
+      <div class="pl__meta" aria-live="polite">
+        <span class="pl__title" data-title></span>
+        <span class="pl__sub mono" data-sub></span>
+      </div>
+      <button type="button" class="key pl__btn pl__desk" data-prev aria-label="이전 곡"><Icon name="player-skip-back" /></button>
+      <button type="button" class="key pl__btn" data-toggle aria-label="재생/일시정지"><Icon name="player-play" class="i-play" /><Icon name="player-pause" class="i-pause" /></button>
+      <button type="button" class="key pl__btn" data-next aria-label="다음 곡"><Icon name="player-skip-forward" /></button>
+      <span class="pl__time mono pl__desk" data-time>0:00</span>
+    </div>
+  </RackUnit>
+  <audio preload="none" data-audio></audio>
+</div>
+
+<style>
+  .player { position: fixed; left: 0; right: 0; bottom: calc(var(--bottom-h) + env(safe-area-inset-bottom)); z-index: 41; }
+  .player[hidden] { display: none; }
+  .player :global(.ru) { margin: 0 6px; }
+  .pl__prog { position: absolute; left: var(--gutter); right: var(--gutter); top: 0; height: 2px; background: var(--display); }
+  .pl__prog i { display: block; height: 2px; width: 0; background: var(--led); }
+  .pl { display: flex; align-items: center; gap: 8px; }
+  .pl__meta { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .pl__title { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pl__sub { font-size: 10px; color: var(--mu); }
+  .pl__btn { min-height: 28px; padding: 4px 8px; }
+  .pl__btn :global(svg) { width: 16px; height: 16px; }
+  .pl__time { font-size: 11px; color: var(--mu); min-width: 84px; text-align: right; }
+  .pl__desk { display: none; }
+  .player :global(.i-pause) { display: none; }
+  .player[data-status='playing'] :global(.i-pause), .player[data-status='loading'] :global(.i-pause) { display: block; }
+  .player[data-status='playing'] :global(.i-play), .player[data-status='loading'] :global(.i-play) { display: none; }
+  .player[data-status='error'] .pl__sub { color: #ff8a8a; }
+  .player[data-status='error'] .pled { background: #c0392b; }
+  @media (min-width: 1024px) {
+    .player { bottom: 0; left: 50%; transform: translateX(-50%); width: min(1240px, 100%); padding: 0 12px 8px; }
+    .pl__desk { display: inline-flex; }
+  }
+</style>
+
+<script>
+  import { PlayerController, type QueueItem } from '../../lib/player/controller';
+  import { formatTime } from '../../lib/player/queue-items';
+
+  const root = document.querySelector<HTMLElement>('.player')!;
+  const audio = root.querySelector<HTMLAudioElement>('[data-audio]')!;
+  const session = 'mediaSession' in navigator ? navigator.mediaSession : undefined;
+  const controller = new PlayerController(audio, session, session ? (init) => new MediaMetadata(init) : undefined);
+  let activeList: string | null = null;
+
+  const $ = (sel: string) => root.querySelector<HTMLElement>(sel)!;
+  controller.subscribe((s) => {
+    if (!s.current) return;
+    root.hidden = false;
+    root.dataset.status = s.status;
+    $('[data-title]').textContent = s.current.title;
+    $('[data-sub]').textContent = s.status === 'error' ? '재생할 수 없습니다' : s.current.subtitle;
+    const dur = s.duration || s.current.duration;
+    const pct = dur ? Math.min(100, (s.position / dur) * 100) : 0;
+    $('[data-progress]').style.width = `${pct}%`;
+    $('[data-time]').textContent = `${formatTime(s.position)} / ${formatTime(dur)}`;
+    markCurrent();
+  });
+
+  function markCurrent() {
+    const s = controller.state;
+    document.querySelectorAll<HTMLElement>('[data-track-row]').forEach((row) => {
+      row.setAttribute('aria-current', String(row.dataset.slug === s.current?.slug));
+    });
+    document.querySelectorAll<HTMLElement>('[data-waveform]').forEach((wf) => {
+      const on = wf.dataset.waveform === s.current?.slug;
+      const dur = s.duration || s.current?.duration || 0;
+      wf.style.setProperty('--p', on && dur ? `${(s.position / dur) * 100}%` : '0%');
+    });
+  }
+
+  $('[data-toggle]').addEventListener('click', () => controller.toggle());
+  $('[data-next]').addEventListener('click', () => controller.next());
+  $('[data-prev]').addEventListener('click', () => controller.prev());
+
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-play-list]');
+    if (!btn) return;
+    const listId = btn.dataset.playList!;
+    const index = Number(btn.dataset.index ?? 0);
+    const data = document.getElementById(`list-${listId}`)?.textContent;
+    if (!data) return;
+    const items = JSON.parse(data) as QueueItem[];
+    if (activeList === listId && controller.state.index === index && controller.state.current?.slug === items[index]?.slug) {
+      controller.toggle();
+      return;
+    }
+    activeList = listId;
+    void controller.playList(items, index);
+  });
+
+  document.addEventListener('astro:page-load', markCurrent);
+</script>

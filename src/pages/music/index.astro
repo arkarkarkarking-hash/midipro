@@ -1,0 +1,10 @@
+---
+import Base from '../../layouts/Base.astro';
+import RackUnit from '../../components/rack/RackUnit.astro';
+import TrackList from '../../components/TrackList.astro';
+import { getTracks } from '../../lib/tracks';
+const admissions = getTracks().filter((t) => t.category === 'admissions');
+---
+<Base title="음원" description="미디프로 입시곡과 송캠프 곡" path="/music">
+  <RackUnit tone="dark"><h1 class="page-title">음원</h1><TrackList tracks={admissions} listId="admissions" /></RackUnit>
+</Base>

@@ -1,0 +1,25 @@
+---
+import { getPeaks } from '../lib/tracks';
+interface Props { slug: string; height?: number; class?: string }
+const { slug, height = 40, class: cls } = Astro.props;
+const peaks = getPeaks(slug);
+const W = peaks.length * 3;
+const bars = peaks.map((p, i) => {
+  const h = Math.max(2, p * (height - 4));
+  return `M${i * 3} ${((height - h) / 2).toFixed(1)}h2v${h.toFixed(1)}h-2z`;
+}).join('');
+const gid = `wf-${slug}`;
+---
+<div class:list={['wf', cls]} data-waveform={slug} style="--p:0%">
+  <svg viewBox={`0 0 ${W} ${height}`} preserveAspectRatio="none" aria-hidden="true" class="wf__base"><path d={bars} fill="#34343a" /></svg>
+  <svg viewBox={`0 0 ${W} ${height}`} preserveAspectRatio="none" aria-hidden="true" class="wf__played">
+    <defs><linearGradient id={gid}><stop offset="0" stop-color="#5b7cfa" /><stop offset="1" stop-color="#8f63f0" /></linearGradient></defs>
+    <path d={bars} fill={`url(#${gid})`} />
+  </svg>
+</div>
+
+<style>
+  .wf { position: relative; height: 40px; }
+  .wf svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .wf__played { clip-path: inset(0 calc(100% - var(--p)) 0 0); }
+</style>
