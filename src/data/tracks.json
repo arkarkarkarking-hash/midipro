@@ -1,0 +1,1268 @@
+[
+  {
+    "slug": "2025-kim-seungyeon",
+    "title": "김승연 입시곡",
+    "artists": [
+      "김승연"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2025,
+    "file": "admissions/2025-kim-seungyeon.mp3",
+    "duration": 103,
+    "featured": true,
+    "links": {},
+    "sourceFile": "입시곡/25_김승연_입시곡.mp3"
+  },
+  {
+    "slug": "2025-kim-jihyeon",
+    "title": "김지현 입시곡",
+    "artists": [
+      "김지현"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2025,
+    "file": "admissions/2025-kim-jihyeon.mp3",
+    "duration": 94,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/25_김지현_입시곡.mp3"
+  },
+  {
+    "slug": "2025-kim-hyemin",
+    "title": "김혜민 입시곡",
+    "artists": [
+      "김혜민"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2025,
+    "file": "admissions/2025-kim-hyemin.mp3",
+    "duration": 64,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/25_김혜민_입시곡.mp3"
+  },
+  {
+    "slug": "2025-lee-seungyeon",
+    "title": "이승연 입시곡",
+    "artists": [
+      "이승연"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2025,
+    "file": "admissions/2025-lee-seungyeon.mp3",
+    "duration": 86,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/25_이승연_입시곡.mp3"
+  },
+  {
+    "slug": "2025-choi-gahui",
+    "title": "최가희 입시곡",
+    "artists": [
+      "최가희"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2025,
+    "file": "admissions/2025-choi-gahui.mp3",
+    "duration": 78,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/25_최가희_입시곡.mp3"
+  },
+  {
+    "slug": "2025-han-geonhui",
+    "title": "한건희 입시곡",
+    "artists": [
+      "한건희"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2025,
+    "file": "admissions/2025-han-geonhui.mp3",
+    "duration": 89,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/25_한건희_입시곡.mp3"
+  },
+  {
+    "slug": "2025-hwang-siyun",
+    "title": "황시윤 입시곡",
+    "artists": [
+      "황시윤"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2025,
+    "file": "admissions/2025-hwang-siyun.mp3",
+    "duration": 63,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/25_황시윤_입시곡.mp3"
+  },
+  {
+    "slug": "2024-kwak-seungmin",
+    "title": "곽승민 입시곡",
+    "artists": [
+      "곽승민"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2024,
+    "file": "admissions/2024-kwak-seungmin.mp3",
+    "duration": 75,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/24_곽승민_입시곡.mp3"
+  },
+  {
+    "slug": "2024-kim-seoyeon",
+    "title": "김서연 입시곡",
+    "artists": [
+      "김서연"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2024,
+    "file": "admissions/2024-kim-seoyeon.mp3",
+    "duration": 66,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/24_김서연_입시곡.mp3"
+  },
+  {
+    "slug": "2024-kim-seonu",
+    "title": "김선우 입시곡",
+    "artists": [
+      "김선우"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2024,
+    "file": "admissions/2024-kim-seonu.mp3",
+    "duration": 75,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/24_김선우_입시곡.mp3"
+  },
+  {
+    "slug": "2024-kim-seonu-susi",
+    "title": "김선우 입시곡 (수시)",
+    "artists": [
+      "김선우"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2024,
+    "file": "admissions/2024-kim-seonu-susi.mp3",
+    "duration": 90,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/24_김선우_수시.mp3"
+  },
+  {
+    "slug": "2024-kim-seonu-jeongsi",
+    "title": "김선우 입시곡 (정시)",
+    "artists": [
+      "김선우"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2024,
+    "file": "admissions/2024-kim-seonu-jeongsi.mp3",
+    "duration": 65,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/24_김선우_정시.mp3"
+  },
+  {
+    "slug": "2024-kim-igeon",
+    "title": "김이건 입시곡",
+    "artists": [
+      "김이건"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2024,
+    "file": "admissions/2024-kim-igeon.mp3",
+    "duration": 88,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/24_김이건_입시곡.mp3"
+  },
+  {
+    "slug": "2024-kim-jiyun",
+    "title": "김지윤 입시곡",
+    "artists": [
+      "김지윤"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2024,
+    "file": "admissions/2024-kim-jiyun.mp3",
+    "duration": 75,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/24_김지윤_입시곡.mp3"
+  },
+  {
+    "slug": "2024-kim-jihyeong",
+    "title": "김지형 입시곡",
+    "artists": [
+      "김지형"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2024,
+    "file": "admissions/2024-kim-jihyeong.mp3",
+    "duration": 88,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/24_김지형_입시곡.mp3"
+  },
+  {
+    "slug": "2024-ryu-inhwa",
+    "title": "류인화 입시곡",
+    "artists": [
+      "류인화"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2024,
+    "file": "admissions/2024-ryu-inhwa.mp3",
+    "duration": 70,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/24_류인화_입시곡.mp3"
+  },
+  {
+    "slug": "2024-yoo-hojun",
+    "title": "유호준 입시곡",
+    "artists": [
+      "유호준"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2024,
+    "file": "admissions/2024-yoo-hojun.mp3",
+    "duration": 99,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/24_유호준_입시곡.mp3"
+  },
+  {
+    "slug": "2024-lee-gyobin",
+    "title": "이교빈 입시곡",
+    "artists": [
+      "이교빈"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2024,
+    "file": "admissions/2024-lee-gyobin.mp3",
+    "duration": 94,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/24_이교빈_입시곡.mp3"
+  },
+  {
+    "slug": "2024-lee-seojin",
+    "title": "이서진 입시곡",
+    "artists": [
+      "이서진"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2024,
+    "file": "admissions/2024-lee-seojin.mp3",
+    "duration": 96,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/24_이서진_입시곡.mp3"
+  },
+  {
+    "slug": "2024-lee-jongho",
+    "title": "이종호 입시곡",
+    "artists": [
+      "이종호"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2024,
+    "file": "admissions/2024-lee-jongho.mp3",
+    "duration": 83,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/24_이종호_입시곡.mp3"
+  },
+  {
+    "slug": "2024-lee-hun",
+    "title": "이훈 입시곡",
+    "artists": [
+      "이훈"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2024,
+    "file": "admissions/2024-lee-hun.mp3",
+    "duration": 120,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/24_이훈_입시곡.mp3"
+  },
+  {
+    "slug": "2024-jung-uyeong",
+    "title": "정우영 입시곡",
+    "artists": [
+      "정우영"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2024,
+    "file": "admissions/2024-jung-uyeong.mp3",
+    "duration": 93,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/24_정우영_입시곡.mp3"
+  },
+  {
+    "slug": "songcamp-2024-h1-bulbit",
+    "title": "불빛",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2024,
+    "season": "상반기",
+    "team": "GMKID",
+    "artists": [
+      "하민호",
+      "한건희"
+    ],
+    "file": "songcamp/songcamp-2024-h1-bulbit.mp3",
+    "duration": 207,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[24년 상반기 송캠프] GMKID(하민호,한건희) - 불빛.mp3"
+  },
+  {
+    "slug": "songcamp-2024-h2-ongi",
+    "title": "온기",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2024,
+    "season": "하반기",
+    "team": "우리들",
+    "artists": [
+      "김승연",
+      "정지윤",
+      "맹지환"
+    ],
+    "file": "songcamp/songcamp-2024-h2-ongi.mp3",
+    "duration": 229,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[24년 하반기 송캠프] 우리들(김승연,정지윤,맹지환) - 온기.mp3"
+  },
+  {
+    "slug": "songcamp-2024-h2-janhyang",
+    "title": "잔향",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2024,
+    "season": "하반기",
+    "team": "무드먼트",
+    "artists": [
+      "이성민",
+      "안예진",
+      "박시은"
+    ],
+    "file": "songcamp/songcamp-2024-h2-janhyang.mp3",
+    "duration": 195,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[24년 하반기 송캠프] 무드먼트(이성민,안예진,박시은) - 잔향.mp3"
+  },
+  {
+    "slug": "songcamp-2024-h1-cheotsarang",
+    "title": "첫사랑",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2024,
+    "season": "상반기",
+    "team": "검은물",
+    "artists": [
+      "장효정",
+      "이성민"
+    ],
+    "file": "songcamp/songcamp-2024-h1-cheotsarang.mp3",
+    "duration": 184,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[24년 상반기 송캠프] 검은물(장효정,이성민) - 첫사랑.mp3"
+  },
+  {
+    "slug": "songcamp-2024-h1-pado",
+    "title": "파도",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2024,
+    "season": "상반기",
+    "team": "고래",
+    "artists": [
+      "백서아",
+      "김민규"
+    ],
+    "file": "songcamp/songcamp-2024-h1-pado.mp3",
+    "duration": 198,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[24년 상반기 송캠프] 고래(백서아,김민규) - 파도.mp3"
+  },
+  {
+    "slug": "songcamp-2024-h2-broken-bell",
+    "title": "Broken bell",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2024,
+    "season": "하반기",
+    "team": "Swag",
+    "artists": [
+      "김주빈",
+      "장정민"
+    ],
+    "file": "songcamp/songcamp-2024-h2-broken-bell.mp3",
+    "duration": 175,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[24년 하반기 송캠프] Swag(김주빈,장정민) - Broken bell.mp3"
+  },
+  {
+    "slug": "songcamp-2024-h2-burn-up-feat-sinhayeong",
+    "title": "burn up! (feat.신하영)",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2024,
+    "season": "하반기",
+    "team": "18.5",
+    "artists": [
+      "김민규",
+      "안세린",
+      "권주연",
+      "장효정"
+    ],
+    "file": "songcamp/songcamp-2024-h2-burn-up-feat-sinhayeong.mp3",
+    "duration": 168,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[24년 하반기 송캠프] 18.5(김민규,안세린,권주연,장효정) - burn up! (feat.신하영).mp3"
+  },
+  {
+    "slug": "songcamp-2024-h1-illusion",
+    "title": "illusion",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2024,
+    "season": "상반기",
+    "team": "어차피우리가1등",
+    "artists": [
+      "김주빈",
+      "신이섭"
+    ],
+    "file": "songcamp/songcamp-2024-h1-illusion.mp3",
+    "duration": 142,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[24년 상반기 송캠프] 어차피우리가1등(김주빈,신이섭) - illusion.mp3"
+  },
+  {
+    "slug": "songcamp-2024-h2-metrospect",
+    "title": "Metrospect",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2024,
+    "season": "하반기",
+    "team": "Nock",
+    "artists": [
+      "한건희",
+      "정하윤",
+      "박수빈"
+    ],
+    "file": "songcamp/songcamp-2024-h2-metrospect.mp3",
+    "duration": 197,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[24년 하반기 송캠프] Nock(한건희,정하윤,박수빈) - Metrospect.mp3"
+  },
+  {
+    "slug": "songcamp-2024-h1-prehnite-morganite-persona",
+    "title": "Prehnite&Morganite_PERSONA",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2024,
+    "season": "상반기",
+    "team": "PERSONA",
+    "artists": [
+      "이태환",
+      "성우혁"
+    ],
+    "file": "songcamp/songcamp-2024-h1-prehnite-morganite-persona.mp3",
+    "duration": 221,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[24년 상반기 송캠프] PERSONA(이태환,성우혁) - Prehnite&Morganite_PERSONA.mp3"
+  },
+  {
+    "slug": "songcamp-2024-h2-search-an-answer",
+    "title": "Search An Answer",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2024,
+    "season": "하반기",
+    "team": "갈팡질팡",
+    "artists": [
+      "김준우",
+      "박종한",
+      "박상혁"
+    ],
+    "file": "songcamp/songcamp-2024-h2-search-an-answer.mp3",
+    "duration": 195,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[24년 하반기 송캠프] 갈팡질팡(김준우,박종한,박상혁) - Search An Answer.mp3"
+  },
+  {
+    "slug": "songcamp-2024-h1-summer-night",
+    "title": "Summer night",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2024,
+    "season": "상반기",
+    "team": "불당공팔",
+    "artists": [
+      "방인준",
+      "오승연"
+    ],
+    "file": "songcamp/songcamp-2024-h1-summer-night.mp3",
+    "duration": 153,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[24년 상반기 송캠프] 불당공팔(방인준,오승연) - Summer night.mp3"
+  },
+  {
+    "slug": "2023-kwon-hwiseong",
+    "title": "권휘성 입시곡",
+    "artists": [
+      "권휘성"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2023,
+    "file": "admissions/2023-kwon-hwiseong.mp3",
+    "duration": 89,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/23_권휘성_입시곡.mp3"
+  },
+  {
+    "slug": "2023-kim-mingyu",
+    "title": "김민규 입시곡",
+    "artists": [
+      "김민규"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2023,
+    "file": "admissions/2023-kim-mingyu.mp3",
+    "duration": 79,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/23_김민규_입시곡.mp3"
+  },
+  {
+    "slug": "2023-kim-hyeonseo",
+    "title": "김현서 입시곡",
+    "artists": [
+      "김현서"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2023,
+    "file": "admissions/2023-kim-hyeonseo.mp3",
+    "duration": 113,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/23_김현서_입시곡.mp3"
+  },
+  {
+    "slug": "2023-chae-mingi",
+    "title": "채민기 입시곡",
+    "artists": [
+      "채민기"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2023,
+    "file": "admissions/2023-chae-mingi.mp3",
+    "duration": 91,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/23_채민기_입시곡.mp3"
+  },
+  {
+    "slug": "2023-heo-jiyeong",
+    "title": "허지영 입시곡",
+    "artists": [
+      "허지영"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2023,
+    "file": "admissions/2023-heo-jiyeong.mp3",
+    "duration": 141,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/23_허지영_입시곡.mp3"
+  },
+  {
+    "slug": "songcamp-2023-h1-pyeonghaenguju",
+    "title": "평행우주",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2023,
+    "season": "상반기",
+    "team": "하루살이",
+    "artists": [
+      "강윤우팀"
+    ],
+    "file": "songcamp/songcamp-2023-h1-pyeonghaenguju.mp3",
+    "duration": 84,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[23년 상반기 송캠프] 하루살이(강윤우팀) - 평행우주.mp3"
+  },
+  {
+    "slug": "songcamp-2023-h1-headache",
+    "title": "Headache",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2023,
+    "season": "상반기",
+    "team": "PH",
+    "artists": [
+      "박시은팀"
+    ],
+    "file": "songcamp/songcamp-2023-h1-headache.mp3",
+    "duration": 81,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[23년 상반기 송캠프] PH(박시은팀) - Headache.mp3"
+  },
+  {
+    "slug": "songcamp-2023-h1-one-sided-love",
+    "title": "One-sided Love",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2023,
+    "season": "상반기",
+    "team": "작곡밥",
+    "artists": [
+      "이승연팀"
+    ],
+    "file": "songcamp/songcamp-2023-h1-one-sided-love.mp3",
+    "duration": 80,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[23년 상반기 송캠프] 작곡밥(이승연팀) - One-sided Love.mp3"
+  },
+  {
+    "slug": "2022-kang-onyu",
+    "title": "강온유 입시곡",
+    "artists": [
+      "강온유"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2022,
+    "file": "admissions/2022-kang-onyu.mp3",
+    "duration": 93,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/22_강온유_입시곡.mp3"
+  },
+  {
+    "slug": "2022-ko-pilseung",
+    "title": "고필승 입시곡",
+    "artists": [
+      "고필승"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2022,
+    "file": "admissions/2022-ko-pilseung.mp3",
+    "duration": 82,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/22_고필승_입시곡.mp3"
+  },
+  {
+    "slug": "2022-kim-mingi",
+    "title": "김민기 입시곡",
+    "artists": [
+      "김민기"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2022,
+    "file": "admissions/2022-kim-mingi.mp3",
+    "duration": 106,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/22_김민기_입시곡.mp3"
+  },
+  {
+    "slug": "2022-kim-seonho",
+    "title": "김선호 입시곡",
+    "artists": [
+      "김선호"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2022,
+    "file": "admissions/2022-kim-seonho.mp3",
+    "duration": 99,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/22_김선호_입시곡.mp3"
+  },
+  {
+    "slug": "2022-kim-usol",
+    "title": "김우솔 입시곡",
+    "artists": [
+      "김우솔"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2022,
+    "file": "admissions/2022-kim-usol.mp3",
+    "duration": 111,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/22_김우솔_입시곡.mp3"
+  },
+  {
+    "slug": "2022-kim-taehyeon",
+    "title": "김태현 입시곡",
+    "artists": [
+      "김태현"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2022,
+    "file": "admissions/2022-kim-taehyeon.mp3",
+    "duration": 101,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/22_김태현_입시곡.mp3"
+  },
+  {
+    "slug": "2022-kim-hochan",
+    "title": "김호찬 입시곡",
+    "artists": [
+      "김호찬"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2022,
+    "file": "admissions/2022-kim-hochan.mp3",
+    "duration": 68,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/22_김호찬_입시곡.mp3"
+  },
+  {
+    "slug": "2022-park-chaeung",
+    "title": "박채웅 입시곡",
+    "artists": [
+      "박채웅"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2022,
+    "file": "admissions/2022-park-chaeung.mp3",
+    "duration": 96,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/22_박채웅_입시곡.mp3"
+  },
+  {
+    "slug": "2022-yoon-sanghyeon",
+    "title": "윤상현 입시곡",
+    "artists": [
+      "윤상현"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2022,
+    "file": "admissions/2022-yoon-sanghyeon.mp3",
+    "duration": 114,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/22_윤상현_입시곡.mp3"
+  },
+  {
+    "slug": "2022-yoon-hayeong-susi",
+    "title": "윤하영 입시곡 (수시)",
+    "artists": [
+      "윤하영"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2022,
+    "file": "admissions/2022-yoon-hayeong-susi.mp3",
+    "duration": 109,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/22_윤하영_수시.mp3"
+  },
+  {
+    "slug": "2022-yoon-hayeong-jeongsi",
+    "title": "윤하영 입시곡 (정시)",
+    "artists": [
+      "윤하영"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2022,
+    "file": "admissions/2022-yoon-hayeong-jeongsi.mp3",
+    "duration": 95,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/22_윤하영_정시.mp3"
+  },
+  {
+    "slug": "2022-lee-seungmin-susi",
+    "title": "이승민 입시곡 (수시)",
+    "artists": [
+      "이승민"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2022,
+    "file": "admissions/2022-lee-seungmin-susi.mp3",
+    "duration": 114,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/22_이승민_수시.mp3"
+  },
+  {
+    "slug": "2022-lee-seungmin-jeongsi",
+    "title": "이승민 입시곡 (정시)",
+    "artists": [
+      "이승민"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2022,
+    "file": "admissions/2022-lee-seungmin-jeongsi.mp3",
+    "duration": 109,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/22_이승민_정시.mp3"
+  },
+  {
+    "slug": "2022-lee-yuna",
+    "title": "이윤아 입시곡",
+    "artists": [
+      "이윤아"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2022,
+    "file": "admissions/2022-lee-yuna.mp3",
+    "duration": 110,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/22_이윤아_입시곡.mp3"
+  },
+  {
+    "slug": "2022-jeon-jeongbyeong",
+    "title": "전정병 입시곡",
+    "artists": [
+      "전정병"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2022,
+    "file": "admissions/2022-jeon-jeongbyeong.mp3",
+    "duration": 82,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/22_전정병_입시곡.mp3"
+  },
+  {
+    "slug": "songcamp-2022-h2-untitled",
+    "title": "(untitled)",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2022,
+    "season": "하반기",
+    "artists": [
+      "김주빈",
+      "변동찬",
+      "김나영"
+    ],
+    "file": "songcamp/songcamp-2022-h2-untitled.mp3",
+    "duration": 188,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[22년 하반기 송캠프] 김주빈,변동찬,김나영 - (untitled).mp3"
+  },
+  {
+    "slug": "songcamp-2022-h1-deowi",
+    "title": "더위",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2022,
+    "season": "상반기",
+    "team": "M4",
+    "artists": [
+      "김선우",
+      "권혜찬",
+      "김지윤",
+      "곽승민"
+    ],
+    "file": "songcamp/songcamp-2022-h1-deowi.mp3",
+    "duration": 207,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[22년 상반기 송캠프] M4 (김선우,권혜찬,김지윤,곽승민) - 더위.mp3"
+  },
+  {
+    "slug": "songcamp-2022-h1-boy",
+    "title": "BOY",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2022,
+    "season": "상반기",
+    "team": "탬버린을 딩동딩동",
+    "artists": [
+      "정우영",
+      "이훈",
+      "김이건"
+    ],
+    "file": "songcamp/songcamp-2022-h1-boy.mp3",
+    "duration": 156,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[22년 상반기 송캠프] 탬버린을 딩동딩동 (정우영,이훈,김이건) - BOY.mp3"
+  },
+  {
+    "slug": "cypher-2022-h2-high",
+    "title": "High!",
+    "category": "songcamp",
+    "label": "싸이퍼",
+    "year": 2022,
+    "season": "하반기",
+    "artists": [
+      "김서진",
+      "김민혁",
+      "김종후"
+    ],
+    "file": "songcamp/cypher-2022-h2-high.mp3",
+    "duration": 196,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[22년 하반기 싸이퍼] 김서진,김민혁,김종후 - High!.mp3"
+  },
+  {
+    "slug": "songcamp-2022-h1-oceanworld",
+    "title": "OceanWorld",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2022,
+    "season": "상반기",
+    "team": "Fantastic 4",
+    "artists": [
+      "유호준",
+      "이종호",
+      "류인화",
+      "홍다연"
+    ],
+    "file": "songcamp/songcamp-2022-h1-oceanworld.mp3",
+    "duration": 140,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[22년 상반기 송캠프] Fantastic 4 (유호준,이종호,류인화,홍다연) - OceanWorld.mp3"
+  },
+  {
+    "slug": "songcamp-adult-2022-h1-personal-color",
+    "title": "Personal Color",
+    "category": "songcamp",
+    "label": "성인 송캠프",
+    "year": 2022,
+    "season": "상반기",
+    "artists": [
+      "최연주",
+      "정결",
+      "조성수"
+    ],
+    "file": "songcamp/songcamp-adult-2022-h1-personal-color.mp3",
+    "duration": 206,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[22년 상반기 성인 송캠프] 최연주,정결,조성수 - Personal Color.mp3"
+  },
+  {
+    "slug": "songcamp-2022-h2-present-feat-huski",
+    "title": "Present (feat. Huski)",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2022,
+    "season": "하반기",
+    "artists": [
+      "하민호",
+      "김서진",
+      "김민혁"
+    ],
+    "file": "songcamp/songcamp-2022-h2-present-feat-huski.mp3",
+    "duration": 208,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[22년 하반기 송캠프] 하민호,김서진,김민혁 - Present (feat. Huski).mp3"
+  },
+  {
+    "slug": "songcamp-2022-h1-summer-night",
+    "title": "Summer Night",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2022,
+    "season": "상반기",
+    "team": "크로아상",
+    "artists": [
+      "이서진",
+      "김지형",
+      "설다빈"
+    ],
+    "file": "songcamp/songcamp-2022-h1-summer-night.mp3",
+    "duration": 202,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[22년 상반기 송캠프] 크로아상 (이서진,김지형,설다빈) - Summer Night.mp3"
+  },
+  {
+    "slug": "2021-kang-haneul",
+    "title": "강하늘 입시곡",
+    "artists": [
+      "강하늘"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2021,
+    "file": "admissions/2021-kang-haneul.mp3",
+    "duration": 71,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/21_강하늘_입시곡.mp3"
+  },
+  {
+    "slug": "2021-ko-pilseung",
+    "title": "고필승 입시곡",
+    "artists": [
+      "고필승"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2021,
+    "file": "admissions/2021-ko-pilseung.mp3",
+    "duration": 113,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/21_고필승_입시곡.mp3"
+  },
+  {
+    "slug": "2021-mok-seoyeon",
+    "title": "목서연 입시곡",
+    "artists": [
+      "목서연"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2021,
+    "file": "admissions/2021-mok-seoyeon.mp3",
+    "duration": 72,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/21_목서연_입시곡.mp3"
+  },
+  {
+    "slug": "2021-park-chaeung",
+    "title": "박채웅 입시곡",
+    "artists": [
+      "박채웅"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2021,
+    "file": "admissions/2021-park-chaeung.mp3",
+    "duration": 125,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/21_박채웅_입시곡.mp3"
+  },
+  {
+    "slug": "2021-yang-hanna",
+    "title": "양한나 입시곡",
+    "artists": [
+      "양한나"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2021,
+    "file": "admissions/2021-yang-hanna.mp3",
+    "duration": 123,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/21_양한나_입시곡.mp3"
+  },
+  {
+    "slug": "2021-yoo-donggeon",
+    "title": "유동건 입시곡",
+    "artists": [
+      "유동건"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2021,
+    "file": "admissions/2021-yoo-donggeon.mp3",
+    "duration": 86,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/21_유동건_입시곡.mp3"
+  },
+  {
+    "slug": "2021-lee-gangmin",
+    "title": "이강민 입시곡",
+    "artists": [
+      "이강민"
+    ],
+    "category": "admissions",
+    "label": "입시곡",
+    "year": 2021,
+    "file": "admissions/2021-lee-gangmin.mp3",
+    "duration": 89,
+    "featured": false,
+    "links": {},
+    "sourceFile": "입시곡/21_이강민_입시곡.mp3"
+  },
+  {
+    "slug": "songcamp-2021-q2-kkeut",
+    "title": "끝",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2021,
+    "season": "2분기",
+    "artists": [
+      "이승민",
+      "전정병",
+      "김태현"
+    ],
+    "file": "songcamp/songcamp-2021-q2-kkeut.mp3",
+    "duration": 192,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[21년 2분기 송캠프] 이승민,전정병,김태현 - 끝.mp3"
+  },
+  {
+    "slug": "songcamp-2021-q1-back-call-me",
+    "title": "Back Call Me",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2021,
+    "season": "1분기",
+    "artists": [
+      "이윤아",
+      "김태현",
+      "김선호"
+    ],
+    "file": "songcamp/songcamp-2021-q1-back-call-me.mp3",
+    "duration": 97,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[21년 1분기 송캠프] 이윤아,김태현,김선호 - Back Call Me.mp3"
+  },
+  {
+    "slug": "songcamp-2021-q2-fly-away",
+    "title": "Fly Away",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2021,
+    "season": "2분기",
+    "artists": [
+      "이윤아",
+      "강온유",
+      "윤하영"
+    ],
+    "file": "songcamp/songcamp-2021-q2-fly-away.mp3",
+    "duration": 121,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[21년 2분기 송캠프] 이윤아,강온유,윤하영  -  Fly Away.mp3"
+  },
+  {
+    "slug": "songcamp-2021-q1-star-of-sea",
+    "title": "Star of Sea",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2021,
+    "season": "1분기",
+    "artists": [
+      "윤하영",
+      "김우솔",
+      "이승민"
+    ],
+    "file": "songcamp/songcamp-2021-q1-star-of-sea.mp3",
+    "duration": 156,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[21년 1분기 송캠프] 윤하영,김우솔,이승민 - Star of Sea.mp3"
+  },
+  {
+    "slug": "songcamp-2021-q2-untitled",
+    "title": "Untitled",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2021,
+    "season": "2분기",
+    "artists": [
+      "김선우",
+      "김민기",
+      "김호찬"
+    ],
+    "file": "songcamp/songcamp-2021-q2-untitled.mp3",
+    "duration": 154,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[21년 2분기 송캠프] 김선우,김민기,김호찬 - Untitled .mp3"
+  },
+  {
+    "slug": "songcamp-2021-q1-we-don-t-give-up",
+    "title": "We Don’t Give Up",
+    "category": "songcamp",
+    "label": "송캠프",
+    "year": 2021,
+    "season": "1분기",
+    "artists": [
+      "강온유",
+      "전정병",
+      "김민기"
+    ],
+    "file": "songcamp/songcamp-2021-q1-we-don-t-give-up.mp3",
+    "duration": 84,
+    "featured": false,
+    "links": {},
+    "sourceFile": "송캠프/[21년 1분기 송캠프] 강온유,전정병,김민기 - We Don’t Give Up.mp3"
+  }
+]
