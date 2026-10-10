@@ -6,7 +6,9 @@ const PRODUCTION_HOST = 'midipro.kr';
 async function route(req: Request, env: Env): Promise<Response> {
   const url = new URL(req.url);
   const isProd = url.hostname === PRODUCTION_HOST || url.hostname === `www.${PRODUCTION_HOST}`;
-  if (isProd && (url.hostname !== PRODUCTION_HOST || url.protocol === 'http:')) {
+  // robots.txt is answered on http too: some crawlers (e.g. Naver's checker) treat a redirect as "missing".
+  const httpRobots = url.hostname === PRODUCTION_HOST && url.pathname === '/robots.txt';
+  if (isProd && (url.hostname !== PRODUCTION_HOST || (url.protocol === 'http:' && !httpRobots))) {
     url.hostname = PRODUCTION_HOST;
     url.protocol = 'https:';
     return Response.redirect(url.toString(), 301);

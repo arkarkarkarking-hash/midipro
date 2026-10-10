@@ -45,3 +45,9 @@ test('http redirects to https on production host', async () => {
   expect(res.status).toBe(301);
   expect(res.headers.get('location')).toBe('https://midipro.kr/music?a=1');
 });
+
+test('robots.txt is served directly over http (crawlers that probe http must not get a redirect)', async () => {
+  const res = await worker.fetch(new Request('http://midipro.kr/robots.txt'), ctx.env);
+  expect(res.status).toBe(200);
+  expect(await res.text()).toContain('asset /robots.txt');
+});
