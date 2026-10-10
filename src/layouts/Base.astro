@@ -1,6 +1,7 @@
 ---
 import '../styles/pretendard.css';
 import '../styles/tokens.css';
+import '../styles/texture.css';
 import '../styles/global.css';
 import '../styles/rack.css';
 import { ClientRouter } from 'astro:transitions';
@@ -20,7 +21,6 @@ const props = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <link rel="preload" href="/textures/metal-worn.webp" as="image" type="image/webp" fetchpriority="high" />
     <SeoHead {...props} />
     <ClientRouter />
   </head>
