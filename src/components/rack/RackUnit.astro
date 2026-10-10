@@ -15,8 +15,10 @@ const { tone = 'metal', size = 'u2', slots = 0, seed = 0, as: Tag = 'section', c
 // Deterministic screw angles so every build renders the same "hand-tightened" look.
 const angle = (i: number) => ((seed * 37 + i * 53) % 90) - 45;
 const single = size === 'u1';
+// Offset the texture per module so stacked panels don't show the same pattern.
+const texStyle = `--tx-x:${(seed * 137) % 320}px;--tx-y:${(seed * 211) % 320}px`;
 ---
-<Tag class:list={['ru', `ru--${size}`, tone === 'dark' && 'ru--dark', cls]} {...rest}>
+<Tag class:list={['ru', `ru--${size}`, tone === 'dark' && 'ru--dark', cls]} style={texStyle} {...rest}>
   <span class:list={['ear ear--l', single && 'ear--single']} aria-hidden="true">
     <Screw angle={angle(0)} />
     {!single && Array.from({ length: slots }).map(() => <i class="slot" />)}

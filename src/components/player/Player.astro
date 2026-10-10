@@ -7,10 +7,11 @@ import Icon from '../Icon.astro';
     <div class="pl__prog" aria-hidden="true"><i data-progress></i></div>
     <div class="pl">
       <span class="pled" aria-hidden="true"></span>
-      <div class="pl__meta" aria-live="polite">
+      <button type="button" class="pl__meta" data-open-queue aria-live="polite">
         <span class="pl__title" data-title></span>
         <span class="pl__sub mono" data-sub></span>
-      </div>
+      </button>
+      <button type="button" class="key pl__btn" data-open-queue aria-label="재생 목록"><Icon name="playlist" /></button>
       <button type="button" class="key pl__btn pl__desk" data-prev aria-label="이전 곡"><Icon name="player-skip-back" /></button>
       <button type="button" class="key pl__btn" data-toggle aria-label="재생/일시정지"><Icon name="player-play" class="i-play" /><Icon name="player-pause" class="i-pause" /></button>
       <button type="button" class="key pl__btn" data-next aria-label="다음 곡"><Icon name="player-skip-forward" /></button>
@@ -18,6 +19,14 @@ import Icon from '../Icon.astro';
     </div>
   </RackUnit>
   <audio preload="none" data-audio></audio>
+  <dialog class="sheet" aria-label="재생 목록" data-queue>
+    <div class="sheet__head">
+      <span class="label">Queue</span>
+      <a href="/music" class="sheet__all" data-close-queue>음원 전체 보기</a>
+      <button type="button" class="key sheet__x" data-close-queue aria-label="닫기"><Icon name="x" /></button>
+    </div>
+    <ol class="sheet__list" data-queue-list></ol>
+  </dialog>
 </div>
 
 <style>
@@ -27,7 +36,7 @@ import Icon from '../Icon.astro';
   .pl__prog { position: absolute; left: var(--gutter); right: var(--gutter); top: 0; height: 2px; background: var(--display); }
   .pl__prog i { display: block; height: 2px; width: 0; background: var(--led); }
   .pl { display: flex; align-items: center; gap: 8px; }
-  .pl__meta { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .pl__meta { flex: 1; min-width: 0; display: flex; flex-direction: column; text-align: left; }
   .pl__title { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .pl__sub { font-size: 10px; color: var(--mu); }
   .pl__btn { min-height: 28px; padding: 4px 8px; }
@@ -39,6 +48,21 @@ import Icon from '../Icon.astro';
   .player[data-status='playing'] :global(.i-play), .player[data-status='loading'] :global(.i-play) { display: none; }
   .player[data-status='error'] .pl__sub { color: #ff8a8a; }
   .player[data-status='error'] .pled { background: #c0392b; }
+  .sheet { margin: auto auto 0; width: min(560px, 100%); max-height: 70vh; border: 0; padding: 0; color: var(--tx);
+    border-radius: 6px 6px 0 0; background: linear-gradient(180deg, #232326, #161618); box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 -12px 40px rgba(0,0,0,.6); }
+  .sheet::backdrop { background: rgba(0,0,0,.55); }
+  .sheet__head { position: sticky; top: 0; display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #1d1d20; border-bottom: 1px solid #000; }
+  .sheet__all { margin-left: auto; font-size: 13px; color: var(--mu); }
+  .sheet__all:hover { color: var(--tx); }
+  .sheet__x { min-height: 30px; padding: 4px 8px; }
+  .sheet__x :global(svg) { width: 16px; height: 16px; }
+  .sheet__list { list-style: none; padding: 4px 16px 20px; overflow-y: auto; }
+  .sheet__list :global(button) { width: 100%; display: grid; grid-template-columns: 30px minmax(0,1fr); gap: 10px; align-items: center; text-align: left; padding: 11px 0; border-bottom: 1px solid rgba(0,0,0,.6); box-shadow: 0 1px 0 rgba(255,255,255,.03); }
+  .sheet__list :global(.q-n) { font-family: var(--mono); font-size: 10px; color: var(--dim); }
+  .sheet__list :global(.q-t) { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sheet__list :global(.q-s) { display: block; font-size: 11px; color: var(--mu); }
+  .sheet__list :global([aria-current='true'] .q-n) { color: var(--b); }
+  .sheet__list :global([aria-current='true'] .q-t) { color: #b9b3ff; }
   @media (min-width: 1024px) {
     .player { bottom: 0; left: 50%; transform: translateX(-50%); width: min(1240px, 100%); padding: 0 12px 8px; }
     .pl__desk { display: inline-flex; }
@@ -69,10 +93,50 @@ import Icon from '../Icon.astro';
     markCurrent();
   });
 
+  const sheet = root.querySelector<HTMLDialogElement>('[data-queue]')!;
+  const list = root.querySelector<HTMLOListElement>('[data-queue-list]')!;
+
+  function renderQueue() {
+    const s = controller.state;
+    list.replaceChildren(...controller.queue.map((item, i) => {
+      const li = document.createElement('li');
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.dataset.queueItem = '';
+      b.dataset.slug = item.slug;
+      b.dataset.index = String(i);
+      b.setAttribute('aria-current', String(i === s.index));
+      const n = document.createElement('span'); n.className = 'q-n'; n.textContent = String(i + 1).padStart(2, '0');
+      const t = document.createElement('span'); t.className = 'q-t'; t.textContent = item.title;
+      const sub = document.createElement('span'); sub.className = 'q-s'; sub.textContent = item.subtitle;
+      t.append(sub);
+      b.append(n, t);
+      li.append(b);
+      return li;
+    }));
+  }
+
+  root.querySelectorAll('[data-open-queue]').forEach((el) => el.addEventListener('click', () => {
+    renderQueue();
+    sheet.showModal();
+    list.querySelector<HTMLElement>('[aria-current="true"]')?.scrollIntoView({ block: 'center' });
+  }));
+  root.querySelectorAll('[data-close-queue]').forEach((el) => el.addEventListener('click', () => sheet.close()));
+  sheet.addEventListener('click', (e) => {
+    if (e.target === sheet) sheet.close();
+    const item = (e.target as HTMLElement).closest<HTMLElement>('[data-queue-item]');
+    if (!item) return;
+    void controller.playList(controller.queue, Number(item.dataset.index));
+    renderQueue();
+  });
+
   function markCurrent() {
     const s = controller.state;
+    const playing = s.status === 'playing' || s.status === 'loading';
     document.querySelectorAll<HTMLElement>('[data-track-row]').forEach((row) => {
-      row.setAttribute('aria-current', String(row.dataset.slug === s.current?.slug));
+      const on = row.dataset.slug === s.current?.slug;
+      row.setAttribute('aria-current', String(on));
+      row.dataset.playing = String(on && playing);
     });
     document.querySelectorAll<HTMLElement>('[data-waveform]').forEach((wf) => {
       const on = wf.dataset.waveform === s.current?.slug;

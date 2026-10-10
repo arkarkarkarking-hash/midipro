@@ -7,7 +7,7 @@
     "build": "astro build && tsx scripts/check-build.ts",
     "preview": "astro preview",
     "test": "vitest run && vitest run -c vitest.workers.config.ts",
-    "assets": "tsx scripts/build-logo.ts && tsx scripts/build-icons.ts",
+    "assets": "tsx scripts/build-logo.ts && tsx scripts/build-icons.ts && tsx scripts/build-texture.ts",
     "test:e2e": "playwright test"
   },
   "dependencies": {
