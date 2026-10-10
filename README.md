@@ -12,7 +12,6 @@
 ```bash
 git clone https://github.com/arkarkarkarking-hash/midipro.git
 cd midipro
-git checkout redesign
 npm ci
 npm run build
 ```
