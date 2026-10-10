@@ -48,7 +48,7 @@ npm run test:e2e             # 브라우저 테스트 (아이폰·데스크톱)
 
 ## 배포
 
-`main`에 푸시하면 Cloudflare Workers Builds가 자동으로 빌드·배포합니다(Worker `midipro-preview`). 수동 배포는 Cloudflare 로그인(`npx wrangler login`) 후:
+`main`에 푸시하면 Cloudflare Workers Builds가 자동으로 빌드·배포합니다(Worker `midipro`). 수동 배포는 Cloudflare 로그인(`npx wrangler login`) 후:
 
 ```bash
 npx wrangler deploy
