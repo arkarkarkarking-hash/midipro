@@ -39,3 +39,9 @@ test('www redirects to apex', async () => {
   expect(res.status).toBe(301);
   expect(res.headers.get('location')).toBe('https://midipro.kr/music?a=1');
 });
+
+test('http redirects to https on production host', async () => {
+  const res = await worker.fetch(new Request('http://midipro.kr/music?a=1'), ctx.env);
+  expect(res.status).toBe(301);
+  expect(res.headers.get('location')).toBe('https://midipro.kr/music?a=1');
+});

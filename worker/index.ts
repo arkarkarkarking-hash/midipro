@@ -5,8 +5,10 @@ const PRODUCTION_HOST = 'midipro.kr';
 
 async function route(req: Request, env: Env): Promise<Response> {
   const url = new URL(req.url);
-  if (url.hostname === `www.${PRODUCTION_HOST}`) {
+  const isProd = url.hostname === PRODUCTION_HOST || url.hostname === `www.${PRODUCTION_HOST}`;
+  if (isProd && (url.hostname !== PRODUCTION_HOST || url.protocol === 'http:')) {
     url.hostname = PRODUCTION_HOST;
+    url.protocol = 'https:';
     return Response.redirect(url.toString(), 301);
   }
   if (url.pathname === '/api/call') return handleCall(req, env);

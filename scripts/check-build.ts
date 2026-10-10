@@ -24,11 +24,13 @@ const pages = walk(DIST);
 
 for (const file of pages) {
   const rel = '/' + relative(DIST, file);
-  const doc = parse(readFileSync(file, 'utf8'));
+  const raw = readFileSync(file, 'utf8');
+  const doc = parse(raw);
   const is404 = rel === '/404.html';
   const noindex = !!doc.querySelector('meta[name="robots"][content*="noindex"]');
   const fail = (msg: string) => problems.push(`${rel}: ${msg}`);
 
+  if (/localhost|127\.0\.0\.1/.test(raw)) fail('contains a localhost URL');
   const title = doc.querySelector('title')?.text.trim();
   if (!title) fail('missing <title>');
   if (!is404) {
