@@ -1,4 +1,4 @@
-import type { Env } from './env';
+import type { Env } from '../core/env';
 
 const PRODUCTION_HOST = 'midipro.kr';
 

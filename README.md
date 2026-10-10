@@ -2,8 +2,8 @@
 
 천안 불당동 미디 입시 학원 미디프로의 홈페이지입니다. Astro로 만든 정적 사이트를 Cloudflare Workers에서 서빙하고, 음원은 Cloudflare R2에서 재생합니다.
 
-- 설계서: `docs/superpowers/specs/2026-10-09-midipro-site-redesign-design.md`
-- 구현 계획: `docs/superpowers/plans/`
+- 설계서: `docs/project/2026-10-09-site-redesign-design.md`
+- 영역별 문서: `docs/areas/` (진행 상황, 계획서)
 
 ## 다른 컴퓨터에서 빌드하기
 

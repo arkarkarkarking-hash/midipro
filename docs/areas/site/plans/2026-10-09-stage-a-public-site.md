@@ -8,7 +8,7 @@
 
 **Tech Stack:** Node.js 22 LTS, Astro 5, TypeScript, Zod(Astro content collections), Vitest, Playwright, Wrangler 4, Cloudflare Workers + D1 + R2, satori + @resvg/resvg-js(OG 이미지), sharp(파비콘), opentype.js(로고 윤곽선), music-metadata + mpg123-decoder(음원 길이와 파형)
 
-**Spec:** `docs/superpowers/specs/2026-10-09-midipro-site-redesign-design.md`
+**Spec:** `docs/project/2026-10-09-site-redesign-design.md`
 
 ## Global Constraints
 
@@ -22,7 +22,7 @@
 - 색: 강조 그라데이션 `#5B7CFA → #8F63F0`(LED 선, 전원 LED, 진행 바, 재생 중 채널, 파형 재생 구간에만), 배경 `#111112`~`#1E1E21`, `theme-color` `#111112`. 발광(`box-shadow` 글로우) 금지.
 - 글꼴: Pretendard(한글), IBM Plex Mono(숫자·라벨), 로고는 Jost 윤곽선 SVG. 모두 자체 호스팅(`public/fonts`), 외부 글꼴 CDN 금지.
 - 아이콘: Tabler Icons만. 기존 `image/` 폴더의 파일은 어떤 것도 새 사이트에 쓰지 않는다. Apple 로고·아이콘·SF 글꼴 금지. 대학 로고 금지.
-- 모서리 3px 이하(키캡·모듈), 나사 6px, 랙 귀 16px. 시각 기준은 `.superpowers/mockups/rack-v6.html`.
+- 모서리 3px 이하(키캡·모듈), 나사 6px, 랙 귀 16px. 시각 기준은 `docs/project/mockups/rack-v6.html`.
 - 모바일 우선(375px 기준). 하단 고정: 1U 모듈 안의 [전화 상담](밝은 키캡) [오시는 길](어두운 키캡), 그 위 미니 플레이어.
 - 모든 공개 URL은 영문 소문자와 하이픈. 대표 주소 `https://midipro.kr`.
 - `audio/` 폴더는 삭제하지 않는다. 배포 대상에서만 뺀다.

@@ -1,5 +1,5 @@
-import { handleCall } from './calls';
-import type { Env } from './env';
+import { handleCall } from './site/calls';
+import type { Env } from './core/env';
 
 const PRODUCTION_HOST = 'midipro.kr';
 

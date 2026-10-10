@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metal texture 시안</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Jost:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+:root{--rail:#0c0c0d;--tx:#ecebe7;--mu:#8e8c87;--dim:#5f5e5a;--line:#2b2b2e;--b:#5b7cfa;--v:#8f63f0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#050505;color:var(--tx);font-family:Pretendard,sans-serif;display:flex;gap:48px;justify-content:center;align-items:flex-start;padding:40px 16px;flex-wrap:wrap;-webkit-font-smoothing:antialiased}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.label{font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase}
+.phone{width:375px;height:812px;border-radius:44px;overflow:hidden;position:relative;border:1px solid #232325;
+ background:repeating-linear-gradient(180deg,#0e0e0f 0 22px,#101012 22px 23px)}
+.scroll{height:100%;overflow-y:auto;padding:12px 0 150px;scrollbar-width:none}
+.phone::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;mix-blend-mode:overlay;z-index:9;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* rack unit */
+.ru{position:relative;margin:0 6px 3px;padding:0 22px;border-radius:2px;
+ background:repeating-linear-gradient(90deg,rgba(255,255,255,.017) 0 1px,transparent 1px 3px),linear-gradient(180deg,#2a2a2d,#1e1e21 55%,#1a1a1c);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -1px 0 rgba(0,0,0,.7),0 1px 0 #000,0 2px 6px rgba(0,0,0,.5)}
+.ru.dark{background:repeating-linear-gradient(90deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px),linear-gradient(180deg,#1b1b1d,#141416)}
+.ear{position:absolute;top:0;bottom:0;width:16px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:9px 0}
+.ear.l{left:2px}.ear.r{right:2px}
+.ear::before{content:"";position:absolute;top:6px;bottom:6px;width:1px;background:rgba(0,0,0,.55);box-shadow:1px 0 0 rgba(255,255,255,.05)}
+.ear.l::before{right:-1px}.ear.r::before{left:-1px}
+.screw{width:6px;height:6px;border-radius:50%;position:relative;flex:none;
+ background:radial-gradient(circle at 35% 30%,#9a9a9e,#4a4a4e 50%,#262628 100%);box-shadow:0 0 0 1px #0d0d0e,0 0 0 2px rgba(255,255,255,.035),0 1px 1px 1px rgba(0,0,0,.6)}
+.screw::before,.screw::after{content:"";position:absolute;left:50%;top:50%;width:4px;height:.8px;background:#141416;transform:translate(-50%,-50%) rotate(var(--r,20deg))}
+.screw::after{transform:translate(-50%,-50%) rotate(calc(var(--r,20deg) + 90deg))}
+.slot{width:7px;height:3px;border-radius:2px;background:#070708;box-shadow:inset 0 1px 1px #000,0 1px 0 rgba(255,255,255,.05)}
+.in{padding:14px 0}
+.u1 .in{padding:12px 0}
+.row{display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:Jost;font-weight:500;font-size:14px;letter-spacing:.42em;color:#c4c2bc;text-shadow:0 -1px 0 rgba(0,0,0,.85),0 1px 0 rgba(255,255,255,.08)}
+.pwr{display:flex;align-items:center;gap:7px}
+.pled{width:6px;height:6px;border-radius:50%;background:var(--b);box-shadow:0 0 0 1px #000}
+.key{font-size:12px;color:var(--tx);padding:6px 10px;border-radius:3px;background:linear-gradient(180deg,#3a3a3e,#2a2a2d);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 1px 0 #000,0 2px 3px rgba(0,0,0,.5)}
+h1{font-size:30px;font-weight:700;line-height:1.24;letter-spacing:-.035em;margin:10px 0 0}
+.led{width:28px;height:3px;background:linear-gradient(90deg,var(--b),var(--v))}
+.lead{color:var(--mu);font-size:14px;line-height:1.7;margin-top:12px}
+.lead b{color:var(--tx);font-weight:500}
+.win{margin-top:12px;border-radius:2px;background:#0a0a0b;box-shadow:inset 0 1px 3px #000,0 1px 0 rgba(255,255,255,.06);padding:10px}
+canvas{display:block;width:100%;height:40px}
+.trans{display:flex;align-items:center;gap:8px;margin-top:12px}
+.kc{width:38px;height:30px;display:grid;place-items:center;border-radius:3px;background:linear-gradient(180deg,#3c3c40,#2a2a2d);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 1px 0 #000,0 2px 3px rgba(0,0,0,.5);font-size:16px}
+.kc.on{background:linear-gradient(180deg,#f0efeb,#c9c7c1);color:#111}
+.time{margin-left:auto;font-size:12px;color:var(--mu);background:#0a0a0b;padding:6px 8px;border-radius:2px;box-shadow:inset 0 1px 2px #000}
+.knurl{height:5px;margin-top:12px;background:repeating-linear-gradient(90deg,#3a3a3e 0 1px,#18181a 1px 3px)}
+.sec{display:flex;justify-content:space-between;align-items:baseline}
+.sec h3{font-size:16px;font-weight:600}
+.sec a{font-size:12px;color:var(--mu);text-decoration:none}
+.sw{display:flex;gap:4px;margin:10px 0 4px}
+.sw span{font-size:11px;padding:5px 9px;border-radius:2px;background:linear-gradient(180deg,#323236,#242427);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 1px 0 #000;color:var(--mu)}
+.sw span.on{color:var(--tx);box-shadow:inset 0 1px 2px #000;background:#141416}
+.sw span.on::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--b);margin-right:6px;vertical-align:1px}
+ol{list-style:none}
+li{display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.6);box-shadow:0 1px 0 rgba(255,255,255,.035)}
+li .n{font-size:10px;color:var(--dim)}
+li .t{font-size:14px}
+li .s{font-size:11px;color:var(--mu);margin-top:1px}
+li .d{font-size:11px;color:var(--dim)}
+li.now .n{color:var(--b)}
+dl{display:grid;grid-template-columns:44px 1fr;gap:8px 10px;font-size:13px;line-height:1.55}
+dt{padding-top:2px}
+.mini{position:absolute;left:6px;right:6px;bottom:72px;z-index:4;padding:0 22px}
+.mini .in{display:flex;align-items:center;gap:10px;padding:9px 0}
+.mini .m{flex:1;font-size:13px;min-width:0}.mini .m span{display:block;font-size:10px;color:var(--mu)}
+.prog{position:absolute;left:22px;right:22px;top:0;height:2px;background:#0a0a0b}
+.prog i{display:block;width:38%;height:2px;background:linear-gradient(90deg,var(--b),var(--v))}
+.cta{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:8px 6px 20px;background:#0b0b0c;border-top:1px solid #1f1f22}
+.cta .ru{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 22px}
+.cta a{border-radius:3px;text-align:center;padding:12px;font-size:14px;font-weight:600;text-decoration:none;display:flex;justify-content:center;gap:6px;align-items:center;color:var(--tx);
+ background:linear-gradient(180deg,#3a3a3e,#2a2a2d);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 1px 0 #000,0 2px 3px rgba(0,0,0,.5)}
+.cta a.p{background:linear-gradient(180deg,#f0efeb,#c9c7c1);color:#111;box-shadow:inset 0 1px 0 #fff,0 1px 0 #000,0 2px 3px rgba(0,0,0,.5)}
+.note{max-width:340px;color:#8e8c87;font-size:13px;line-height:1.75}
+.note h2{color:#ecebe7;font-size:15px;margin:0 0 8px}
+.note ul{padding-left:18px}
+
+body{gap:28px}
+.col h2{color:#ecebe7;font-size:15px;margin:0 0 4px}
+.col p{color:#8e8c87;font-size:12px;margin:0 0 12px}
+.phone{background-size:320px 320px!important}
+.phone::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:8;background:radial-gradient(ellipse 90% 55% at 50% 0%,rgba(255,255,255,.06),transparent 70%),radial-gradient(ellipse 120% 80% at 50% 50%,transparent 55%,rgba(0,0,0,.55))}
+.tex-subtle{background:url(tex/metal-subtle.webp) 0 0/320px #141416}
+.tex-worn{background:url(tex/metal-worn.webp) 0 0/320px #151517}
+.tex-heavy{background:url(tex/metal-heavy.webp) 0 0/320px #161618}
+.tex-subtle .ru{background-image:linear-gradient(180deg,rgba(255,255,255,.05),rgba(0,0,0,.25)),url(tex/metal-subtle.webp);background-size:auto,320px}
+.tex-worn .ru{background-image:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.25)),url(tex/metal-worn.webp);background-size:auto,320px}
+.tex-heavy .ru{background-image:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.28)),url(tex/metal-heavy.webp);background-size:auto,320px}
+.ru:nth-child(2n){background-position:0 0,137px 211px}.ru:nth-child(3n){background-position:0 0,53px 97px}
+.phone .ru.dark{filter:brightness(.82)}
+</style>
+</head>
+<body>
+<div class="col"><h2>A. 은은함</h2><p>멀리서는 검정, 가까이 보면 무늬</p><div class="phone tex-subtle"><div class="scroll">
+
+ <div class="ru u1"><div class="ear l"><i class="screw" style="--r:30deg"></i></div><div class="ear r"><i class="screw" style="--r:-15deg"></i></div>
+  <div class="in row"><span class="logo">MIDIPRO</span><span class="pwr"><span class="pled"></span><span class="key">로그인</span><span class="key"><i class="ti ti-menu-2"></i></span></span></div></div>
+
+ <div class="ru dark"><div class="ear l"><i class="screw" style="--r:10deg"></i><i class="slot"></i><i class="screw" style="--r:55deg"></i></div><div class="ear r"><i class="screw" style="--r:-40deg"></i><i class="slot"></i><i class="screw" style="--r:25deg"></i></div>
+  <div class="in" style="padding:26px 0 24px">
+   <div class="row"><span class="label">MP-01 · Cheonan Bundang</span><span class="led"></span></div>
+   <h1>곡으로 합격을<br>만드는 학원.</h1>
+   <p class="lead">미디·피아노·화성학·음향을 한 팀이 함께 가르치고, 매달 월말고사로 실력을 확인합니다. 그렇게 만든 <b>입시곡을 그대로 공개합니다.</b></p>
+  </div></div>
+
+ <div class="ru"><div class="ear l"><i class="screw" style="--r:70deg"></i><i class="screw" style="--r:5deg"></i></div><div class="ear r"><i class="screw" style="--r:-20deg"></i><i class="screw" style="--r:45deg"></i></div>
+  <div class="in">
+   <div class="row"><span class="label">Featured · 2025 입시곡</span><span class="label mono">01/07</span></div>
+   <div style="font-size:16px;font-weight:600;margin-top:8px">황시윤 입시곡</div>
+   <div class="win"><canvas id="wf0"></canvas></div>
+   <div class="knurl"></div>
+   <div class="trans"><span class="kc"><i class="ti ti-player-skip-back"></i></span><span class="kc on"><i class="ti ti-player-play"></i></span><span class="kc"><i class="ti ti-player-skip-forward"></i></span><span class="time mono">00:00 / 02:48</span></div>
+  </div></div>
+
+ <div class="ru dark"><div class="ear l"><i class="screw" style="--r:40deg"></i><i class="slot"></i><i class="slot"></i><i class="screw" style="--r:-35deg"></i></div><div class="ear r"><i class="screw" style="--r:15deg"></i><i class="slot"></i><i class="slot"></i><i class="screw" style="--r:60deg"></i></div>
+  <div class="in">
+   <div class="sec"><h3>음원</h3><a href="#">전체 78곡 →</a></div>
+   <div class="sw"><span class="on">입시곡</span><span>송캠프</span><span>발매곡</span></div>
+   <ol>
+    <li><span class="n mono">CH01</span><div><div class="t">황시윤 입시곡</div><div class="s">2025 · 입시곡</div></div><span class="d mono">2:48</span></li>
+    <li class="now"><span class="n mono">CH02</span><div><div class="t">한건희 입시곡</div><div class="s">2025 · 입시곡</div></div><span class="d mono">3:12</span></li>
+    <li><span class="n mono">CH03</span><div><div class="t">최가희 입시곡</div><div class="s">2025 · 입시곡</div></div><span class="d mono">2:55</span></li>
+    <li style="border:0;box-shadow:none"><span class="n mono">CH04</span><div><div class="t">이승연 입시곡</div><div class="s">2025 · 입시곡</div></div><span class="d mono">3:04</span></li>
+   </ol>
+  </div></div>
+
+ <div class="ru"><div class="ear l"><i class="screw" style="--r:-5deg"></i><i class="screw" style="--r:35deg"></i></div><div class="ear r"><i class="screw" style="--r:80deg"></i><i class="screw" style="--r:20deg"></i></div>
+  <div class="in">
+   <div class="sec"><h3>입시 결과</h3><a href="#">자세히 →</a></div>
+   <p style="font-size:13px;color:var(--mu);line-height:1.65;margin-top:8px">동아방송예술대 · 백석예술대 · 국제예술대 · 호원대 · 백석대 · 백제예술대 · 백석문화대 · 정화예술대 · 한국영상대</p>
+  </div></div>
+
+ <div class="ru dark"><div class="ear l"><i class="screw" style="--r:50deg"></i><i class="screw" style="--r:-25deg"></i></div><div class="ear r"><i class="screw" style="--r:10deg"></i><i class="screw" style="--r:65deg"></i></div>
+  <div class="in"><dl>
+   <dt class="label">ADDR</dt><dd>천안시 서북구 불당21로 65, 6층</dd>
+   <dt class="label">HOURS</dt><dd>평일 13:00–22:00 · 토 09:00–18:00<br><span style="color:var(--mu)">일요일·공휴일 휴무 (대체공휴일 운영)</span></dd>
+   <dt class="label">TEL</dt><dd class="mono">041-558-3101</dd>
+  </dl></div></div>
+
+</div>
+ <div class="mini ru"><div class="ear l"><i class="screw" style="--r:25deg;margin:auto"></i></div><div class="ear r"><i class="screw" style="--r:-30deg;margin:auto"></i></div><div class="prog"><i></i></div>
+  <div class="in"><span class="pled"></span><div class="m">한건희 입시곡<span class="mono">2025 · 입시곡</span></div><span class="kc" style="width:32px;height:28px"><i class="ti ti-player-pause"></i></span><span class="kc" style="width:32px;height:28px"><i class="ti ti-player-skip-forward"></i></span></div></div>
+ <div class="cta"><div class="ru"><div class="ear l"><i class="screw" style="--r:15deg;margin:auto"></i></div><div class="ear r"><i class="screw" style="--r:-45deg;margin:auto"></i></div><a class="p" href="tel:0415583101"><i class="ti ti-phone"></i>전화 상담</a><a href="#">오시는 길</a></div></div>
+</div>
+</div><div class="col"><h2>B. 사용감</h2><p>레퍼런스에 가장 가까움 (추천)</p><div class="phone tex-worn"><div class="scroll">
+
+ <div class="ru u1"><div class="ear l"><i class="screw" style="--r:30deg"></i></div><div class="ear r"><i class="screw" style="--r:-15deg"></i></div>
+  <div class="in row"><span class="logo">MIDIPRO</span><span class="pwr"><span class="pled"></span><span class="key">로그인</span><span class="key"><i class="ti ti-menu-2"></i></span></span></div></div>
+
+ <div class="ru dark"><div class="ear l"><i class="screw" style="--r:10deg"></i><i class="slot"></i><i class="screw" style="--r:55deg"></i></div><div class="ear r"><i class="screw" style="--r:-40deg"></i><i class="slot"></i><i class="screw" style="--r:25deg"></i></div>
+  <div class="in" style="padding:26px 0 24px">
+   <div class="row"><span class="label">MP-01 · Cheonan Bundang</span><span class="led"></span></div>
+   <h1>곡으로 합격을<br>만드는 학원.</h1>
+   <p class="lead">미디·피아노·화성학·음향을 한 팀이 함께 가르치고, 매달 월말고사로 실력을 확인합니다. 그렇게 만든 <b>입시곡을 그대로 공개합니다.</b></p>
+  </div></div>
+
+ <div class="ru"><div class="ear l"><i class="screw" style="--r:70deg"></i><i class="screw" style="--r:5deg"></i></div><div class="ear r"><i class="screw" style="--r:-20deg"></i><i class="screw" style="--r:45deg"></i></div>
+  <div class="in">
+   <div class="row"><span class="label">Featured · 2025 입시곡</span><span class="label mono">01/07</span></div>
+   <div style="font-size:16px;font-weight:600;margin-top:8px">황시윤 입시곡</div>
+   <div class="win"><canvas id="wf1"></canvas></div>
+   <div class="knurl"></div>
+   <div class="trans"><span class="kc"><i class="ti ti-player-skip-back"></i></span><span class="kc on"><i class="ti ti-player-play"></i></span><span class="kc"><i class="ti ti-player-skip-forward"></i></span><span class="time mono">00:00 / 02:48</span></div>
+  </div></div>
+
+ <div class="ru dark"><div class="ear l"><i class="screw" style="--r:40deg"></i><i class="slot"></i><i class="slot"></i><i class="screw" style="--r:-35deg"></i></div><div class="ear r"><i class="screw" style="--r:15deg"></i><i class="slot"></i><i class="slot"></i><i class="screw" style="--r:60deg"></i></div>
+  <div class="in">
+   <div class="sec"><h3>음원</h3><a href="#">전체 78곡 →</a></div>
+   <div class="sw"><span class="on">입시곡</span><span>송캠프</span><span>발매곡</span></div>
+   <ol>
+    <li><span class="n mono">CH01</span><div><div class="t">황시윤 입시곡</div><div class="s">2025 · 입시곡</div></div><span class="d mono">2:48</span></li>
+    <li class="now"><span class="n mono">CH02</span><div><div class="t">한건희 입시곡</div><div class="s">2025 · 입시곡</div></div><span class="d mono">3:12</span></li>
+    <li><span class="n mono">CH03</span><div><div class="t">최가희 입시곡</div><div class="s">2025 · 입시곡</div></div><span class="d mono">2:55</span></li>
+    <li style="border:0;box-shadow:none"><span class="n mono">CH04</span><div><div class="t">이승연 입시곡</div><div class="s">2025 · 입시곡</div></div><span class="d mono">3:04</span></li>
+   </ol>
+  </div></div>
+
+ <div class="ru"><div class="ear l"><i class="screw" style="--r:-5deg"></i><i class="screw" style="--r:35deg"></i></div><div class="ear r"><i class="screw" style="--r:80deg"></i><i class="screw" style="--r:20deg"></i></div>
+  <div class="in">
+   <div class="sec"><h3>입시 결과</h3><a href="#">자세히 →</a></div>
+   <p style="font-size:13px;color:var(--mu);line-height:1.65;margin-top:8px">동아방송예술대 · 백석예술대 · 국제예술대 · 호원대 · 백석대 · 백제예술대 · 백석문화대 · 정화예술대 · 한국영상대</p>
+  </div></div>
+
+ <div class="ru dark"><div class="ear l"><i class="screw" style="--r:50deg"></i><i class="screw" style="--r:-25deg"></i></div><div class="ear r"><i class="screw" style="--r:10deg"></i><i class="screw" style="--r:65deg"></i></div>
+  <div class="in"><dl>
+   <dt class="label">ADDR</dt><dd>천안시 서북구 불당21로 65, 6층</dd>
+   <dt class="label">HOURS</dt><dd>평일 13:00–22:00 · 토 09:00–18:00<br><span style="color:var(--mu)">일요일·공휴일 휴무 (대체공휴일 운영)</span></dd>
+   <dt class="label">TEL</dt><dd class="mono">041-558-3101</dd>
+  </dl></div></div>
+
+</div>
+ <div class="mini ru"><div class="ear l"><i class="screw" style="--r:25deg;margin:auto"></i></div><div class="ear r"><i class="screw" style="--r:-30deg;margin:auto"></i></div><div class="prog"><i></i></div>
+  <div class="in"><span class="pled"></span><div class="m">한건희 입시곡<span class="mono">2025 · 입시곡</span></div><span class="kc" style="width:32px;height:28px"><i class="ti ti-player-pause"></i></span><span class="kc" style="width:32px;height:28px"><i class="ti ti-player-skip-forward"></i></span></div></div>
+ <div class="cta"><div class="ru"><div class="ear l"><i class="screw" style="--r:15deg;margin:auto"></i></div><div class="ear r"><i class="screw" style="--r:-45deg;margin:auto"></i></div><a class="p" href="tel:0415583101"><i class="ti ti-phone"></i>전화 상담</a><a href="#">오시는 길</a></div></div>
+</div>
+</div><div class="col"><h2>C. 강함</h2><p>스크래치와 얼룩이 확실히 보임</p><div class="phone tex-heavy"><div class="scroll">
+
+ <div class="ru u1"><div class="ear l"><i class="screw" style="--r:30deg"></i></div><div class="ear r"><i class="screw" style="--r:-15deg"></i></div>
+  <div class="in row"><span class="logo">MIDIPRO</span><span class="pwr"><span class="pled"></span><span class="key">로그인</span><span class="key"><i class="ti ti-menu-2"></i></span></span></div></div>
+
+ <div class="ru dark"><div class="ear l"><i class="screw" style="--r:10deg"></i><i class="slot"></i><i class="screw" style="--r:55deg"></i></div><div class="ear r"><i class="screw" style="--r:-40deg"></i><i class="slot"></i><i class="screw" style="--r:25deg"></i></div>
+  <div class="in" style="padding:26px 0 24px">
+   <div class="row"><span class="label">MP-01 · Cheonan Bundang</span><span class="led"></span></div>
+   <h1>곡으로 합격을<br>만드는 학원.</h1>
+   <p class="lead">미디·피아노·화성학·음향을 한 팀이 함께 가르치고, 매달 월말고사로 실력을 확인합니다. 그렇게 만든 <b>입시곡을 그대로 공개합니다.</b></p>
+  </div></div>
+
+ <div class="ru"><div class="ear l"><i class="screw" style="--r:70deg"></i><i class="screw" style="--r:5deg"></i></div><div class="ear r"><i class="screw" style="--r:-20deg"></i><i class="screw" style="--r:45deg"></i></div>
+  <div class="in">
+   <div class="row"><span class="label">Featured · 2025 입시곡</span><span class="label mono">01/07</span></div>
+   <div style="font-size:16px;font-weight:600;margin-top:8px">황시윤 입시곡</div>
+   <div class="win"><canvas id="wf2"></canvas></div>
+   <div class="knurl"></div>
+   <div class="trans"><span class="kc"><i class="ti ti-player-skip-back"></i></span><span class="kc on"><i class="ti ti-player-play"></i></span><span class="kc"><i class="ti ti-player-skip-forward"></i></span><span class="time mono">00:00 / 02:48</span></div>
+  </div></div>
+
+ <div class="ru dark"><div class="ear l"><i class="screw" style="--r:40deg"></i><i class="slot"></i><i class="slot"></i><i class="screw" style="--r:-35deg"></i></div><div class="ear r"><i class="screw" style="--r:15deg"></i><i class="slot"></i><i class="slot"></i><i class="screw" style="--r:60deg"></i></div>
+  <div class="in">
+   <div class="sec"><h3>음원</h3><a href="#">전체 78곡 →</a></div>
+   <div class="sw"><span class="on">입시곡</span><span>송캠프</span><span>발매곡</span></div>
+   <ol>
+    <li><span class="n mono">CH01</span><div><div class="t">황시윤 입시곡</div><div class="s">2025 · 입시곡</div></div><span class="d mono">2:48</span></li>
+    <li class="now"><span class="n mono">CH02</span><div><div class="t">한건희 입시곡</div><div class="s">2025 · 입시곡</div></div><span class="d mono">3:12</span></li>
+    <li><span class="n mono">CH03</span><div><div class="t">최가희 입시곡</div><div class="s">2025 · 입시곡</div></div><span class="d mono">2:55</span></li>
+    <li style="border:0;box-shadow:none"><span class="n mono">CH04</span><div><div class="t">이승연 입시곡</div><div class="s">2025 · 입시곡</div></div><span class="d mono">3:04</span></li>
+   </ol>
+  </div></div>
+
+ <div class="ru"><div class="ear l"><i class="screw" style="--r:-5deg"></i><i class="screw" style="--r:35deg"></i></div><div class="ear r"><i class="screw" style="--r:80deg"></i><i class="screw" style="--r:20deg"></i></div>
+  <div class="in">
+   <div class="sec"><h3>입시 결과</h3><a href="#">자세히 →</a></div>
+   <p style="font-size:13px;color:var(--mu);line-height:1.65;margin-top:8px">동아방송예술대 · 백석예술대 · 국제예술대 · 호원대 · 백석대 · 백제예술대 · 백석문화대 · 정화예술대 · 한국영상대</p>
+  </div></div>
+
+ <div class="ru dark"><div class="ear l"><i class="screw" style="--r:50deg"></i><i class="screw" style="--r:-25deg"></i></div><div class="ear r"><i class="screw" style="--r:10deg"></i><i class="screw" style="--r:65deg"></i></div>
+  <div class="in"><dl>
+   <dt class="label">ADDR</dt><dd>천안시 서북구 불당21로 65, 6층</dd>
+   <dt class="label">HOURS</dt><dd>평일 13:00–22:00 · 토 09:00–18:00<br><span style="color:var(--mu)">일요일·공휴일 휴무 (대체공휴일 운영)</span></dd>
+   <dt class="label">TEL</dt><dd class="mono">041-558-3101</dd>
+  </dl></div></div>
+
+</div>
+ <div class="mini ru"><div class="ear l"><i class="screw" style="--r:25deg;margin:auto"></i></div><div class="ear r"><i class="screw" style="--r:-30deg;margin:auto"></i></div><div class="prog"><i></i></div>
+  <div class="in"><span class="pled"></span><div class="m">한건희 입시곡<span class="mono">2025 · 입시곡</span></div><span class="kc" style="width:32px;height:28px"><i class="ti ti-player-pause"></i></span><span class="kc" style="width:32px;height:28px"><i class="ti ti-player-skip-forward"></i></span></div></div>
+ <div class="cta"><div class="ru"><div class="ear l"><i class="screw" style="--r:15deg;margin:auto"></i></div><div class="ear r"><i class="screw" style="--r:-45deg;margin:auto"></i></div><a class="p" href="tel:0415583101"><i class="ti ti-phone"></i>전화 상담</a><a href="#">오시는 길</a></div></div>
+</div>
+</div><script>
+document.querySelectorAll('canvas').forEach(c=>{const x=c.getContext('2d'),r=devicePixelRatio||1;c.width=c.clientWidth*r;c.height=40*r;x.scale(r,r);const W=c.clientWidth,n=Math.floor(W/3);let s=7;const rnd=()=>(s=(s*9301+49297)%233280)/233280;const g=x.createLinearGradient(0,0,W*.35,0);g.addColorStop(0,'#5b7cfa');g.addColorStop(1,'#8f63f0');for(let i=0;i<n;i++){const env=.35+.65*Math.abs(Math.sin(i/n*Math.PI*2.3))*(.6+.4*Math.sin(i/n*17));const h=Math.max(2,(env*.75+rnd()*.25)*36);x.fillStyle=i<n*.35?g:'#34343a';x.fillRect(i*3,20-h/2,2,h)}});
+</script>
+</body>
+</html>

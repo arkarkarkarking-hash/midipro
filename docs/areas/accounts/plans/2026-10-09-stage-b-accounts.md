@@ -8,7 +8,7 @@
 
 **Tech Stack:** 단계 A와 같음 + Cloudflare Turnstile, Web Crypto PBKDF2, `@cloudflare/vitest-pool-workers`
 
-**Spec:** `docs/superpowers/specs/2026-10-09-midipro-site-redesign-design.md` (6장)
+**Spec:** `docs/project/2026-10-09-site-redesign-design.md` (6장)
 
 **전제:** 단계 A 계획 완료(Worker, D1 `midipro`, `tracks.json`, 디자인 컴포넌트, 플레이어가 존재).
 

@@ -95,7 +95,7 @@ midipro.kr (Cloudflare Worker 하나로 운영)
 
 ## 4. 디자인
 
-시안: `.superpowers/mockups/rack-v6.html` (최종). 이전 시안(stealth-v3, metal-v4, rack-v5)은 참고용이다.
+시안: `docs/project/mockups/rack-v6.html` (최종). 이전 시안(stealth-v3, metal-v4, rack-v5)은 참고용이다.
 
 ### 컨셉: 녹음실 랙 하드웨어 + 무광 메탈
 

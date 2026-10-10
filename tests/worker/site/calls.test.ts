@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, expect, test } from 'vitest';
-import worker from '../../worker/index';
-import { makeEnv } from './helpers';
+import worker from '../../../worker/index';
+import { makeEnv } from '../helpers';
 
 let ctx: Awaited<ReturnType<typeof makeEnv>>;
 beforeEach(async () => { ctx = await makeEnv(); });
