@@ -16,7 +16,9 @@ export function d1(local: boolean, extra: string[]): Record<string, unknown>[] {
   const res = spawnSync('npx', ['wrangler', 'd1', 'execute', 'midipro', local ? '--local' : '--remote', '--json', ...extra], { stdio: ['inherit', 'pipe', 'pipe'], encoding: 'utf8' });
   let out: unknown;
   try {
-    out = JSON.parse(res.stdout);
+    // Remote --file prints upload progress lines before the JSON; parse from the first line that starts it.
+    const start = res.stdout.search(/^[[{]/m);
+    out = JSON.parse(start >= 0 ? res.stdout.slice(start) : res.stdout);
   } catch {
     die(`D1 명령이 실패했습니다.\n${res.stdout}\n${res.stderr}`);
   }
