@@ -11,7 +11,7 @@ export function die(msg: string): never {
 
 export const sqlString = (s: string) => `'${s.replaceAll("'", "''")}'`;
 
-/** Runs `wrangler d1 execute` and returns the rows of the last statement. */
+/** Runs `wrangler d1 execute` and returns the rows of the last statement. Throws on failure. */
 export function d1(local: boolean, extra: string[]): Record<string, unknown>[] {
   const res = spawnSync('npx', ['wrangler', 'd1', 'execute', 'midipro', local ? '--local' : '--remote', '--json', ...extra], { stdio: ['inherit', 'pipe', 'pipe'], encoding: 'utf8' });
   let out: unknown;
@@ -20,9 +20,9 @@ export function d1(local: boolean, extra: string[]): Record<string, unknown>[] {
     const start = res.stdout.search(/^[[{]/m);
     out = JSON.parse(start >= 0 ? res.stdout.slice(start) : res.stdout);
   } catch {
-    die(`D1 명령이 실패했습니다.\n${res.stdout}\n${res.stderr}`);
+    throw new Error(`D1 명령이 실패했습니다. 인터넷 연결이나 wrangler 로그인을 확인해 주세요.\n${res.stderr.slice(-500)}`);
   }
-  if (res.status !== 0 || !Array.isArray(out)) die(`D1 명령이 실패했습니다.\n${JSON.stringify(out)}`);
+  if (res.status !== 0 || !Array.isArray(out)) throw new Error(`D1 명령이 실패했습니다.\n${JSON.stringify(out).slice(0, 500)}`);
   return (out.at(-1) as { results?: Record<string, unknown>[] }).results ?? [];
 }
 

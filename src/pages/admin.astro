@@ -16,6 +16,7 @@ const catalog = getTracks().map((t) => ({ slug: t.slug, title: t.title, group: `
         <h2 class="acc-h">계정</h2>
         <Keycap data-create-toggle icon="plus">계정 만들기</Keycap>
       </div>
+      <p class="muted adm__note">계정 추가·비밀번호·비활성화는 원장님 컴퓨터의 계정 메모로 관리합니다. 여기서 바꾼 계정 정보는 메모를 저장할 때 메모 내용으로 돌아갑니다.</p>
       <form class="acc-form acc-form--grid adm__create" data-create-form hidden novalidate>
         <label class="acc-field">아이디 <input class="acc-input" name="loginId" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="영문 소문자·숫자·_ 4~20자" /></label>
         <label class="acc-field">이름 <input class="acc-input" name="name" autocomplete="off" /></label>
@@ -77,6 +78,7 @@ const catalog = getTracks().map((t) => ({ slug: t.slug, title: t.title, group: `
   </div>
 </Base>
 <style>
+  .adm__note { font-size: 12px; margin-bottom: 12px; }
   .adm__create { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, 0.6); }
   .adm__submit { display: flex; justify-content: space-between; align-items: end; gap: 12px; }
   .adm__save { margin: 12px 0 0; }

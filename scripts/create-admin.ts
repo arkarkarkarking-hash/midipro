@@ -49,4 +49,4 @@ DELETE FROM sessions WHERE user_id = (SELECT id FROM users WHERE login_id = ${sq
   console.log(args.reset ? `비밀번호를 바꿨습니다: ${loginId}` : `관리자 계정을 만들었습니다: ${loginId}`);
 }
 
-void main();
+main().catch((e: Error) => die(e.message));
