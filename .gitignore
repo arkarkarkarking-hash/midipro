@@ -7,3 +7,5 @@ dist/
 .DS_Store
 .lighthouse.json
 .dev.vars
+accounts*.txt
+*계정*.txt
