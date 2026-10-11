@@ -17,6 +17,7 @@
   "d1_databases": [
     { "binding": "DB", "database_name": "midipro", "database_id": "4d1eb3aa-835d-4c32-af82-f0f1bf2d4e2d", "migrations_dir": "migrations" }
   ],
+  "vars": { "MEDIA_BASE": "https://media.midipro.kr" },
   "build": { "command": "npm run build" },
   "observability": { "enabled": true }
 }

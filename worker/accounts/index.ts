@@ -2,6 +2,8 @@ import type { Env } from '../core/env';
 import { checkOrigin, empty, fail } from '../core/http';
 import { requireUser, type Role, type SessionUser } from '../core/session';
 import { login, logout, me } from './auth';
+import { callSummary } from './calls';
+import { getMyTracks, getUserTracks, setUserTracks } from './tracks';
 import { createUser, listUsers, resetPassword, setStatus } from './users';
 
 type Ctx = { req: Request; env: Env; now: number; params: string[]; user: SessionUser };
@@ -24,6 +26,10 @@ const routes: Route[] = [
   { method: 'POST', path: /^\/api\/accounts\/admin\/users$/, roles: ADMIN, handler: (c) => createUser(c.req, c.env, c.now) },
   { method: 'POST', path: /^\/api\/accounts\/admin\/users\/(\d{1,9})\/password$/, roles: ADMIN, handler: (c) => resetPassword(c.req, c.env, id(c)) },
   { method: 'POST', path: /^\/api\/accounts\/admin\/users\/(\d{1,9})\/status$/, roles: ADMIN, handler: (c) => setStatus(c.req, c.env, c.user, id(c)) },
+  { method: 'GET', path: /^\/api\/accounts\/admin\/users\/(\d{1,9})\/tracks$/, roles: ADMIN, handler: (c) => getUserTracks(c.env, id(c)) },
+  { method: 'POST', path: /^\/api\/accounts\/admin\/users\/(\d{1,9})\/tracks$/, roles: ADMIN, handler: (c) => setUserTracks(c.req, c.env, id(c)) },
+  { method: 'GET', path: /^\/api\/accounts\/admin\/calls$/, roles: ADMIN, handler: (c) => callSummary(c.req, c.env, c.now) },
+  { method: 'GET', path: /^\/api\/accounts\/my\/tracks$/, roles: ['student', 'admin'], handler: (c) => getMyTracks(c.env, c.user) },
 ];
 
 /** Handles /api/accounts/*. `now` is Unix seconds (tests pass a fixed value). */
