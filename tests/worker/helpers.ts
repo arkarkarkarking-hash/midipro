@@ -12,7 +12,7 @@ export async function makeEnv() {
   }
   const ASSETS = { fetch: async (req: Request) => new Response(`asset ${new URL(req.url).pathname}`, { headers: { 'content-type': 'text/html' } }) };
   return {
-    env: { DB: db, ASSETS } as any,
+    env: { DB: db, ASSETS, TURNSTILE_SECRET: 'test-turnstile-secret', MEDIA_BASE: 'https://media.test' } as any,
     dispose: async () => { await proxy.dispose(); rmSync(persist, { recursive: true, force: true }); },
   };
 }

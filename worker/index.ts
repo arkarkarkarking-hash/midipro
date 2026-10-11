@@ -1,3 +1,4 @@
+import { handleAccounts } from './accounts/index';
 import { handleCall } from './site/calls';
 import type { Env } from './core/env';
 
@@ -14,6 +15,7 @@ async function route(req: Request, env: Env): Promise<Response> {
     return Response.redirect(url.toString(), 301);
   }
   if (url.pathname === '/api/call') return handleCall(req, env);
+  if (url.pathname.startsWith('/api/accounts/')) return handleAccounts(req, env, Math.floor(Date.now() / 1000));
   if (url.pathname.startsWith('/api/')) return new Response('Not found', { status: 404 });
   return env.ASSETS.fetch(req as never) as Promise<Response>;
 }
