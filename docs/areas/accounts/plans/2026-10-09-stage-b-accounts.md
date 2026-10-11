@@ -196,10 +196,10 @@ CREATE TABLE user_tracks (
 
 **Interfaces:** `npx tsx scripts/create-admin.ts --login <id> --name <이름> [--birth <연도>]` — 비밀번호를 터미널에서 숨김 입력(두 번)받아 `worker/accounts/password.ts`로 해시하고 `wrangler d1 execute midipro --remote`로 넣는다. 비밀번호는 화면·파일·셸 기록에 남기지 않는다(`--local`로 연습 가능).
 
-- [ ] **Step 1 (원장님): Turnstile 위젯 만들기** — Cloudflare 대시보드 → Turnstile → 위젯 추가(도메인 `midipro.kr`), 사이트 키를 알려주시고, 비밀 키는 `npx wrangler secret put TURNSTILE_SECRET`로 직접 등록
+- [x] **Step 1 (원장님): Turnstile 위젯 만들기** — Cloudflare 대시보드 → Turnstile → 위젯 추가(도메인 `midipro.kr`), 사이트 키를 알려주시고, 비밀 키는 `npx wrangler secret put TURNSTILE_SECRET`로 직접 등록
 - [x] **Step 2 (제가): 원격 D1에 마이그레이션 적용** — `npx wrangler d1 migrations apply midipro --remote` (자동 배포는 마이그레이션을 적용하지 않으므로 main 합치기 **전에** 한다. 새 테이블만 추가하므로 현재 사이트에 영향 없음)
-- [ ] **Step 3 (원장님): 첫 관리자 만들기** — `npx tsx scripts/create-admin.ts --login <아이디> --name <이름>` 실행 후 비밀번호 직접 입력
-- [ ] **Step 4: 원장님 승인 후 main에 합치기** → 자동 배포 → 휴대폰에서 로그인 → 수강생 계정 생성 → 곡 연결 → 수강생으로 로그인해 재생
+- [x] **Step 3 (원장님): 첫 관리자 만들기** — `npx tsx scripts/create-admin.ts --login <아이디> --name <이름>` 실행 후 비밀번호 직접 입력
+- [x] **Step 4: 원장님 승인 후 main에 합치기** → 자동 배포 → 휴대폰에서 로그인 → 수강생 계정 생성 → 곡 연결 → 수강생으로 로그인해 재생
 - [x] **Step 5: Commit** — `chore(accounts): admin bootstrap script and operations guide`
 
 ---
