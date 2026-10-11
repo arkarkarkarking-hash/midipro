@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import RackUnit from '../components/rack/RackUnit.astro';
+import Keycap from '../components/rack/Keycap.astro';
+import PageHead from '../components/PageHead.astro';
+import '../features/accounts/accounts.css';
+const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '';
+---
+<Base title="로그인" description="미디프로 수강생·강사 로그인" path="/login" noindex>
+  <PageHead code="Login" title="로그인">
+    <p class="prose">계정은 학원에서 만들어 드립니다. 아이디나 비밀번호를 잊었다면 학원에 전화해 주세요.</p>
+  </PageHead>
+  <RackUnit seed={71} data-login data-sitekey={sitekey}>
+    <form class="acc-form login" novalidate>
+      <label class="acc-field">아이디
+        <input class="acc-input" name="loginId" autocomplete="username" autocapitalize="none" spellcheck="false" required />
+      </label>
+      <label class="acc-field">비밀번호
+        <input class="acc-input" name="password" type="password" autocomplete="current-password" required />
+      </label>
+      <div data-turnstile></div>
+      <p class="acc-error" role="alert" data-error></p>
+      <Keycap variant="primary" size="lg" type="submit">로그인</Keycap>
+    </form>
+  </RackUnit>
+</Base>
+<style>
+  .login { max-width: 360px; }
+</style>
+<script>
+  import '../features/accounts/login';
+</script>

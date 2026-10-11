@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import RackUnit from '../components/rack/RackUnit.astro';
+import Keycap from '../components/rack/Keycap.astro';
+import PageHead from '../components/PageHead.astro';
+import TrackList from '../components/TrackList.astro';
+import { getTracks } from '../lib/tracks';
+import '../features/accounts/accounts.css';
+// One real row rendered at build time, used only as a template for the student's own tracks.
+const sample = getTracks().slice(0, 1);
+---
+<Base title="마이페이지" description="미디프로 수강생 마이페이지" path="/my" noindex>
+  <div data-my hidden>
+    <PageHead code="My" title="마이페이지">
+      <p class="prose" data-greet></p>
+    </PageHead>
+    <RackUnit seed={81} data-my-tracks hidden>
+      <h2 class="acc-h my__h">내 곡</h2>
+      <div data-list></div>
+    </RackUnit>
+    <RackUnit seed={82} data-teacher hidden>
+      <p class="prose">강사 기능은 준비 중입니다.</p>
+    </RackUnit>
+    <RackUnit tone="dark" size="u1" seed={83}>
+      <div class="acc-actions">
+        <Keycap href="/admin" data-admin-link data-account-link hidden>관리자 화면</Keycap>
+        <Keycap data-logout>로그아웃</Keycap>
+      </div>
+    </RackUnit>
+    <template data-row-tpl><TrackList tracks={sample} listId="tpl" /></template>
+  </div>
+</Base>
+<style>
+  .my__h { margin-bottom: 6px; }
+</style>
+<script>
+  import '../features/accounts/my';
+</script>

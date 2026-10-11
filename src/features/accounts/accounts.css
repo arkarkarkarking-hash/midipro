@@ -1,0 +1,41 @@
+/* Account screens (login, my, admin). Built on the rack tokens; plain classes because rows are drawn by script. */
+.acc-form { display: grid; gap: 12px; }
+.acc-field { display: grid; gap: 4px; font-size: 13px; color: var(--mu); }
+.acc-input {
+  width: 100%; min-height: 40px; padding: 8px 10px; border: 0; border-radius: 2px;
+  font: inherit; font-size: 16px; color: var(--tx); background: var(--display);
+  box-shadow: inset 0 1px 3px #000, 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.acc-input:focus { outline: 1px solid var(--b); }
+select.acc-input { appearance: none; }
+.acc-error { min-height: 1.4em; font-size: 13px; color: #ff8a8a; }
+.acc-ok { min-height: 1.4em; font-size: 13px; color: var(--mu); }
+.acc-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.acc-h { font-size: 16px; font-weight: 600; }
+.acc-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+.acc-list { list-style: none; display: grid; }
+.acc-row { display: grid; gap: 6px; padding: 10px 0; border-bottom: 1px solid rgba(0, 0, 0, 0.6); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.035); }
+.acc-row:last-child { border: 0; box-shadow: none; }
+.acc-row__main { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.acc-row__name { font-size: 15px; }
+.acc-row__meta { font-size: 12px; color: var(--mu); }
+.acc-row[data-status='disabled'] .acc-row__name { color: var(--dim); text-decoration: line-through; }
+.acc-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--dim); text-transform: uppercase; }
+.acc-group { margin-top: 12px; }
+.acc-group__title { font-size: 12px; color: var(--dim); margin-bottom: 4px; }
+.acc-check { display: flex; align-items: center; gap: 10px; min-height: 36px; font-size: 14px; }
+.acc-check input { width: 18px; height: 18px; accent-color: var(--b); flex: none; }
+.acc-scroll { max-height: 50vh; overflow-y: auto; padding-right: 4px; }
+.acc-stats { display: grid; gap: 12px; }
+.acc-stat { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; padding: 2px 0; }
+.acc-stat span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.acc-total { font-size: 28px; }
+.acc-dialog { margin: auto; width: min(360px, calc(100vw - 32px)); border: 0; border-radius: var(--radius); padding: 16px; color: var(--tx); background: var(--panel-mid); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7); }
+.acc-dialog::backdrop { background: rgba(0, 0, 0, 0.6); }
+@media (min-width: 720px) {
+  .acc-form--grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .acc-row { grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
+  .acc-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+/* Keycaps and rack units set their own display; make `hidden` win on these pages. */
+[data-my] [hidden], [data-admin] [hidden], [data-login] [hidden] { display: none !important; }
