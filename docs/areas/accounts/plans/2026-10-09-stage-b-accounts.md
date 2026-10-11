@@ -96,10 +96,10 @@ CREATE TABLE user_tracks (
 ```
 (시각은 모두 Unix 초. 테스트 헬퍼가 `;`로 나눠 실행하므로 SQL 안에 주석·트리거를 넣지 않는다.)
 
-- [ ] **Step 1: 테스트** — `role='guest'` 삽입 실패, 같은 `login_id` 두 번 삽입 실패.
-- [ ] **Step 2: 실패 확인** — `npx vitest run -c vitest.workers.config.ts tests/worker/accounts/schema.test.ts`
-- [ ] **Step 3: SQL 작성** / **Step 4: 통과 확인**
-- [ ] **Step 5: Commit** — `feat(accounts): schema`
+- [x] **Step 1: 테스트** — `role='guest'` 삽입 실패, 같은 `login_id` 두 번 삽입 실패.
+- [x] **Step 2: 실패 확인** — `npx vitest run -c vitest.workers.config.ts tests/worker/accounts/schema.test.ts`
+- [x] **Step 3: SQL 작성** / **Step 4: 통과 확인**
+- [x] **Step 5: Commit** — `feat(accounts): schema`
 
 ---
 
@@ -122,9 +122,9 @@ CREATE TABLE user_tracks (
 - `GET /api/accounts/me` → 200 `SessionUser` 또는 401
 - 핸들러는 현재 시각 `now`(Unix 초)를 인자로 받는다. `worker/index.ts`만 `Math.floor(Date.now()/1000)`을 넘긴다.
 
-- [ ] **Step 1: 실패하는 테스트** — hash 형식·왕복 / 로그인 → HttpOnly 쿠키 → /me / 틀린 비번과 없는 아이디의 응답 본문이 같음 / 비활성 계정도 같은 메시지 / 5회 실패 → 맞는 비번도 429 / 잠금 중 시도는 잠금을 늘리지 않고 +900초에 로그인됨 / Turnstile 실패는 401이고 실패 횟수 안 늘림 / 다른 출처 POST 403 / 만료 세션(+604801초) 거부 / 로그아웃 후 세션 삭제
-- [ ] **Step 2: 실패 확인** / **Step 3: 구현** / **Step 4: 통과 확인**
-- [ ] **Step 5: Commit** — `feat(accounts): password hashing, sessions, login API`
+- [x] **Step 1: 실패하는 테스트** — hash 형식·왕복 / 로그인 → HttpOnly 쿠키 → /me / 틀린 비번과 없는 아이디의 응답 본문이 같음 / 비활성 계정도 같은 메시지 / 5회 실패 → 맞는 비번도 429 / 잠금 중 시도는 잠금을 늘리지 않고 +900초에 로그인됨 / Turnstile 실패는 401이고 실패 횟수 안 늘림 / 다른 출처 POST 403 / 만료 세션(+604801초) 거부 / 로그아웃 후 세션 삭제
+- [x] **Step 2: 실패 확인** / **Step 3: 구현** / **Step 4: 통과 확인**
+- [x] **Step 5: Commit** — `feat(accounts): password hashing, sessions, login API`
 
 ---
 
@@ -141,8 +141,8 @@ CREATE TABLE user_tracks (
 - `POST /api/accounts/admin/users/:id/status` `{ status }` → 204, `disabled`면 세션 모두 삭제. 자기 자신 비활성화는 400.
 - `validateUserInput(body, thisYear)`: loginId trim·소문자 `^[a-z0-9_]{4,20}$` / name trim 1~20자 / birthYear 정수 1940~올해(선택) / password 4~64자 / role 세 값 중 하나
 
-- [ ] **Step 1: 실패하는 테스트** — 수강생 쿠키 403 / `' Kim_01 '` → `kim_01` / `KIM_01` 중복 409 / 나이 계산 / 비활성화 즉시 세션 무효 / 비번 재지정이 잠금·세션 해제 / 자기 비활성화 400
-- [ ] **Step 2~4** / **Step 5: Commit** — `feat(accounts): admin user management API`
+- [x] **Step 1: 실패하는 테스트** — 수강생 쿠키 403 / `' Kim_01 '` → `kim_01` / `KIM_01` 중복 409 / 나이 계산 / 비활성화 즉시 세션 무효 / 비번 재지정이 잠금·세션 해제 / 자기 비활성화 400
+- [x] **Step 2~4** / **Step 5: Commit** — `feat(accounts): admin user management API`
 
 ---
 
@@ -160,8 +160,8 @@ CREATE TABLE user_tracks (
 - `GET /api/accounts/my/tracks`(student, admin) → `{ name, tracks: { slug, title, label, year, src, duration }[] }` — `src = MEDIA_BASE + '/' + file`, 사라진 곡 제외, 세션 사용자 기준만.
 - `GET /api/accounts/admin/calls?from=YYYY-MM-DD&to=YYYY-MM-DD` → `{ from, to, total, byDay, byPath, byRef }`(기본 최근 30일, 페이지·유입은 상위 10). 기존 `call_clicks` 테이블을 읽기만 한다.
 
-- [ ] **Step 1: 실패하는 테스트** — 수강생은 자기 곡만(`?userId` 무시) / 사라진 곡은 수강생 결과에서 빠지고 관리자에겐 표시 / 모르는 slug 400 / 강사 계정 연결 400 / 집계가 유입 호스트별로 합쳐짐
-- [ ] **Step 2~4** / **Step 5: Commit** — `feat(accounts): track linking, my tracks, call summary APIs`
+- [x] **Step 1: 실패하는 테스트** — 수강생은 자기 곡만(`?userId` 무시) / 사라진 곡은 수강생 결과에서 빠지고 관리자에겐 표시 / 모르는 slug 400 / 강사 계정 연결 400 / 집계가 유입 호스트별로 합쳐짐
+- [x] **Step 2~4** / **Step 5: Commit** — `feat(accounts): track linking, my tracks, call summary APIs`
 
 ---
 
@@ -181,10 +181,10 @@ CREATE TABLE user_tracks (
 
 **e2e 방식:** e2e는 `astro preview`(Worker 없음)로 돌기 때문에 `page.route('**/api/accounts/**')`로 API를 가짜 응답으로 바꿔 화면 흐름만 확인한다. 서버 동작은 Task 2~4의 Worker 테스트가 맡는다. 실제 연결은 Task 6에서 `wrangler dev`로 한 번 손으로 확인한다.
 
-- [ ] **Step 1: 실패하는 e2e** — 수강생 로그인 → `/my`에 곡 2개 → 재생 / 수강생이 `/admin` 열면 `/my`로 / 관리자 계정 만들기 → 목록에 행 → 곡 체크 저장 요청 본문 확인 / 세 페이지 `noindex`
-- [ ] **Step 2: 실패 확인** — `npx playwright test tests/e2e/accounts.spec.ts`
-- [ ] **Step 3: 구현** / **Step 4: 통과 확인** + `npm run build`(check-build 0건)
-- [ ] **Step 5: Commit** — `feat(accounts): login, my page and admin screens`
+- [x] **Step 1: 실패하는 e2e** — 수강생 로그인 → `/my`에 곡 2개 → 재생 / 수강생이 `/admin` 열면 `/my`로 / 관리자 계정 만들기 → 목록에 행 → 곡 체크 저장 요청 본문 확인 / 세 페이지 `noindex`
+- [x] **Step 2: 실패 확인** — `npx playwright test tests/e2e/accounts.spec.ts`
+- [x] **Step 3: 구현** / **Step 4: 통과 확인** + `npm run build`(check-build 0건)
+- [x] **Step 5: Commit** — `feat(accounts): login, my page and admin screens`
 
 ---
 
@@ -197,10 +197,10 @@ CREATE TABLE user_tracks (
 **Interfaces:** `npx tsx scripts/create-admin.ts --login <id> --name <이름> [--birth <연도>]` — 비밀번호를 터미널에서 숨김 입력(두 번)받아 `worker/accounts/password.ts`로 해시하고 `wrangler d1 execute midipro --remote`로 넣는다. 비밀번호는 화면·파일·셸 기록에 남기지 않는다(`--local`로 연습 가능).
 
 - [ ] **Step 1 (원장님): Turnstile 위젯 만들기** — Cloudflare 대시보드 → Turnstile → 위젯 추가(도메인 `midipro.kr`), 사이트 키를 알려주시고, 비밀 키는 `npx wrangler secret put TURNSTILE_SECRET`로 직접 등록
-- [ ] **Step 2 (제가): 원격 D1에 마이그레이션 적용** — `npx wrangler d1 migrations apply midipro --remote` (자동 배포는 마이그레이션을 적용하지 않으므로 main 합치기 **전에** 한다. 새 테이블만 추가하므로 현재 사이트에 영향 없음)
+- [x] **Step 2 (제가): 원격 D1에 마이그레이션 적용** — `npx wrangler d1 migrations apply midipro --remote` (자동 배포는 마이그레이션을 적용하지 않으므로 main 합치기 **전에** 한다. 새 테이블만 추가하므로 현재 사이트에 영향 없음)
 - [ ] **Step 3 (원장님): 첫 관리자 만들기** — `npx tsx scripts/create-admin.ts --login <아이디> --name <이름>` 실행 후 비밀번호 직접 입력
 - [ ] **Step 4: 원장님 승인 후 main에 합치기** → 자동 배포 → 휴대폰에서 로그인 → 수강생 계정 생성 → 곡 연결 → 수강생으로 로그인해 재생
-- [ ] **Step 5: Commit** — `chore(accounts): admin bootstrap script and operations guide`
+- [x] **Step 5: Commit** — `chore(accounts): admin bootstrap script and operations guide`
 
 ---
 
