@@ -17,7 +17,7 @@
 | 월말고사·모의고사 | `src/features/exams/`, `src/pages/exam*` | `worker/exams/` | `docs/areas/exams/` |
 | 블로그 | `src/features/blog/`, `src/pages/blog/`, 원고 `content/blog/` | — | `docs/areas/blog/` |
 
-**공용(모든 영역이 함께 씀 — 바꾸면 전 영역에 영향):** `src/components/`(랙 디자인 부품, 헤더, 플레이어), `src/layouts/`, `src/styles/`, `src/lib/`, `worker/core/`, `worker/index.ts`(라우터).
+**공용(모든 영역이 함께 씀 — 바꾸면 전 영역에 영향):** `src/components/`(패널·버튼 부품, 헤더, 플레이어, 곡 목록), `src/layouts/`, `src/styles/`, `src/lib/`, `worker/core/`, `worker/index.ts`(라우터).
 
 - 한 영역 작업 중 공용 부품을 바꿔야 하면, 바꾸는 이유를 커밋 메시지에 적고 전체 테스트를 돌린다.
 - 각 영역 폴더의 `CLAUDE.md`와 `docs/areas/<영역>/README.md`(현재 상태)를 먼저 읽는다.
@@ -46,4 +46,4 @@ Node는 `~/.local/node/bin`(이 iMac은 Homebrew 없음, Intel).
 - 수강료 금액 게시 금지. 온라인 상담 폼·카카오톡 채널 없음(전화만).
 - 외부 이미지 사용 금지(저작권 경고 이력). 사진은 학원 직접 촬영본만, 그래픽은 코드로 직접 생성.
 - 계정에는 아이디·이름·출생연도·역할만 저장. 연락처 등 추가 금지.
-- 디자인: 랙 하드웨어 + 무광 메탈(질감 B), 강조색 `#5B7CFA → #8F63F0`은 LED 선·진행 바·재생 표시에만. 기준 시안 `docs/project/mockups/`.
+- 디자인: 흑연색 설계도(블루프린트) — 격자·자 눈금·`+` 표시·고정폭 라벨, 음정·주파수 표기(예: `A4 · 440 HZ`), 코드로 그린 장비 선화. 강조색은 신호 주황 `#F25C2A` 하나(주석 상자·전화 상담·재생 표시·튜닝 표기에만). 표기는 실제 의미가 있는 것만(가짜 데이터 금지). 기준 시안 `docs/project/mockups/blueprint-v8.html`.

@@ -1,0 +1,8 @@
+---
+// Pitch ruler: octave marks C1–C8 with their frequencies, spread across the sheet width.
+const octaves = Array.from({ length: 8 }, (_, i) => ({ name: `C${i + 1}`, hz: 32.703 * 2 ** i }));
+const fmt = (hz: number) => (hz < 100 ? hz.toFixed(1) : String(Math.round(hz)));
+---
+<div class="ruler" aria-hidden="true">
+  {octaves.map((o, i) => <span style={`left:${(i / 8) * 100}%`}>{o.name} {fmt(o.hz)}</span>)}
+</div>

@@ -9,19 +9,19 @@ const showAddress = path !== '/location';
   <p class="f__name">{site.name}</p>
   {showAddress && <p>{site.address}</p>}
   <p><a class="mono" href={`tel:${site.phone.replaceAll('-', '')}`} data-call>{site.phone}</a>{showAddress && ` · ${site.hours.weekdays} · ${site.hours.saturday}`}</p>
-  <ul class="f__sns">
+  <ul class="f__links">
     <li><a href={site.links.blog} rel="noopener" target="_blank">네이버 블로그</a></li>
     <li><a href={site.links.instagram} rel="noopener" target="_blank">인스타그램</a></li>
     <li><a href={site.links.youtube} rel="noopener" target="_blank">유튜브</a></li>
     <li><a href="/privacy">개인정보처리방침</a></li>
   </ul>
-  <p class="f__copy">© {year} MIDIPRO</p>
+  <p class="f__copy">© {year} MIDIPRO · SHEET END</p>
 </footer>
 
 <style>
-  .site-footer { margin: 28px 6px 0; padding: 18px var(--gutter) 8px; border-top: 1px solid rgba(255,255,255,.06); box-shadow: 0 -1px 0 #000; font-size: 12px; line-height: 1.7; color: var(--dim); }
-  .f__name { color: var(--mu); }
-  .site-footer a:hover { color: var(--tx); }
-  .f__sns { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px; }
-  .f__copy { margin-top: 8px; font-size: 11px; }
+  .site-footer { position: relative; z-index: 1; padding: 22px var(--gutter) 28px; font-size: 12px; line-height: 1.75; color: var(--ink-4); background: rgba(13, 13, 15, 0.6); }
+  .f__name { color: var(--ink-3); }
+  .site-footer a:hover { color: var(--ink); }
+  .f__links { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px; }
+  .f__copy { margin-top: 10px; font: 400 10px var(--mono); letter-spacing: 0.12em; }
 </style>

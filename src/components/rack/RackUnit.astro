@@ -1,33 +1,19 @@
 ---
-import Screw from './Screw.astro';
-
+// A ruled panel on the drafting sheet. (Name kept from the earlier rack design; tone/size/seed still accepted.)
 interface Props {
   tone?: 'metal' | 'dark';
   size?: 'u1' | 'u2' | 'u3';
   slots?: 0 | 1 | 2;
   seed?: number;
+  label?: string;
   as?: 'section' | 'div' | 'header' | 'nav' | 'footer' | 'article';
   class?: string;
   id?: string;
   [key: string]: unknown;
 }
-const { tone = 'metal', size = 'u2', slots = 0, seed = 0, as: Tag = 'section', class: cls = '', ...rest } = Astro.props;
-// Deterministic screw angles so every build renders the same "hand-tightened" look.
-const angle = (i: number) => ((seed * 37 + i * 53) % 90) - 45;
-const single = size === 'u1';
-// Offset the texture per module so stacked panels don't show the same pattern.
-const texStyle = `--tx-x:${(seed * 137) % 320}px;--tx-y:${(seed * 211) % 320}px`;
+const { tone = 'metal', size = 'u2', slots: _slots, seed: _seed, label, as: Tag = 'section', class: cls = '', ...rest } = Astro.props;
 ---
-<Tag class:list={['ru', `ru--${size}`, tone === 'dark' && 'ru--dark', cls]} style={texStyle} {...rest}>
-  <span class:list={['ear ear--l', single && 'ear--single']} aria-hidden="true">
-    <Screw angle={angle(0)} />
-    {!single && Array.from({ length: slots }).map(() => <i class="slot" />)}
-    {!single && <Screw angle={angle(1)} />}
-  </span>
-  <span class:list={['ear ear--r', single && 'ear--single']} aria-hidden="true">
-    <Screw angle={angle(2)} />
-    {!single && Array.from({ length: slots }).map(() => <i class="slot" />)}
-    {!single && <Screw angle={angle(3)} />}
-  </span>
+<Tag class:list={['ru', `ru--${size}`, tone === 'dark' && 'ru--dark', cls]} {...rest}>
+  {label && <span class="label ru__label">{label}</span>}
   <div class="ru__in"><slot /></div>
 </Tag>

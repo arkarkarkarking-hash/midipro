@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blueprint v8 시안</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Jost:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#16171a; --paper-2:#1b1c20; --ink:#e8e3d9; --ink-2:#b7b2a8; --ink-3:#7d7a74; --ink-4:#4a4946;
+  --line:rgba(232,227,217,.10); --line-2:rgba(232,227,217,.18); --grid:rgba(232,227,217,.045);
+  --sig:#f25c2a; --sig-ink:#1a0d07;
+  --mono:'IBM Plex Mono',ui-monospace,monospace; --sans:'Pretendard Variable',Pretendard,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#0d0d0f}
+body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;padding:28px 16px 60px;display:grid;gap:40px;justify-items:center}
+.cap{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.sig{color:var(--sig)}
+h2.lab{font:500 13px var(--mono);letter-spacing:.12em;color:#8d8a84;width:min(1280px,100%)}
+
+/* ===== sheet ===== */
+.sheet{width:min(1280px,100%);background:var(--paper);border:1px solid var(--line-2);position:relative;overflow:hidden;
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px),
+    linear-gradient(rgba(232,227,217,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(232,227,217,.07) 1px,transparent 1px);
+  background-size:16px 16px,16px 16px,128px 128px,128px 128px;background-position:-1px -1px}
+.sheet::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.18;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* nav row */
+.nav{display:grid;grid-template-columns:1.6fr repeat(5,1fr) 1.1fr;border-bottom:1px solid var(--line-2);background:rgba(22,23,26,.86);position:relative;z-index:2}
+.nav>*{border-left:1px solid var(--line-2);padding:14px 16px 22px;min-height:76px;position:relative}
+.nav>*:first-child{border-left:0;display:flex;align-items:center;gap:12px}
+.nav a{color:inherit;text-decoration:none}
+.nav .item{font:500 12px var(--mono);letter-spacing:.1em;color:var(--ink-2)}
+.nav .item small{display:block;margin-top:4px;font-size:10px;color:var(--ink-4);letter-spacing:.08em}
+.nav .item::after{content:"";position:absolute;right:8px;bottom:8px;width:6px;height:6px;border-right:1px solid var(--ink-4);border-bottom:1px solid var(--ink-4)}
+.nav .call{color:var(--sig);font:500 12px var(--mono);letter-spacing:.1em}
+.nav .call b{display:block;font:500 15px var(--mono);letter-spacing:.04em;margin-top:6px;color:var(--ink)}
+.nav .call .arr{position:absolute;right:14px;bottom:12px;color:var(--sig);font-family:var(--mono)}
+.logo{font:500 17px Jost,sans-serif;letter-spacing:.42em;color:var(--ink)}
+.mark{width:26px;height:26px;border:1px solid var(--ink-2);display:grid;place-items:center;font:500 13px Jost;color:var(--ink)}
+.login{font:500 11px var(--mono);letter-spacing:.1em;color:var(--ink-3);margin-left:auto;border:1px solid var(--line-2);padding:5px 8px}
+
+/* ruler */
+.ruler{height:22px;border-bottom:1px solid var(--line);position:relative;display:flex;align-items:flex-end;padding:0 0 0 0;
+  background:repeating-linear-gradient(90deg,var(--line-2) 0 1px,transparent 1px 8px) bottom/100% 5px no-repeat,
+             repeating-linear-gradient(90deg,var(--ink-4) 0 1px,transparent 1px 64px) bottom/100% 10px no-repeat}
+.ruler span{position:absolute;bottom:9px;font:400 9px var(--mono);color:var(--ink-4);letter-spacing:.06em;transform:translateX(3px)}
+.vruler{position:absolute;top:98px;bottom:0;width:22px;border-right:1px solid var(--line);
+  background:repeating-linear-gradient(0deg,var(--line-2) 0 1px,transparent 1px 8px) right/5px 100% no-repeat}
+.vruler.l{left:0}.vruler.r{right:0;border-right:0;border-left:1px solid var(--line);background-position:left}
+
+/* stage */
+.stage{position:relative;height:560px;margin:0 22px}
+.cross{position:absolute;width:13px;height:13px;color:var(--ink-3)}
+.cross::before,.cross::after{content:"";position:absolute;background:currentColor}
+.cross::before{left:6px;top:0;width:1px;height:13px}.cross::after{top:6px;left:0;height:1px;width:13px}
+.cross.sig{color:var(--sig)}
+.dim{position:absolute;font:400 10px var(--mono);color:var(--ink-3);letter-spacing:.06em;line-height:1.5}
+.dim .sig{color:var(--sig)}
+.frame{position:absolute;left:30%;top:6%;width:52%;height:84%;border-top:1px solid var(--sig);border-right:1px solid rgba(242,92,42,.55)}
+.frame::before{content:"";position:absolute;left:0;top:-4px;width:1px;height:8px;background:var(--sig)}
+.hline{position:absolute;left:0;right:0;border-top:1px dashed var(--line-2)}
+.vline{position:absolute;top:0;bottom:0;border-left:1px dashed var(--line)}
+svg.draw{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:min(860px,82%);height:auto;overflow:visible}
+
+.tag{position:absolute;background:var(--sig);color:var(--sig-ink);padding:9px 12px 10px;width:210px;box-shadow:0 0 0 1px rgba(0,0,0,.4)}
+.tag .k{font:500 10px var(--mono);letter-spacing:.1em;opacity:.8}
+.tag .v{font:700 14px var(--sans);margin-top:4px;letter-spacing:-.01em;line-height:1.35}
+.tag .x{position:absolute;right:6px;top:6px;width:11px;height:11px;border:1px solid rgba(26,13,7,.55);font:500 8px/9px var(--mono);text-align:center}
+.lead{position:absolute;border-top:1px solid var(--sig);transform-origin:0 0}
+.lead::after{content:"";position:absolute;right:-3px;top:-3px;width:5px;height:5px;border:1px solid var(--sig);border-radius:50%;background:var(--paper)}
+
+/* bottom row */
+.bottom{display:grid;grid-template-columns:1.55fr 1fr .62fr;border-top:1px solid var(--line-2);position:relative;z-index:2;background:rgba(22,23,26,.9)}
+.bottom>*{border-left:1px solid var(--line-2);padding:22px 24px}
+.bottom>*:first-child{border-left:0}
+.headline{font-weight:800;font-size:clamp(40px,5.2vw,74px);line-height:.98;letter-spacing:-.055em;color:var(--ink)}
+.headline .cap{display:block;margin-bottom:14px;letter-spacing:.14em}
+.desc{font-size:14px;line-height:1.75;color:var(--ink-2)}
+.desc b{color:var(--ink);font-weight:600}
+.desc .cap{display:block;margin-bottom:10px}
+.cta{display:flex;flex-direction:column;justify-content:space-between;color:var(--sig);text-decoration:none;font:500 12px var(--mono);letter-spacing:.12em}
+.cta .arr{align-self:flex-end;font-size:18px}
+.cta:hover{background:rgba(242,92,42,.07)}
+.ticker{grid-column:2/4;border-top:1px solid var(--line-2);padding:10px 0;overflow:hidden;white-space:nowrap;font:500 11px var(--mono);letter-spacing:.12em;color:var(--ink-3)}
+.ticker div{display:inline-block;animation:tk 38s linear infinite}
+.ticker i{font-style:normal;color:var(--sig);margin:0 14px}
+@keyframes tk{to{transform:translateX(-50%)}}
+.bottom .spacer{grid-column:1/2;border-top:1px solid var(--line-2);padding:10px 24px}
+
+/* music section */
+.sec{border-top:1px solid var(--line-2);display:grid;grid-template-columns:260px 1fr;position:relative;z-index:2}
+.sec>aside{border-right:1px solid var(--line-2);padding:22px 24px}
+.sec>aside h3{font-weight:800;font-size:30px;letter-spacing:-.04em;margin-top:8px}
+.sec>aside p{font-size:13px;color:var(--ink-3);margin-top:8px;line-height:1.6}
+.tabs{display:flex;margin-top:18px;border:1px solid var(--line-2);width:max-content}
+.tabs span{font:500 11px var(--mono);letter-spacing:.08em;padding:7px 12px;color:var(--ink-3)}
+.tabs span+span{border-left:1px solid var(--line-2)}
+.tabs .on{background:var(--ink);color:var(--paper)}
+table{width:100%;border-collapse:collapse}
+th{font:500 10px var(--mono);letter-spacing:.12em;color:var(--ink-4);text-align:left;padding:10px 14px;border-bottom:1px solid var(--line-2)}
+td{padding:12px 14px;border-bottom:1px solid var(--line);font-size:15px}
+td.m{font:400 11px var(--mono);color:var(--ink-3);letter-spacing:.06em}
+tr.now td{background:rgba(242,92,42,.06)}
+tr.now td.t{color:var(--ink)}
+.pbtn{width:30px;height:30px;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--ink-2)}
+tr.now .pbtn{background:var(--sig);border-color:var(--sig);color:var(--sig-ink)}
+.pbtn svg{width:12px;height:12px}
+.meter{display:inline-flex;gap:2px;vertical-align:middle}
+.meter i{width:3px;height:12px;background:var(--ink-4)}
+tr.now .meter i:nth-child(-n+5){background:var(--sig)}
+
+/* player bar */
+.player{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:18px;border-top:1px solid var(--line-2);padding:12px 24px;background:#121315;position:relative;z-index:2}
+.player .t{font-size:14px}.player .t small{display:block;font:400 10px var(--mono);color:var(--ink-3);letter-spacing:.08em;margin-top:2px}
+.prog{height:22px;position:relative;background:repeating-linear-gradient(90deg,var(--line-2) 0 1px,transparent 1px 6px) center/100% 8px no-repeat}
+.prog i{position:absolute;left:0;top:7px;height:8px;width:38%;background:repeating-linear-gradient(90deg,var(--sig) 0 1px,transparent 1px 6px)}
+.prog b{position:absolute;left:38%;top:0;bottom:0;border-left:1px solid var(--sig)}
+.player .tm{font:400 11px var(--mono);color:var(--ink-3)}
+.btns{display:flex}.btns span{width:34px;height:30px;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--ink-2);margin-left:-1px}
+.btns span.on{background:var(--ink);color:var(--paper)}
+.btns svg{width:13px;height:13px}
+
+/* ===== mobile frame ===== */
+.phone{width:390px;border:1px solid var(--line-2);border-radius:40px;overflow:hidden;background:var(--paper);position:relative;height:844px}
+.phone .sheet{border:0;width:100%;height:100%;overflow-y:auto;scrollbar-width:none}
+.m-nav{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line-2);padding:16px 16px 14px;background:rgba(22,23,26,.9)}
+.m-nav .logo{font-size:14px}
+.m-nav .menu{margin-left:auto;width:34px;height:30px;border:1px solid var(--line-2);display:grid;place-items:center}
+.m-nav .menu i{width:14px;border-top:1px solid var(--ink);box-shadow:0 4px 0 -0px var(--ink),0 -4px 0 var(--ink)}
+.m-stage{position:relative;height:300px;margin:0 12px}
+.m-stage svg.draw{width:96%;top:54%}
+.m-tags{display:grid;gap:1px;background:var(--line-2);border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+.m-tags div{background:var(--paper-2);padding:10px 16px;display:grid;grid-template-columns:74px 1fr;gap:10px;align-items:baseline}
+.m-tags .k{font:500 10px var(--mono);color:var(--sig);letter-spacing:.08em}
+.m-tags .v{font-size:13px;color:var(--ink)}
+.m-head{padding:22px 16px 10px}
+.m-head .headline{font-size:44px}
+.m-desc{padding:0 16px 18px;font-size:14px;line-height:1.7;color:var(--ink-2)}
+.m-ticker{border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);padding:9px 0;white-space:nowrap;overflow:hidden;font:500 10px var(--mono);letter-spacing:.12em;color:var(--ink-3)}
+.m-ticker div{display:inline-block;animation:tk 30s linear infinite}.m-ticker i{font-style:normal;color:var(--sig);margin:0 10px}
+.m-bar{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line-2);background:#121315;z-index:5}
+.m-bar a{padding:16px 10px 26px;text-align:center;font:600 14px var(--sans);text-decoration:none;color:var(--ink)}
+.m-bar a.call{background:var(--sig);color:var(--sig-ink)}
+.m-bar a+a{border-left:1px solid var(--line-2)}
+.m-list{padding:4px 16px 140px}
+.m-list h3{font-weight:800;font-size:24px;letter-spacing:-.04em;margin:16px 0 6px}
+.m-row{display:grid;grid-template-columns:30px 1fr auto;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.m-row .t{font-size:15px}.m-row small{display:block;font:400 10px var(--mono);color:var(--ink-3);letter-spacing:.06em;margin-top:2px}
+.m-row.now .pbtn{background:var(--sig);border-color:var(--sig);color:var(--sig-ink)}
+
+.note{width:min(1280px,100%);color:#8d8a84;font-size:13px;line-height:1.8;border-top:1px solid #222;padding-top:18px}
+.note b{color:#e8e3d9}
+@media (max-width:900px){.nav{grid-template-columns:1fr 1fr 1fr}.nav .item:nth-child(n+4){display:none}.bottom{grid-template-columns:1fr}.ticker,.bottom .spacer{grid-column:auto}.sec{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<h2 class="lab">PC — 1280 × 홈</h2>
+<div class="sheet" id="pc">
+  <nav class="nav">
+    <div><span class="mark">M</span><span class="logo">MIDIPRO</span><span class="login">LOGIN</span></div>
+    <a class="item" href="#">입시 결과<small>RESULTS</small></a>
+    <a class="item" href="#">과정 소개<small>COURSES</small></a>
+    <a class="item" href="#">음원<small>MUSIC · 78</small></a>
+    <a class="item" href="#">강사진<small>TEACHERS</small></a>
+    <a class="item" href="#">오시는 길<small>LOCATION</small></a>
+    <a class="call" href="#">전화 상담<b>041-558-3101</b><span class="arr">→</span></a>
+  </nav>
+  <div class="ruler" id="ruler"></div>
+  <div class="vruler l"></div><div class="vruler r"></div>
+  <div class="stage" id="stage">
+    <span class="cross" style="left:6px;top:8px"></span>
+    <span class="cross" style="right:6px;top:8px"></span>
+    <span class="cross" style="left:6px;bottom:8px"></span>
+    <span class="cross" style="right:6px;bottom:8px"></span>
+    <div class="hline" style="top:18%"></div><div class="hline" style="top:86%"></div>
+    <div class="vline" style="left:14%"></div><div class="vline" style="left:86%"></div>
+    <div class="frame"></div>
+    <span class="cross sig" style="left:calc(82% - 6px);top:calc(6% - 6px)"></span>
+    <div class="dim" style="left:calc(82% - 92px);top:calc(6% + 12px);text-align:right">A4 · <span class="sig">440.00 HZ</span><br>−18 dBFS</div>
+    <div class="dim" style="left:16px;top:24%">C3<br>130.81 HZ</div>
+    <div class="dim" style="left:16px;top:70%">C2<br>65.41 HZ</div>
+    <div class="dim" style="right:18px;top:24%;text-align:right">48 kHz<br>24 bit</div>
+    <div class="dim" style="right:18px;top:70%;text-align:right">BPM<br>120.0</div>
+    <svg class="draw" id="draw" viewBox="0 0 900 430" aria-hidden="true"></svg>
+    <div class="lead" style="left:240px;top:398px;width:110px;transform:rotate(-24deg)"></div>
+    <div class="tag" style="left:40px;top:380px"><span class="x">×</span><div class="k">CH-01 · MIDI</div><div class="v">미디·피아노·화성학·음향<br>한 팀이 함께 가르칩니다</div></div>
+    <div class="lead" style="left:820px;top:410px;width:90px;transform:rotate(200deg)"></div>
+    <div class="tag" style="left:820px;top:392px"><span class="x">×</span><div class="k">MONTHLY · TEST</div><div class="v">매달 월말고사,<br>연 2회 모의고사</div></div>
+  </div>
+  <div class="bottom">
+    <div class="headline"><span class="cap">MP-01 · CHEONAN BULDANG · 36.81°N</span>곡으로 합격을<br>만드는 학원.</div>
+    <div class="desc"><span class="cap">SPEC · 01</span>미디·피아노·화성학·음향을 한 팀이 함께 가르치고, 매달 월말고사로 실력을 확인합니다. 그렇게 만든 <b>입시곡을 그대로 공개합니다.</b></div>
+    <a class="cta" href="#">입시곡 듣기<span class="arr">→</span></a>
+    <div class="spacer cap">SHEET 01 / 07 — HOME</div>
+    <div class="ticker"><div id="tk"></div></div>
+  </div>
+  <section class="sec">
+    <aside><span class="cap">CH-02 · MUSIC</span><h3>입시곡</h3><p>학생들이 직접 만든 입시곡과 송캠프 곡을 그대로 공개합니다.</p>
+      <div class="tabs"><span class="on">입시곡</span><span>송캠프</span><span>전체</span></div></aside>
+    <table>
+      <thead><tr><th style="width:60px"></th><th>TITLE</th><th>YEAR</th><th>KEY</th><th>LEVEL</th><th style="text-align:right">LENGTH</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pbtn">▶</span></td><td class="t">김승연 입시곡</td><td class="m">2025</td><td class="m">D MIN</td><td><span class="meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></td><td class="m" style="text-align:right">1:43</td></tr>
+        <tr class="now"><td><span class="pbtn">❚❚</span></td><td class="t">김지현 입시곡</td><td class="m">2025</td><td class="m">A MIN</td><td><span class="meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></td><td class="m" style="text-align:right">1:34</td></tr>
+        <tr><td><span class="pbtn">▶</span></td><td class="t">김혜민 입시곡</td><td class="m">2025</td><td class="m">E♭ MAJ</td><td><span class="meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></td><td class="m" style="text-align:right">1:04</td></tr>
+        <tr><td><span class="pbtn">▶</span></td><td class="t">이승연 입시곡</td><td class="m">2025</td><td class="m">F MAJ</td><td><span class="meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></td><td class="m" style="text-align:right">1:26</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="player">
+    <div class="btns"><span>⏮</span><span class="on">❚❚</span><span>⏭</span><span>≡</span></div>
+    <div class="prog"><i></i><b></b></div>
+    <div class="t">김지현 입시곡<small>2025 · 입시곡 · A MIN</small></div>
+    <div class="tm">0:36 / 1:34</div>
+  </div>
+</div>
+
+<h2 class="lab">MOBILE — 390 × 홈</h2>
+<div class="phone"><div class="sheet">
+  <div class="m-nav"><span class="mark">M</span><span class="logo">MIDIPRO</span><span class="menu"><i></i></span></div>
+  <div class="ruler" id="ruler2"></div>
+  <div class="m-stage">
+    <span class="cross" style="left:2px;top:8px"></span><span class="cross" style="right:2px;top:8px"></span>
+    <span class="cross" style="left:2px;bottom:8px"></span><span class="cross" style="right:2px;bottom:8px"></span>
+    <div class="dim" style="right:4px;top:22px;text-align:right">A4 · <span class="sig">440 HZ</span></div>
+    <div class="dim" style="left:4px;bottom:24px">48 kHz · 24 bit</div>
+    <svg class="draw" id="draw2" viewBox="0 0 900 430" aria-hidden="true"></svg>
+  </div>
+  <div class="m-tags">
+    <div><span class="k">CH-01 · MIDI</span><span class="v">미디·피아노·화성학·음향 연계 수업</span></div>
+    <div><span class="k">MONTHLY</span><span class="v">매달 월말고사, 연 2회 모의고사</span></div>
+  </div>
+  <div class="m-head"><span class="cap">MP-01 · CHEONAN BULDANG</span><div class="headline" style="margin-top:10px">곡으로 합격을<br>만드는 학원.</div></div>
+  <p class="m-desc">미디·피아노·화성학·음향을 한 팀이 함께 가르치고, 매달 월말고사로 실력을 확인합니다. 그렇게 만든 <b style="color:#e8e3d9">입시곡을 그대로 공개합니다.</b></p>
+  <div class="m-ticker"><div id="tk2"></div></div>
+  <div class="m-list"><span class="cap">CH-02 · MUSIC</span><h3>입시곡</h3>
+    <div class="m-row"><span class="pbtn">▶</span><div class="t">김승연 입시곡<small>2025 · D MIN</small></div><span class="cap">1:43</span></div>
+    <div class="m-row now"><span class="pbtn">❚❚</span><div class="t">김지현 입시곡<small>2025 · A MIN</small></div><span class="cap">1:34</span></div>
+    <div class="m-row"><span class="pbtn">▶</span><div class="t">김혜민 입시곡<small>2025 · E♭ MAJ</small></div><span class="cap">1:04</span></div>
+  </div>
+</div>
+<div class="m-bar"><a class="call" href="#">전화 상담</a><a href="#">오시는 길</a></div>
+</div>
+
+<div class="note">
+  <p><b>v8 블루프린트 · 흑연</b> — 흑연색 제도 용지(16px 세부 격자 + 128px 주 격자), 상단 자 눈금과 음정 표기(C1~C8), 모서리 + 표시, 신호 주황(<b>#F25C2A</b>) 하나만 강조색으로 사용. 콘솔·신디사이저·마이크는 코드로 그린 선화(해칭으로 연필 명암).</p>
+  <p>표기 예시: A4 · 440 HZ, −18 dBFS, 48 kHz / 24 bit, BPM 120 — 곡 목록의 KEY·LEVEL은 시안용 예시 값이며 실제로는 데이터가 있을 때만 표시.</p>
+</div>
+
+<script>
+/* ruler labels: pitch names at octave marks */
+for (const [id, w] of [['ruler',1280],['ruler2',390]]) {
+  const r = document.getElementById(id); const n = Math.floor(w/64);
+  const names = ['C1','C2','C3','C4','C5','C6','C7','C8'];
+  for (let i=0;i<n;i++){ if(i%2) continue; const s=document.createElement('span'); s.style.left=(i*64)+'px';
+    const o=names[(i/2)%names.length]; const hz=(32.703*Math.pow(2,(i/2)%8)).toFixed(i<4?1:0); s.textContent=o+' '+hz; r.appendChild(s); }
+}
+const tk='입시곡 공개<i>◆</i>월말고사 매월<i>◆</i>모의고사 연 2회<i>◆</i>송캠프<i>◆</i>음원 발매<i>◆</i>A4 · 440 HZ<i>◆</i>미디 · 피아노 · 화성학 · 음향<i>◆</i>';
+document.getElementById('tk').innerHTML=tk.repeat(4); document.getElementById('tk2').innerHTML=tk.repeat(4);
+
+/* ===== code-drawn studio gear (front elevation, pencil hatching) ===== */
+function draw(svg){
+  const NS='http://www.w3.org/2000/svg', s=(n,a,p=svg)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e;};
+  const INK='#e8e3d9';
+  const defs=s('defs',{});
+  const hat=(id,ang,gap,op)=>{const p=s('pattern',{id,width:gap,height:gap,patternUnits:'userSpaceOnUse',patternTransform:`rotate(${ang})`},defs);s('line',{x1:0,y1:0,x2:0,y2:gap,stroke:INK,'stroke-width':.6,'stroke-opacity':op},p);};
+  hat('h1',45,4,.35);hat('h2',45,3,.55);hat('h3',-45,5,.25);hat('h4',90,3,.4);
+  const g=s('g',{fill:'none',stroke:INK,'stroke-width':1.1,'stroke-linecap':'round','stroke-linejoin':'round'});
+  let seed=3;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  const L=(x1,y1,x2,y2,o=1,w=1.1)=>s('line',{x1,y1,x2,y2,'stroke-opacity':o,'stroke-width':w},g);
+  const R=(x,y,w,h,o=1,fill='none')=>s('rect',{x,y,width:w,height:h,'stroke-opacity':o,fill},g);
+  // ground line
+  L(20,402,880,402,.9,1.4); for(let x=30;x<880;x+=14) L(x,402,x-8,412,.25,.7);
+  // --- desk / console body (perspective-ish front elevation)
+  R(210,250,480,120,.95); R(210,250,480,120,1,'url(#h3)');
+  s('path',{d:'M190 250 L230 200 L670 200 L710 250 Z','stroke-opacity':.95},g);
+  s('path',{d:'M190 250 L230 200 L670 200 L710 250 Z',fill:'url(#h1)',stroke:'none'},g);
+  R(190,250,520,10,.9,'url(#h2)');
+  // channel strips on the sloped top: faders + knobs
+  for(let i=0;i<22;i++){const x=246+i*19.4, y0=206, y1=246; L(x,y0+3,x+(i-11)*.9,y1-2,.18,.6);
+    const fy=228+((i*37)%14)-7; R(x-3+(i-11)*.35,fy,7,5,.9,'#16171a');
+    for(let k=0;k<2;k++) s('circle',{cx:x+(i-11)*.15,cy:212+k*8,r:2.4,'stroke-opacity':.8},g);}
+  // VU meter bridge
+  R(330,160,240,40,.95); R(330,160,240,40,1,'url(#h3)');
+  for(let m=0;m<4;m++){const x=342+m*58; R(x,166,50,28,.9,'#16171a');
+    s('path',{d:`M${x+6} ${190} A 20 20 0 0 1 ${x+44} ${190}`,'stroke-opacity':.7},g);
+    for(let t=0;t<8;t++){const a=Math.PI*(1-.1-t*.1);L(x+25+Math.cos(a)*16,190-Math.sin(a)*16,x+25+Math.cos(a)*19,190-Math.sin(a)*19,.6,.6);}
+    const a=Math.PI*(.62-m*.06); L(x+25,191,x+25+Math.cos(a)*18,191-Math.sin(a)*18,1,1.1);
+    s('line',{x1:x+25,y1:191,x2:x+25+Math.cos(a)*18,y2:191-Math.sin(a)*18,stroke:'#f25c2a','stroke-width':1.2},svg);}
+  // desk legs + drawers
+  R(226,370,14,32,.8,'url(#h2)'); R(660,370,14,32,.8,'url(#h2)');
+  R(300,290,120,60,.6); R(480,290,120,60,.6); L(300,320,420,320,.4); L(480,320,600,320,.4);
+  // --- studio monitors on stands
+  for(const x of [118,724]){ R(x,150,58,92,.95); R(x,150,58,92,1,'url(#h1)');
+    s('circle',{cx:x+29,cy:212,r:19,'stroke-opacity':.95},g); s('circle',{cx:x+29,cy:212,r:19,fill:'url(#h2)',stroke:'none'},g);
+    s('circle',{cx:x+29,cy:212,r:6,fill:'#16171a','stroke-opacity':.9},g); s('circle',{cx:x+29,cy:170,r:7,'stroke-opacity':.9},g);
+    L(x+29,242,x+29,392,.9,2); L(x+8,402,x+29,392,.9); L(x+50,402,x+29,392,.9); }
+  // --- synth keyboard on top of console bridge-right
+  R(470,232,190,0.1,0);
+  // --- condenser mic on boom (left)
+  L(70,402,70,150,.9,1.6); L(60,402,80,402,.9,2); L(70,150,150,110,.9,1.4);
+  s('rect',{x:146,y:78,width:22,height:46,rx:11,'stroke-opacity':.95},g); s('rect',{x:146,y:78,width:22,height:46,rx:11,fill:'url(#h4)',stroke:'none'},g);
+  L(146,100,168,100,.6); s('circle',{cx:157,cy:118,r:14,'stroke-opacity':.4},g);
+  // --- keyboard (front of desk)
+  R(250,372,400,18,.95,'#16171a'); for(let k=0;k<=36;k++){const x=250+k*400/36; L(x,372,x,390,.55,.6); if([1,3,6,8,10].includes(k%12)) R(x-2.6,372,5.2,11,.9,'#e8e3d9');}
+  // pencil sketch jitter strokes
+  for(let i=0;i<70;i++){const x=200+rnd()*500, y=200+rnd()*190; L(x,y,x+6+rnd()*10,y-3-rnd()*6,.08+rnd()*.12,.5);}
+  // dimension line under desk
+  L(210,418,690,418,.5,.7); L(210,412,210,424,.5,.7); L(690,412,690,424,.5,.7);
+  s('text',{x:450,y:430,'text-anchor':'middle',fill:'#7d7a74',stroke:'none','font-family':'IBM Plex Mono','font-size':10,'letter-spacing':1},g).textContent='88 KEYS · 1640 MM';
+}
+draw(document.getElementById('draw')); draw(document.getElementById('draw2'));
+</script>
+</body>
+</html>

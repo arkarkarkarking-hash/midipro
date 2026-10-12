@@ -1,45 +1,71 @@
 ---
-import RackUnit from './rack/RackUnit.astro';
 import Icon from './Icon.astro';
 import logo from '../assets/logo.svg?raw';
 import { visibleNav, isActive } from '../lib/nav';
+import { getSite } from '../lib/content';
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
+const site = getSite();
+const tel = `tel:${site.phone.replaceAll('-', '')}`;
+const items = visibleNav().filter((n) => n.href !== '/');
 ---
-<RackUnit as="header" size="u1" seed={1} class="site-header">
-  <div class="hd">
-    <a href="/" class="hd__logo engrave" aria-label="MIDIPRO 홈"><Fragment set:html={logo} /></a>
-    <div class="hd__right">
-      <span class="pled" aria-hidden="true"></span>
-      <a href="/login" class="key" data-account-link>로그인</a>
-      <details class="hd__menu">
-        <summary class="key" aria-label="메뉴"><Icon name="menu-2" /></summary>
-        <nav aria-label="모바일 메뉴" class="hd__drawer">
-          <ul>
-            {visibleNav().map((n) => (
-              <li><a href={n.href} aria-current={isActive(n.href, path) ? 'page' : undefined}><span class="label">{n.code}</span>{n.label}</a></li>
-            ))}
-          </ul>
-        </nav>
-      </details>
-    </div>
+<header class="hd">
+  <div class="hd__brand">
+    <a href="/" class="hd__logo" aria-label="MIDIPRO 홈"><Fragment set:html={logo} /></a>
+    <a href="/login" class="hd__login" data-account-link>LOGIN</a>
+    <details class="hd__menu">
+      <summary aria-label="메뉴"><Icon name="menu-2" /></summary>
+      <nav aria-label="모바일 메뉴" class="hd__drawer">
+        <ul>
+          {visibleNav().map((n) => (
+            <li><a href={n.href} aria-current={isActive(n.href, path) ? 'page' : undefined}><span class="label">{n.code}</span>{n.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </details>
   </div>
-</RackUnit>
+  <nav class="hd__nav" aria-label="주 메뉴">
+    <a href="/" class="hd__home" aria-current={path === '/' ? 'page' : undefined}>홈</a>
+    {items.map((n) => (
+      <a href={n.href} class="hd__item" aria-current={isActive(n.href, path) ? 'page' : undefined}>{n.label}<small>{n.code}</small></a>
+    ))}
+  </nav>
+  <a href={tel} class="hd__call" data-call>전화 상담<b>{site.phone}</b><span aria-hidden="true">→</span></a>
+</header>
 
 <style>
-  .hd { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-  .hd__logo { width: 112px; color: var(--engrave); }
-  .hd__logo :global(svg) { width: 100%; height: auto; filter: drop-shadow(0 -1px 0 rgba(0,0,0,.85)) drop-shadow(0 1px 0 rgba(255,255,255,.08)); }
-  .hd__right { display: flex; align-items: center; gap: 8px; }
+  .hd { position: relative; z-index: 20; display: flex; border-bottom: 1px solid var(--rule-2); background: rgba(22, 23, 26, 0.92); }
+  .hd__brand { display: flex; align-items: center; gap: 12px; padding: 14px var(--gutter); flex: 1; }
+  .hd__logo { width: 124px; color: var(--ink); }
+  .hd__logo :global(svg) { width: 100%; height: auto; }
+  .hd__login { font: 500 10px var(--mono); letter-spacing: 0.12em; color: var(--ink-3); border: 1px solid var(--rule-2); padding: 4px 7px; margin-left: auto; }
+  .hd__login:hover { color: var(--ink); }
   .hd__menu { position: relative; }
-  .hd__menu summary { list-style: none; padding: 6px 9px; }
+  .hd__menu summary { list-style: none; width: 36px; height: 32px; display: grid; place-items: center; border: 1px solid var(--rule-2); cursor: pointer; }
   .hd__menu summary::-webkit-details-marker { display: none; }
-  .hd__drawer { position: absolute; right: -4px; top: calc(100% + 10px); z-index: 50; width: 220px; padding: 6px; border-radius: 2px;
-    background: linear-gradient(180deg, #232326, #19191b); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 8px 24px rgba(0,0,0,.6); }
+  .hd__menu summary :global(svg) { width: 16px; height: 16px; }
+  .hd__drawer { position: absolute; right: 0; top: calc(100% + 10px); width: 230px; background: var(--paper-2); border: 1px solid var(--rule-2); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55); }
   .hd__drawer ul { list-style: none; }
-  .hd__drawer a { display: flex; align-items: baseline; gap: 12px; padding: 11px 10px; font-size: 15px; border-bottom: 1px solid rgba(0,0,0,.5); box-shadow: 0 1px 0 rgba(255,255,255,.03); }
-  .hd__drawer li:last-child a { border: 0; box-shadow: none; }
-  .hd__drawer .label { width: 34px; }
-  .hd__drawer a[aria-current='page'] { color: #b9b3ff; }
-  .hd__drawer a[aria-current='page'] .label { color: var(--b); }
-  @media (min-width: 1024px) { .hd__menu { display: none; } .hd__logo { width: 128px; } }
+  .hd__drawer a { display: flex; align-items: baseline; gap: 12px; padding: 12px 14px; font-size: 15px; border-bottom: 1px solid var(--rule); }
+  .hd__drawer li:last-child a { border: 0; }
+  .hd__drawer .label { width: 70px; }
+  .hd__drawer a[aria-current='page'] { color: var(--sig); }
+  .hd__nav, .hd__call { display: none; }
+
+  @media (min-width: 1024px) {
+    .hd { min-height: 76px; }
+    .hd__brand { flex: 0 0 22%; border-right: 1px solid var(--rule-2); }
+    .hd__menu { display: none; }
+    .hd__nav { display: flex; flex: 1; }
+    .hd__home { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .hd__item { position: relative; flex: 1; padding: 14px 14px 22px; border-right: 1px solid var(--rule-2); font: 500 13px var(--font); color: var(--ink-2); }
+    .hd__item small { display: block; margin-top: 4px; font: 400 9px var(--mono); letter-spacing: 0.12em; color: var(--ink-4); }
+    .hd__item::after { content: ''; position: absolute; right: 8px; bottom: 8px; width: 6px; height: 6px; border-right: 1px solid var(--ink-4); border-bottom: 1px solid var(--ink-4); }
+    .hd__item:hover { color: var(--ink); background: rgba(232, 227, 217, 0.03); }
+    .hd__item[aria-current='page'] { color: var(--ink); }
+    .hd__item[aria-current='page']::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--sig); }
+    .hd__call { display: block; position: relative; flex: 0 0 15%; padding: 14px 16px; font: 500 11px var(--mono); letter-spacing: 0.12em; color: var(--sig); }
+    .hd__call b { display: block; margin-top: 6px; font: 500 14px var(--mono); letter-spacing: 0.02em; color: var(--ink); }
+    .hd__call span { position: absolute; right: 14px; bottom: 10px; }
+    .hd__call:hover { background: var(--sig-soft); }
+  }
 </style>

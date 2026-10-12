@@ -6,7 +6,7 @@ test('head has canonical, og and json-ld', async ({ request }) => {
   expect(html).toContain('property="og:image"');
   expect(html).toContain('"MusicSchool"');
   expect(html).toContain('"BreadcrumbList"');
-  expect(html).toContain('<meta name="theme-color" content="#111112">');
+  expect(html).toContain('<meta name="theme-color" content="#16171a">');
 });
 
 test('robots and sitemap', async ({ request }) => {

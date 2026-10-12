@@ -3,8 +3,8 @@
   "short_name": "MIDIPRO",
   "start_url": "/",
   "display": "browser",
-  "theme_color": "#111112",
-  "background_color": "#111112",
+  "theme_color": "#16171a",
+  "background_color": "#16171a",
   "icons": [
     {
       "src": "/icon-192.png",

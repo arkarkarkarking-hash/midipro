@@ -5,9 +5,9 @@ import sharp from 'sharp';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const mark = readFileSync(`${ROOT}src/assets/mark.svg`, 'utf8');
-const inner = mark.replace(/^<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '').replace('currentColor', '#ECEBE7');
+const inner = mark.replace(/^<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '').replace('currentColor', '#E8E3D9');
 const icon = (radius: number) =>
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="${radius}" fill="#111112"/>${inner}</svg>`;
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="${radius}" fill="#16171a"/>${inner}</svg>`;
 
 writeFileSync(`${ROOT}public/favicon.svg`, icon(18));
 const png = (size: number, radius = 0) => sharp(Buffer.from(icon(radius))).resize(size, size).png().toBuffer();
@@ -20,8 +20,8 @@ writeFileSync(`${ROOT}public/site.webmanifest`, JSON.stringify({
   short_name: 'MIDIPRO',
   start_url: '/',
   display: 'browser',
-  theme_color: '#111112',
-  background_color: '#111112',
+  theme_color: '#16171a',
+  background_color: '#16171a',
   icons: [
     { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
     { src: '/icon-512.png', sizes: '512x512', type: 'image/png' },

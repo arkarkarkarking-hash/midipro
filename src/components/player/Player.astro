@@ -1,9 +1,8 @@
 ---
-import RackUnit from '../rack/RackUnit.astro';
 import Icon from '../Icon.astro';
 ---
 <div class="player" transition:persist="player" data-testid="mini-player" hidden>
-  <RackUnit as="div" size="u1" seed={3}>
+  <div class="pl__bar">
     <div class="pl__prog" aria-hidden="true"><i data-progress></i></div>
     <div class="pl">
       <span class="pled" aria-hidden="true"></span>
@@ -17,54 +16,53 @@ import Icon from '../Icon.astro';
       <button type="button" class="key pl__btn" data-next aria-label="다음 곡"><Icon name="player-skip-forward" /></button>
       <span class="pl__time mono pl__desk" data-time>0:00</span>
     </div>
-  </RackUnit>
+  </div>
   <audio preload="none" data-audio></audio>
-  <dialog class="sheet" aria-label="재생 목록" data-queue>
-    <div class="sheet__head">
+  <dialog class="qsheet" aria-label="재생 목록" data-queue>
+    <div class="qsheet__head">
       <span class="label">Queue</span>
-      <a href="/music" class="sheet__all" data-close-queue>음원 전체 보기</a>
-      <button type="button" class="key sheet__x" data-close-queue aria-label="닫기"><Icon name="x" /></button>
+      <a href="/music" class="qsheet__all" data-close-queue>음원 전체 보기</a>
+      <button type="button" class="key qsheet__x" data-close-queue aria-label="닫기"><Icon name="x" /></button>
     </div>
-    <ol class="sheet__list" data-queue-list></ol>
+    <ol class="qsheet__list" data-queue-list></ol>
   </dialog>
 </div>
 
 <style>
   .player { position: fixed; left: 0; right: 0; bottom: calc(var(--bottom-h) + env(safe-area-inset-bottom)); z-index: 41; }
   .player[hidden] { display: none; }
-  .player :global(.ru) { margin: 0 6px; }
-  .pl__prog { position: absolute; left: var(--gutter); right: var(--gutter); top: 0; height: 2px; background: var(--display); }
-  .pl__prog i { display: block; height: 2px; width: 0; background: var(--led); }
-  .pl { display: flex; align-items: center; gap: 8px; }
+  .pl__bar { position: relative; max-width: var(--sheet-max); margin: 0 auto; background: var(--paper-3); border-top: 1px solid var(--rule-2); border-left: 1px solid var(--rule-2); border-right: 1px solid var(--rule-2); padding: 0 var(--gutter); }
+  /* progress drawn as a tick ruler */
+  .pl__prog { position: absolute; left: 0; right: 0; top: -1px; height: 6px; background: repeating-linear-gradient(90deg, var(--rule-2) 0 1px, transparent 1px 6px); }
+  .pl__prog i { display: block; height: 6px; width: 0; background: repeating-linear-gradient(90deg, var(--sig) 0 1px, transparent 1px 6px); border-right: 1px solid var(--sig); }
+  .pl { display: flex; align-items: center; gap: 8px; min-height: var(--player-h); }
   .pl__meta { flex: 1; min-width: 0; display: flex; flex-direction: column; text-align: left; }
-  .pl__title { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .pl__sub { font-size: 10px; color: var(--mu); }
-  .pl__btn { min-height: 28px; padding: 4px 8px; }
-  .pl__btn :global(svg) { width: 16px; height: 16px; }
-  .pl__time { font-size: 11px; color: var(--mu); min-width: 84px; text-align: right; }
+  .pl__title { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pl__sub { font-size: 10px; color: var(--ink-3); letter-spacing: 0.06em; }
+  .pl__btn { min-height: 32px; width: 36px; padding: 0; }
+  .pl__btn + .pl__btn { margin-left: -9px; }
+  .pl__btn :global(svg) { width: 14px; height: 14px; }
+  .pl__time { font-size: 11px; color: var(--ink-3); min-width: 90px; text-align: right; }
   .pl__desk { display: none; }
   .player :global(.i-pause) { display: none; }
+  .player [data-toggle] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .player[data-status='playing'] :global(.i-pause), .player[data-status='loading'] :global(.i-pause) { display: block; }
   .player[data-status='playing'] :global(.i-play), .player[data-status='loading'] :global(.i-play) { display: none; }
-  .player[data-status='error'] .pl__sub { color: #ff8a8a; }
-  .player[data-status='error'] .pled { background: #c0392b; }
-  .sheet { margin: auto auto 0; width: min(560px, 100%); max-height: 70vh; border: 0; padding: 0; color: var(--tx);
-    border-radius: 6px 6px 0 0; background: linear-gradient(180deg, #232326, #161618); box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 -12px 40px rgba(0,0,0,.6); }
-  .sheet::backdrop { background: rgba(0,0,0,.55); }
-  .sheet__head { position: sticky; top: 0; display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #1d1d20; border-bottom: 1px solid #000; }
-  .sheet__all { margin-left: auto; font-size: 13px; color: var(--mu); }
-  .sheet__all:hover { color: var(--tx); }
-  .sheet__x { min-height: 30px; padding: 4px 8px; }
-  .sheet__x :global(svg) { width: 16px; height: 16px; }
-  .sheet__list { list-style: none; padding: 4px 16px 20px; overflow-y: auto; }
-  .sheet__list :global(button) { width: 100%; display: grid; grid-template-columns: 30px minmax(0,1fr); gap: 10px; align-items: center; text-align: left; padding: 11px 0; border-bottom: 1px solid rgba(0,0,0,.6); box-shadow: 0 1px 0 rgba(255,255,255,.03); }
-  .sheet__list :global(.q-n) { font-family: var(--mono); font-size: 10px; color: var(--dim); }
-  .sheet__list :global(.q-t) { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sheet__list :global(.q-s) { display: block; font-size: 11px; color: var(--mu); }
-  .sheet__list :global([aria-current='true'] .q-n) { color: var(--b); }
-  .sheet__list :global([aria-current='true'] .q-t) { color: #b9b3ff; }
+  .player[data-status='error'] .pl__sub { color: var(--sig); }
+  .qsheet { margin: auto auto 0; width: min(560px, 100%); max-height: 70vh; border: 1px solid var(--rule-2); padding: 0; color: var(--ink); background: var(--paper-2); box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.6); }
+  .qsheet::backdrop { background: rgba(0, 0, 0, 0.6); }
+  .qsheet__head { position: sticky; top: 0; display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: var(--paper-3); border-bottom: 1px solid var(--rule-2); }
+  .qsheet__all { margin-left: auto; font: 500 11px var(--mono); letter-spacing: 0.08em; color: var(--sig); }
+  .qsheet__x { min-height: 30px; width: 32px; padding: 0; }
+  .qsheet__x :global(svg) { width: 14px; height: 14px; }
+  .qsheet__list { list-style: none; padding: 0 16px 20px; overflow-y: auto; }
+  .qsheet__list :global(button) { width: 100%; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; align-items: center; text-align: left; padding: 11px 0; border-bottom: 1px solid var(--rule); }
+  .qsheet__list :global(.q-n) { font-family: var(--mono); font-size: 10px; color: var(--ink-4); }
+  .qsheet__list :global(.q-t) { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .qsheet__list :global(.q-s) { display: block; font-size: 11px; color: var(--ink-3); }
+  .qsheet__list :global([aria-current='true'] .q-n), .qsheet__list :global([aria-current='true'] .q-t) { color: var(--sig); }
   @media (min-width: 1024px) {
-    .player { bottom: 0; left: 50%; transform: translateX(-50%); width: min(1240px, 100%); padding: 0 12px 8px; }
+    .player { bottom: 0; }
     .pl__desk { display: inline-flex; }
   }
 </style>

@@ -1,60 +1,25 @@
-.ru {
-  position: relative;
-  margin: 0 6px 3px;
-  padding: 0 var(--gutter);
-  border-radius: 2px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015) 55%, rgba(0, 0, 0, 0.2)),
-    var(--tex-scratch) var(--tx-x, 0) var(--tx-y, 0) / 480px repeat,
-    var(--tex-blotch) var(--tx-y, 0) var(--tx-x, 0) / 600px repeat,
-    #1c1c1f;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.7), 0 1px 0 #000, 0 2px 6px rgba(0, 0, 0, 0.5);
-}
-.ru--dark {
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.32)),
-    var(--tex-scratch) var(--tx-x, 0) var(--tx-y, 0) / 480px repeat,
-    var(--tex-blotch) var(--tx-y, 0) var(--tx-x, 0) / 600px repeat,
-    #151517;
-}
-.ru__in { padding: 14px 0; }
-.ru--u1 > .ru__in { padding: 11px 0; }
-.ear {
-  position: absolute; top: 0; bottom: 0; width: var(--ear);
-  display: flex; flex-direction: column; justify-content: space-between; align-items: center;
-  padding: 9px 0;
-}
-.ear--l { left: 2px; }
-.ear--r { right: 2px; }
-.ear::before { content: ''; position: absolute; top: 6px; bottom: 6px; width: 1px; background: rgba(0, 0, 0, 0.55); box-shadow: 1px 0 0 rgba(255, 255, 255, 0.05); }
-.ear--l::before { right: -1px; }
-.ear--r::before { left: -1px; }
-.ear--single { justify-content: center; }
-.screw {
-  width: var(--screw); height: var(--screw); border-radius: 50%; position: relative; flex: none;
-  background: radial-gradient(circle at 35% 30%, #9a9a9e, #4a4a4e 50%, #262628 100%);
-  box-shadow: 0 0 0 1px #0d0d0e, 0 0 0 2px rgba(255, 255, 255, 0.035), 0 1px 1px 1px rgba(0, 0, 0, 0.6);
-}
-.screw::before, .screw::after {
-  content: ''; position: absolute; left: 50%; top: 50%; width: 4px; height: 0.8px; background: #141416;
-  transform: translate(-50%, -50%) rotate(var(--r, 20deg));
-}
-.screw::after { transform: translate(-50%, -50%) rotate(calc(var(--r, 20deg) + 90deg)); }
-.slot { width: 7px; height: 3px; border-radius: 2px; background: #070708; box-shadow: inset 0 1px 1px #000, 0 1px 0 rgba(255, 255, 255, 0.05); }
+/* Panels, buttons and readouts for the blueprint sheet.
+   Class names (.ru, .key, .display) are kept from the earlier rack design so every page keeps working. */
+.ru { position: relative; border-bottom: 1px solid var(--rule-2); padding: 0 var(--gutter); }
+.ru--dark { background: rgba(18, 19, 21, 0.55); }
+.ru__in { position: relative; padding: 22px 0; }
+.ru--u1 > .ru__in { padding: 12px 0; }
+.ru__label { position: absolute; top: 8px; right: var(--gutter); }
 
 .key {
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  min-height: 32px; padding: 6px 12px; border-radius: var(--radius);
-  font-size: 13px; color: var(--tx);
-  background: linear-gradient(180deg, #3a3a3e, #2a2a2d);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 1px 0 #000, 0 2px 3px rgba(0, 0, 0, 0.5);
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 34px; padding: 6px 14px;
+  font: 500 12px var(--mono); letter-spacing: 0.08em; color: var(--ink);
+  border: 1px solid var(--rule-2); background: transparent;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
-.key:active { transform: translateY(1px); box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6); }
-.key--primary { color: #111; background: linear-gradient(180deg, #f0efeb, #c9c7c1); box-shadow: inset 0 1px 0 #fff, 0 1px 0 #000, 0 2px 3px rgba(0, 0, 0, 0.5); }
-.key--lg { min-height: 46px; font-size: 15px; font-weight: 600; padding: 12px 16px; }
-.key svg { width: 18px; height: 18px; }
+.key:hover { border-color: var(--ink-3); background: rgba(232, 227, 217, 0.04); }
+.key:active { transform: translateY(1px); }
+.key--primary { background: var(--sig); border-color: var(--sig); color: var(--sig-ink); }
+.key--primary:hover { background: #ff6b3a; border-color: #ff6b3a; }
+.key--lg { min-height: 46px; font: 600 15px var(--font); letter-spacing: 0; padding: 12px 18px; }
+.key svg { width: 16px; height: 16px; }
 
-.display { border-radius: 2px; background: var(--display); box-shadow: inset 0 1px 3px #000, 0 1px 0 rgba(255, 255, 255, 0.06); padding: 10px; }
-.knurl { height: 5px; background: repeating-linear-gradient(90deg, #3a3a3e 0 1px, #18181a 1px 3px); }
-.pled { width: 6px; height: 6px; border-radius: 50%; background: var(--b); box-shadow: 0 0 0 1px #000; flex: none; }
-.engrave { color: var(--engrave); text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.85), 0 1px 0 rgba(255, 255, 255, 0.08); }
+.display { border: 1px solid var(--rule-2); background: var(--paper-3); padding: 10px; }
+.pled { width: 6px; height: 6px; background: var(--sig); flex: none; }
+.engrave { color: var(--ink); }

@@ -4,12 +4,12 @@ export interface NavItem { href: string; label: string; code: string; hidden?: b
 
 export const NAV: NavItem[] = [
   { href: '/', label: '홈', code: 'HOME' },
-  { href: '/results', label: '입시 결과', code: 'RSLT' },
-  { href: '/courses', label: '과정 소개', code: 'CRSE' },
-  { href: '/music', label: '음원', code: 'MUSC' },
-  { href: '/teachers', label: '강사진', code: 'TCHR', hidden: getTeachers().length === 0 },
-  { href: '/location', label: '오시는 길', code: 'MAP' },
-  { href: '/contact', label: '상담 안내', code: 'CALL' },
+  { href: '/results', label: '입시 결과', code: 'RESULTS' },
+  { href: '/courses', label: '과정 소개', code: 'COURSES' },
+  { href: '/music', label: '음원', code: 'MUSIC' },
+  { href: '/teachers', label: '강사진', code: 'TEACHERS', hidden: getTeachers().length === 0 },
+  { href: '/location', label: '오시는 길', code: 'LOCATION' },
+  { href: '/contact', label: '상담 안내', code: 'CONTACT' },
 ];
 
 export const visibleNav = (): NavItem[] => NAV.filter((n) => !n.hidden);

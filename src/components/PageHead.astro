@@ -1,17 +1,16 @@
 ---
-import RackUnit from './rack/RackUnit.astro';
 interface Props { code: string; title: string; seed?: number }
-const { code, title, seed = 30 } = Astro.props;
+const { code, title } = Astro.props;
 ---
-<RackUnit tone="dark" slots={1} seed={seed}>
-  <div class="ph">
-    <div class="ph__top"><span class="label">{code}</span><span class="led-line"></span></div>
-    <h1 class="page-title">{title}</h1>
-    <slot />
-  </div>
-</RackUnit>
+<section class="ph">
+  <span class="cross" style="left:10px;top:10px" aria-hidden="true"></span>
+  <span class="cross" style="right:10px;top:10px" aria-hidden="true"></span>
+  <div class="ph__top"><span class="label">{code}</span><span class="led-line"></span></div>
+  <h1 class="page-title">{title}</h1>
+  <slot />
+</section>
 <style>
-  .ph { padding: 6px 0 4px; }
+  .ph { position: relative; padding: 34px var(--gutter) 26px; border-bottom: 1px solid var(--rule-2); }
   .ph__top { display: flex; justify-content: space-between; align-items: center; }
-  .ph :global(p) { margin-top: 10px; }
+  .ph :global(p) { margin-top: 12px; max-width: 46em; }
 </style>

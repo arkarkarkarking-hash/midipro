@@ -1,60 +1,140 @@
 ---
 import Base from '../layouts/Base.astro';
-import RackUnit from '../components/rack/RackUnit.astro';
 import FeaturedTrack from '../components/FeaturedTrack.astro';
 import TrackList from '../components/TrackList.astro';
 import { getTracks } from '../lib/tracks';
 import { getResults, getSite } from '../lib/content';
+import { studioDrawingSvg } from '../lib/blueprint-drawing';
 
 const tracks = getTracks();
 const featured = tracks.find((t) => t.featured) ?? tracks[0];
-const latest = tracks.filter((t) => t.category === 'admissions' && t.slug !== featured.slug).slice(0, 4);
+const latest = tracks.filter((t) => t.category === 'admissions' && t.slug !== featured.slug).slice(0, 5);
 const schools = getResults().map((r) => r.school);
 const site = getSite();
+const drawing = studioDrawingSvg();
+const ticker = ['입시곡 공개', '매달 월말고사', '연 2회 모의고사', '송캠프', '음원 발매', '미디 · 피아노 · 화성학 · 음향'];
 ---
 <Base title="" description="천안 불당동 미디 입시 학원 미디프로. 미디·피아노·화성학·음향 연계 수업과 매달 월말고사, 학생들이 만든 입시곡과 송캠프 곡을 공개합니다." path="/">
-  <RackUnit tone="dark" slots={1} seed={2}>
-    <div class="hero">
-      <div class="hero__top"><span class="label">MP-01 · Cheonan Bundang</span><span class="led-line"></span></div>
-      <h1 class="hero__title">곡으로 합격을<br />만드는 학원.</h1>
-      <p class="prose hero__lead">미디·피아노·화성학·음향을 한 팀이 함께 가르치고, 매달 월말고사로 실력을 확인합니다. 그렇게 만든 <b>입시곡을 그대로 공개합니다.</b></p>
+  <section class="stage" aria-label="미디프로 스튜디오">
+    <span class="cross" style="left:12px;top:12px"></span>
+    <span class="cross" style="right:12px;top:12px"></span>
+    <span class="cross" style="left:12px;bottom:12px"></span>
+    <span class="cross" style="right:12px;bottom:12px"></span>
+    <div class="stage__frame" aria-hidden="true"></div>
+    <span class="cross cross--sig stage__mark" aria-hidden="true"></span>
+    <p class="stage__dim stage__dim--tune" aria-hidden="true">A4 · <span class="sig">440.00 HZ</span><br />TUNING REF.</p>
+    <p class="stage__dim stage__dim--fmt" aria-hidden="true">48 kHz<br />24 bit</p>
+    <div class="stage__draw"><Fragment set:html={drawing} /></div>
+    <ul class="tags">
+      <li class="tag tag--a"><span class="tag__k">CH-01 · LESSON</span><span class="tag__v">미디·피아노·화성학·음향<br />한 팀이 함께 가르칩니다</span></li>
+      <li class="tag tag--b"><span class="tag__k">MONTHLY · TEST</span><span class="tag__v">매달 월말고사,<br />연 2회 모의고사</span></li>
+    </ul>
+  </section>
+
+  <section class="lead">
+    <div class="lead__title">
+      <span class="label">MP-01 · Cheonan Buldang · 36.81°N</span>
+      <h1>곡으로 합격을<br />만드는 학원.</h1>
     </div>
-  </RackUnit>
-
-  <FeaturedTrack track={featured} eyebrow="Featured" listId="featured" />
-
-  <RackUnit tone="dark" slots={2} seed={6}>
-    <div class="sec"><h2>음원</h2><a href="/music">전체 보기 →</a></div>
-    <div class="tabs" role="list">
-      <a role="listitem" href="/music#admissions" class="tab tab--on">입시곡</a>
-      <a role="listitem" href="/music#songcamp" class="tab">송캠프</a>
+    <div class="lead__desc">
+      <span class="label">Spec · 01</span>
+      <p class="prose">미디·피아노·화성학·음향을 한 팀이 함께 가르치고, 매달 월말고사로 실력을 확인합니다. 그렇게 만든 <b>입시곡을 그대로 공개합니다.</b></p>
     </div>
-    <TrackList tracks={latest} listId="home-latest" />
-  </RackUnit>
+    <a class="lead__cta" href="/music">입시곡 듣기<span aria-hidden="true">→</span></a>
+    <div class="lead__sheet label">Sheet 01 — Home</div>
+    <div class="ticker" aria-hidden="true"><div>{[0, 1, 2, 3].map(() => ticker.map((t) => <>{t}<i>◆</i></>))}</div></div>
+  </section>
 
-  <RackUnit seed={7}>
-    <div class="sec"><h2>입시 결과</h2><a href="/results">자세히 →</a></div>
-    <p class="schools">{schools.join(' · ')}</p>
-  </RackUnit>
+  <section class="music">
+    <aside class="music__side">
+      <span class="label">CH-02 · Music</span>
+      <h2>입시곡</h2>
+      <p class="prose">학생들이 직접 만든 입시곡과 송캠프 곡을 그대로 공개합니다.</p>
+      <a class="key" href="/music">전체 보기 →</a>
+    </aside>
+    <div class="music__list">
+      <FeaturedTrack track={featured} eyebrow="Featured" listId="featured" />
+      <TrackList tracks={latest} listId="home-latest" />
+    </div>
+  </section>
 
-  <RackUnit tone="dark" size="u1" seed={8}>
-    <p class="slogan">{site.slogan}</p>
-  </RackUnit>
+  <section class="results">
+    <span class="label">CH-03 · Results</span>
+    <div class="results__row">
+      <h2>입시 결과</h2>
+      <p class="results__schools">{schools.join(' · ')}</p>
+      <a class="key" href="/results">자세히 →</a>
+    </div>
+  </section>
+
+  <p class="slogan"><span class="label">Note</span>{site.slogan}</p>
 </Base>
 
 <style>
-  .hero { padding: 12px 0 10px; }
-  .hero__top { display: flex; justify-content: space-between; align-items: center; }
-  .hero__title { font-size: 32px; font-weight: 700; line-height: 1.22; letter-spacing: -0.035em; margin-top: 14px; }
-  .hero__lead { margin-top: 12px; font-size: 14px; }
-  .sec { display: flex; justify-content: space-between; align-items: baseline; }
-  .sec h2 { font-size: 16px; font-weight: 600; }
-  .sec a { font-size: 12px; color: var(--mu); }
-  .tabs { display: flex; gap: 4px; margin: 10px 0 4px; }
-  .tab { font-size: 11px; padding: 5px 9px; border-radius: 2px; color: var(--mu); background: linear-gradient(180deg, #323236, #242427); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 1px 0 #000; }
-  .tab--on { color: var(--tx); background: #141416; box-shadow: inset 0 1px 2px #000; }
-  .tab--on::before { content: ''; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--b); margin-right: 6px; vertical-align: 1px; }
-  .schools { font-size: 13px; color: var(--mu); line-height: 1.7; margin-top: 8px; }
-  .slogan { font-size: 13px; color: var(--mu); text-align: center; }
-  @media (min-width: 768px) { .hero__title { font-size: 44px; } .hero__lead { font-size: 16px; max-width: 34em; } }
+  .stage { position: relative; height: clamp(320px, 46vw, 580px); border-bottom: 1px solid var(--rule-2); overflow: hidden; }
+  .stage__frame { position: absolute; left: 31%; top: 7%; width: 51%; height: 82%; border-top: 1px solid var(--sig); border-right: 1px solid rgba(242, 92, 42, 0.5); }
+  .stage__mark { left: calc(82% - 6px); top: calc(7% - 6px); }
+  .stage__dim { position: absolute; font: 400 10px var(--mono); line-height: 1.5; letter-spacing: 0.06em; color: var(--ink-3); }
+  .stage__dim--tune { right: calc(18% + 10px); top: calc(7% + 10px); text-align: right; }
+  .stage__dim--fmt { right: 30px; bottom: 9%; text-align: right; }
+  .stage__draw { position: absolute; left: 50%; top: 53%; transform: translate(-50%, -50%); width: min(880px, 92%); }
+  .stage__draw :global(svg) { width: 100%; height: auto; }
+  .tags { list-style: none; }
+  .tag { position: absolute; width: 214px; padding: 9px 12px 11px; background: var(--sig); color: var(--sig-ink); }
+  .tag::before { content: '×'; position: absolute; right: 6px; top: 5px; width: 11px; height: 11px; border: 1px solid rgba(26, 13, 7, 0.5); font: 500 8px/9px var(--mono); text-align: center; }
+  .tag__k { display: block; font: 500 10px var(--mono); letter-spacing: 0.1em; opacity: 0.8; }
+  .tag__v { display: block; margin-top: 4px; font-size: 14px; font-weight: 700; line-height: 1.35; }
+  .tag--a { left: 4%; top: 62%; }
+  .tag--b { right: 3%; top: 21%; }
+  .tag--a::after, .tag--b::after { content: ''; position: absolute; top: 50%; height: 1px; background: var(--sig); }
+  .tag--a::after { left: 100%; width: 70px; transform: rotate(-22deg); transform-origin: left; }
+  .tag--b::after { right: 100%; width: 250px; transform: rotate(-20deg); transform-origin: right; }
+
+  .lead { display: grid; grid-template-columns: 1.55fr 1fr 0.6fr; border-bottom: 1px solid var(--rule-2); background: rgba(22, 23, 26, 0.85); }
+  .lead > * { padding: 22px var(--gutter); }
+  .lead > * + * { border-left: 1px solid var(--rule-2); }
+  .lead h1 { margin-top: 12px; font-size: clamp(40px, 5.4vw, 76px); font-weight: 800; line-height: 0.98; letter-spacing: -0.055em; }
+  .lead__desc .prose { margin-top: 10px; font-size: 14px; }
+  .lead__cta { display: flex; flex-direction: column; justify-content: space-between; font: 500 12px var(--mono); letter-spacing: 0.12em; color: var(--sig); }
+  .lead__cta span { align-self: flex-end; font-size: 20px; }
+  .lead__cta:hover { background: var(--sig-soft); }
+  .lead__sheet { border-top: 1px solid var(--rule-2); padding-top: 10px !important; padding-bottom: 10px !important; border-left: 0 !important; }
+  .ticker { grid-column: 2 / 4; border-top: 1px solid var(--rule-2); padding: 10px 0 !important; overflow: hidden; white-space: nowrap; font: 500 11px var(--mono); letter-spacing: 0.1em; color: var(--ink-3); }
+  .ticker div { display: inline-block; animation: tick 40s linear infinite; }
+  .ticker i { font-style: normal; color: var(--sig); margin: 0 14px; }
+  @keyframes tick { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .ticker div { animation: none; } }
+
+  .music { display: grid; grid-template-columns: 260px minmax(0, 1fr); border-bottom: 1px solid var(--rule-2); }
+  .music__side { padding: 22px var(--gutter); border-right: 1px solid var(--rule-2); display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+  .music__side h2, .results h2 { font-size: 30px; font-weight: 800; letter-spacing: -0.04em; }
+  .music__side .prose { font-size: 13px; }
+  .music__list { padding: 0 var(--gutter) 10px; }
+  .music__list :global(.ru) { border-bottom: 1px solid var(--rule); padding: 0; }
+
+  .results { padding: 22px var(--gutter); border-bottom: 1px solid var(--rule-2); }
+  .results__row { display: grid; grid-template-columns: 236px minmax(0, 1fr) auto; gap: 24px; align-items: center; margin-top: 6px; }
+  .results__schools { font-size: 14px; line-height: 1.7; color: var(--ink-2); }
+  .slogan { display: flex; gap: 16px; align-items: baseline; padding: 18px var(--gutter); font-size: 13px; color: var(--ink-3); border-bottom: 1px solid var(--rule-2); }
+
+  @media (max-width: 1023px) {
+    .stage__frame, .stage__mark, .stage__dim--fmt { display: none; }
+    .stage__dim--tune { right: 18px; top: 16px; }
+    .stage__draw { width: 100%; top: 52%; }
+    .tags { display: grid; position: absolute; left: 0; right: 0; bottom: 0; }
+    .tag { position: static; width: auto; display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: baseline; padding: 8px var(--gutter); background: var(--paper-2); color: var(--ink); border-top: 1px solid var(--rule-2); }
+    .tag::before, .tag::after { display: none; }
+    .tag__k { color: var(--sig); opacity: 1; }
+    .tag__v { margin: 0; font-size: 13px; font-weight: 500; }
+    .tag__v br { display: none; }
+    .stage { height: auto; aspect-ratio: auto; padding-top: 56%; padding-bottom: 76px; }
+    .lead { grid-template-columns: 1fr; }
+    .lead > * + * { border-left: 0; border-top: 1px solid var(--rule-2); }
+    .lead__cta { flex-direction: row; align-items: center; }
+    .lead__sheet { display: none; }
+    .ticker { grid-column: auto; }
+    .music { grid-template-columns: 1fr; }
+    .music__side { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .results__row { grid-template-columns: 1fr; gap: 10px; }
+  }
 </style>

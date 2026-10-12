@@ -1,27 +1,37 @@
+/* Blueprint (graphite drafting sheet) design tokens.
+   Older names (--tx, --mu, --dim, --b, --display, --panel-mid) are kept as aliases:
+   account screens (src/features/accounts) style themselves with them. */
 :root {
-  --bg: #111112;
-  --rail: #0e0e0f;
-  --panel-hi: #2a2a2d;
-  --panel-mid: #1e1e21;
-  --panel-lo: #1a1a1c;
-  --panel-dark-hi: #1b1b1d;
-  --panel-dark-lo: #141416;
-  --display: #0a0a0b;
-  --line: #2b2b2e;
-  --tx: #ecebe7;
-  --mu: #8e8c87;
-  --dim: #5f5e5a;
-  --engrave: #c4c2bc;
-  --b: #5b7cfa;
-  --v: #8f63f0;
-  --led: linear-gradient(90deg, var(--b), var(--v));
-  --ear: 16px;
-  --screw: 6px;
-  --radius: 3px;
-  --gutter: 22px;
+  --paper: #16171a;
+  --paper-2: #1b1c20;
+  --paper-3: #121315;
+  --ink: #e8e3d9;
+  --ink-2: #b7b2a8;
+  --ink-3: #85827b;
+  --ink-4: #55534f;
+  --rule: rgba(232, 227, 217, 0.1);
+  --rule-2: rgba(232, 227, 217, 0.2);
+  --grid: rgba(232, 227, 217, 0.045);
+  --grid-major: rgba(232, 227, 217, 0.075);
+  --sig: #f25c2a;
+  --sig-ink: #1a0d07;
+  --sig-soft: rgba(242, 92, 42, 0.08);
+
+  --tx: var(--ink);
+  --mu: var(--ink-2);
+  --dim: var(--ink-3);
+  --b: var(--sig);
+  --v: var(--sig);
+  --led: var(--sig);
+  --display: var(--paper-3);
+  --panel-mid: var(--paper-2);
+  --radius: 0px;
+  --gutter: 20px;
+  --sheet-max: 1280px;
+
   --font: 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, monospace;
-  --bottom-h: 72px;
-  --player-h: 52px;
+  --bottom-h: 64px;
+  --player-h: 56px;
   color-scheme: dark;
 }

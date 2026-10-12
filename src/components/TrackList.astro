@@ -25,20 +25,20 @@ const queue = tracks.map(toQueueItem);
 
 <style>
   .tl { list-style: none; }
-  li { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,.6); box-shadow: 0 1px 0 rgba(255,255,255,.035); }
-  li:last-child { border: 0; box-shadow: none; }
-  .tl__play { width: 40px; height: 40px; min-height: 40px; padding: 0; }
-  .tl__play :global(svg) { width: 16px; height: 16px; }
+  li { display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--rule); }
+  li:last-child { border-bottom: 0; }
+  .tl__play { width: 36px; height: 36px; min-height: 36px; padding: 0; color: var(--ink-2); }
+  .tl__play :global(svg) { width: 14px; height: 14px; }
   .tl__play :global(.i-pause) { display: none; }
-  li[data-playing='true'] .tl__play { color: #111; background: linear-gradient(180deg, #f0efeb, #c9c7c1); }
+  li[data-playing='true'] .tl__play { background: var(--sig); border-color: var(--sig); color: var(--sig-ink); }
   li[data-playing='true'] .tl__play :global(.i-play) { display: none; }
   li[data-playing='true'] .tl__play :global(.i-pause) { display: block; }
+  li[aria-current='true'] { background: var(--sig-soft); }
   .tl__meta { min-width: 0; display: flex; flex-direction: column; }
   .tl__title { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .tl__title:hover { text-decoration: underline; text-underline-offset: 3px; }
-  .tl__sub { font-size: 11px; color: var(--mu); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .tl__ch { color: var(--dim); }
-  .tl__dur { font-size: 11px; color: var(--dim); }
-  li[aria-current='true'] .tl__ch { color: var(--b); }
-  li[aria-current='true'] .tl__title { color: #b9b3ff; }
+  .tl__title:hover { color: var(--sig); }
+  .tl__sub { font: 400 10px var(--mono); letter-spacing: 0.06em; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tl__ch { color: var(--ink-4); }
+  .tl__dur { font: 400 11px var(--mono); color: var(--ink-3); }
+  li[aria-current='true'] .tl__ch, li[aria-current='true'] .tl__title { color: var(--sig); }
 </style>
