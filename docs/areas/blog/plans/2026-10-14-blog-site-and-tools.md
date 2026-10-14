@@ -144,9 +144,9 @@
     마지막 줄: https://midipro.kr/blog/<slug>
     ```
   - `naver.ts`: `parseNaver(src: string): { title: string; tags: string[]; photos: number; body: string }`; `naverProblems(n, slug): { errors: string[]; warnings: string[] }`; `naverBodyLength(body): number` (공백 포함, 마크다운 기호·사진 자리 제외).
-- 검사 규칙: errors = 금지어(`NAVER_BANNED`), 숫자 요약, 금액, 외부 링크 2개 이상, 링크가 `https://midipro.kr/blog/<slug>`가 아님, 사진 자리 번호가 1..photos를 빠짐·중복 없이 한 번씩 쓰지 않음, 이미지 마크다운(`![`) 사용. warnings = 본문 800자 미만·1,200자 초과, 소제목 3~4개 아님.
+- 검사 규칙: errors = 금지어(`NAVER_BANNED`), 숫자 요약, 금액, 외부 링크 2개 이상, 링크가 있는데 `https://midipro.kr/blog/<slug>`가 아님(링크 0개는 허용 — 홈페이지 글보다 먼저 올리는 경우), 사진 자리 번호가 1..photos를 빠짐·중복 없이 한 번씩 쓰지 않음, 이미지 마크다운(`![`) 사용, **본문 800자 미만·1,200자 초과 (원장님 지시 2026-10-14: 목표치는 항상 채운다)**. warnings = 소제목 3~4개 아님.
 
-- [ ] **Step 1: 테스트 작성** — 위 규칙마다 1개씩: "추천" 포함 → error, `[[사진 01]]`·`[[사진 03]]`에 `photos: 3` → error(02 빠짐), 외부 링크 `https://blog.naver.com/x` → error, 정상 원고 → errors 0, 700자 → warning만.
+- [ ] **Step 1: 테스트 작성** — 위 규칙마다 1개씩: "추천" 포함 → error, `[[사진 01]]`·`[[사진 03]]`에 `photos: 3` → error(02 빠짐), 외부 링크 `https://blog.naver.com/x` → error, 정상 원고 → errors 0, 700자 → error, 1,300자 → error, 소제목 2개 → warning만.
 - [ ] **Step 2: FAIL 확인**
 - [ ] **Step 3: `copy-rules.ts`·`naver.ts` 구현, `check-build.ts`가 `BANNED`·`NUMERIC_SUMMARY`를 `copy-rules.ts`에서 가져오게 변경** (동작 동일)
 - [ ] **Step 4: `check-blog.ts`** — 인자 없으면 `content/blog/naver/*.md` 전부, 인자 있으면 그 파일. 파일별로 errors/warnings 출력, error 있으면 exit 1. 같은 slug의 홈페이지 원고(`content/blog/<slug>.md`)가 없으면 error. 홈페이지 원고 본문에도 `copyProblems(BANNED)`를 돌린다(초안은 빌드 검사를 안 거치므로).
