@@ -19,7 +19,9 @@ test('robots and sitemap', async ({ request }) => {
   expect(sm).not.toContain('/404');
 });
 
-test('rss lists tracks', async ({ request }) => {
+test('rss lists blog posts and tracks, newest 30, no trailing slash', async ({ request }) => {
   const rss = await (await request.get('/rss.xml')).text();
-  expect((rss.match(/<item>/g) ?? []).length).toBe(20);
+  expect((rss.match(/<item>/g) ?? []).length).toBe(30);
+  expect(rss).toContain('https://midipro.kr/music/');
+  expect(rss).not.toMatch(/<link>https:\/\/midipro\.kr\/[^<]+\/<\/link>/);
 });

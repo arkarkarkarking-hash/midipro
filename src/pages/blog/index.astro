@@ -1,0 +1,51 @@
+---
+import Base from '../../layouts/Base.astro';
+import RackUnit from '../../components/rack/RackUnit.astro';
+import PostCard from '../../features/blog/PostCard.astro';
+import { CATEGORY_LABEL, type BlogCategory } from '../../features/blog/posts';
+import { getPosts } from '../../features/blog/collection';
+
+const posts = await getPosts();
+const filters: { value: BlogCategory | 'all'; label: string }[] = [
+  { value: 'all', label: '전체' },
+  { value: 'field', label: CATEGORY_LABEL.field },
+  { value: 'guide', label: CATEGORY_LABEL.guide },
+];
+---
+<Base title="블로그" description="미디프로 수업 현장과 미디 입시 정보를 정리한 블로그입니다. 매주 월·수·금에 새 글을 올립니다." path="/blog">
+  <RackUnit tone="dark" size="u1" seed={70}>
+    <div class="bh">
+      <h1 class="bh__title">블로그</h1>
+      <div class="bh__tabs" role="group" aria-label="글 분류">
+        {filters.map((f, i) => <button type="button" class="tab" data-filter={f.value} aria-pressed={i === 0 ? 'true' : 'false'}>{f.label}</button>)}
+      </div>
+    </div>
+  </RackUnit>
+  <RackUnit slots={2} seed={71}>
+    {posts.length === 0 ? <p class="muted">첫 글을 준비하고 있습니다.</p> : <div class="bl">{posts.map((p) => <PostCard post={p} />)}</div>}
+  </RackUnit>
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  buttons.forEach((b) =>
+    b.addEventListener('click', () => {
+      const f = b.dataset.filter;
+      buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      document.querySelectorAll<HTMLElement>('[data-post]').forEach((card) => {
+        card.hidden = f !== 'all' && card.dataset.category !== f;
+      });
+    }),
+  );
+</script>
+
+<style>
+  .bh { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .bh__title { font-size: 18px; font-weight: 700; }
+  .bh__tabs { display: flex; gap: 4px; }
+  .tab { font-size: 11px; padding: 5px 9px; border: 0; border-radius: 2px; cursor: pointer; color: var(--mu); background: linear-gradient(180deg, #323236, #242427); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 1px 0 #000; }
+  .tab[aria-pressed='true'] { color: var(--ink); }
+  .bl { display: grid; gap: 0 24px; }
+  .bl :global(.pc:first-child) { padding-top: 0; }
+  @media (min-width: 1024px) { .bl { grid-template-columns: 1fr 1fr; } .bl :global(.pc:nth-child(2)) { padding-top: 0; } }
+</style>
