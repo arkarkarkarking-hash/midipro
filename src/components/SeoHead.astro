@@ -10,6 +10,7 @@ const site = getSite();
 const crumbs = path === '/' ? [] : [
   { name: '홈', url: absolute('/') },
   ...(path.startsWith('/music/') ? [{ name: '음원', url: absolute('/music') }] : []),
+  ...(path.startsWith('/blog/') ? [{ name: '블로그', url: absolute('/blog') }] : []),
   { name: title || site.name, url: canonical },
 ];
 const ld = [schoolJsonLd(site), ...(crumbs.length ? [breadcrumbJsonLd(crumbs)] : []), ...jsonLd];

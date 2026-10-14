@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { publishedPosts, type PostMeta } from './blog';
+import { publishedPosts, type PostMeta } from './posts';
 
 export const toMeta = (e: CollectionEntry<'blog'>): PostMeta => ({ slug: e.id, ...e.data });
 

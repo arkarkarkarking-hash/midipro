@@ -1,5 +1,6 @@
 import type { Site } from './content';
 import type { Track } from './tracks';
+import { dateLabel, type PostMeta } from '../features/blog/posts';
 
 export const ORIGIN = 'https://midipro.kr';
 const SITE_NAME = '미디프로실용음악학원';
@@ -53,5 +54,20 @@ export function breadcrumbJsonLd(items: { name: string; url: string }[]): object
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.name, item: it.url })),
+  };
+}
+
+export function articleJsonLd(p: PostMeta, url: string, image: string): object {
+  const org = { '@type': 'EducationalOrganization', name: SITE_NAME };
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: p.title,
+    description: p.description,
+    datePublished: dateLabel(p.date).replaceAll('.', '-'),
+    image: image.startsWith('http') ? image : absolute(image),
+    author: org,
+    publisher: org,
+    mainEntityOfPage: url,
   };
 }

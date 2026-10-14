@@ -1,0 +1,21 @@
+---
+import { CATEGORY_LABEL, dateLabel, postOgImage, type PostMeta } from './posts';
+interface Props { post: PostMeta }
+const { post } = Astro.props;
+---
+<a href={`/blog/${post.slug}`} class="pc" data-post data-category={post.category}>
+  <img src={postOgImage(post)} alt={post.title} loading="lazy" width="1200" height="630" class="pc__img" />
+  <span class="label mono pc__meta">{dateLabel(post.date)} · {CATEGORY_LABEL[post.category]}</span>
+  <span class="pc__title">{post.title}</span>
+  <span class="pc__desc">{post.description}</span>
+</a>
+
+<style>
+  .pc { display: grid; gap: 6px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  .pc[hidden] { display: none; }
+  .pc__img { width: 100%; height: auto; aspect-ratio: 1200 / 630; object-fit: cover; border: 1px solid var(--rule-2); }
+  .pc__meta { margin-top: 4px; }
+  .pc__title { font-size: 17px; font-weight: 600; color: var(--ink); }
+  .pc__desc { font-size: 14px; color: var(--ink-2); }
+  .pc:hover .pc__title { color: var(--sig); }
+</style>

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { BlogFrontmatter, postOgImage, publishedPosts, relatedPosts, type PostMeta } from '../../src/lib/blog';
+import { BlogFrontmatter, postOgImage, publishedPosts, relatedPosts, type PostMeta } from '../../src/features/blog/posts';
 
 const post = (slug: string, date: string, category: PostMeta['category'], extra: Partial<PostMeta> = {}): PostMeta => ({
   slug, title: slug, description: 'd', date: new Date(date), category, tags: [], draft: false, ...extra,
