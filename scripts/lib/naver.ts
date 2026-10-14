@@ -43,3 +43,23 @@ export function naverProblems(n: NaverDoc, slug: string): { errors: string[]; wa
   if (heads < 3 || heads > 4) warnings.push(`소제목 ${heads}개 (권장 3~4개)`);
   return { errors, warnings };
 }
+
+const esc = (s: string) => s.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
+
+// Clean HTML for pasting into Naver SmartEditor: only <h2> <p> <b> <br> (and <img> for the site preview), no attributes besides img src/alt.
+export function naverHtml(body: string, opts: { images?: boolean } = {}): string {
+  return body
+    .trim()
+    .split(/\n\s*\n/)
+    .map((block) => {
+      const b = block.trim();
+      const photo = b.match(/^\[\[사진 (\d+)\]\]$/);
+      if (photo) return `<p>📷 사진 ${photo[1]}</p>`;
+      const img = b.match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
+      if (img && opts.images) return `<p><img alt="${esc(img[1])}" src="${esc(img[2])}"></p>`;
+      if (b.startsWith('## ')) return `<h2>${esc(b.slice(3))}</h2>`;
+      const lines = b.split('\n').map((l) => esc(l.trim().replace(/^- /, '• ')).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>'));
+      return `<p>${lines.join('<br>')}</p>`;
+    })
+    .join('');
+}

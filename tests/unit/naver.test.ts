@@ -39,3 +39,19 @@ describe('naverProblems', () => {
     expect(r.warnings.join()).toMatch(/소제목/);
   });
 });
+
+describe('naverHtml', async () => {
+  const { naverHtml } = await import('../../scripts/lib/naver');
+  test('headings, paragraphs, bold and photo markers only', () => {
+    expect(naverHtml('## 소제목\n\n첫 줄\n둘째 **굵게**\n\n[[사진 01]]')).toBe('<h2>소제목</h2><p>첫 줄<br>둘째 <b>굵게</b></p><p>📷 사진 01</p>');
+  });
+  test('escapes html and adds no attributes', () => {
+    const out = naverHtml('<script>alert(1)</script>\n\nhttps://midipro.kr/blog/x');
+    expect(out).toContain('&lt;script&gt;');
+    expect(out).not.toMatch(/class=|style=|<a /);
+  });
+  test('images only with the images option', () => {
+    expect(naverHtml('![작업실](https://media.midipro.kr/blog/a/01.jpg)', { images: true })).toBe('<p><img alt="작업실" src="https://media.midipro.kr/blog/a/01.jpg"></p>');
+    expect(naverHtml('![작업실](https://media.midipro.kr/blog/a/01.jpg)')).not.toContain('<img');
+  });
+});
