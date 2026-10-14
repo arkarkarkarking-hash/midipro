@@ -8,7 +8,8 @@
     "preview": "astro preview",
     "test": "vitest run && vitest run -c vitest.workers.config.ts",
     "assets": "tsx scripts/build-logo.ts && tsx scripts/build-icons.ts",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "check:blog": "tsx scripts/check-blog.ts"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",

@@ -2,6 +2,7 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { parse } from 'node-html-parser';
+import { BANNED, NUMERIC_SUMMARY } from './lib/copy-rules';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const DIST = join(ROOT, 'dist');
@@ -9,7 +10,6 @@ const tracks: { title: string; team?: string }[] = JSON.parse(readFileSync(join(
 const site = JSON.parse(readFileSync(join(ROOT, 'src/data/site.json'), 'utf8'));
 // Track titles and team names are student work, not site copy: exempt them from the word ban.
 const exempt = [...new Set(tracks.flatMap((t) => [t.title, t.team ?? '']).filter(Boolean))].sort((a, b) => b.length - a.length);
-const BANNED = ['합격곡', '1등', '최고'];
 const PRIVATE = ['/admin', '/my', '/login'];
 
 const walk = (dir: string): string[] =>
@@ -47,7 +47,7 @@ for (const file of pages) {
   let text = main?.text ?? '';
   for (const e of exempt) text = text.split(e).join('');
   for (const w of BANNED) if (text.includes(w)) fail(`banned word "${w}"`);
-  if (/\d+\s*(곳|건)/.test(text)) fail('numeric result summary');
+  if (NUMERIC_SUMMARY.test(text)) fail('numeric result summary');
 
   if (!noindex) for (const a of doc.querySelectorAll('a[href]')) if (PRIVATE.some((p) => a.getAttribute('href') === p) && !a.hasAttribute('data-account-link')) fail(`links to private ${a.getAttribute('href')}`);
   for (const img of doc.querySelectorAll('img')) if (!img.hasAttribute('alt')) fail('img without alt');
