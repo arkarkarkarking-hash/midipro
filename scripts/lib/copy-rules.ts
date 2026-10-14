@@ -10,3 +10,10 @@ export function copyProblems(text: string, banned: string[]): string[] {
   if (PRICE.test(text)) out.push('금액 표기 (N원)');
   return out;
 }
+
+// Images must be served by the site itself or our media bucket (no external images — copyright history).
+export function imageSrcProblem(src: string): string | null {
+  if (src.startsWith('/') && !src.startsWith('//')) return null;
+  if (src.startsWith('https://media.midipro.kr/')) return null;
+  return `external image ${src}`;
+}

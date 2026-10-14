@@ -12,6 +12,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, 
 import { tmpdir } from 'node:os';
 import { extname, join } from 'node:path';
 import { processPhoto } from './lib/photo';
+import { BLOG_CACHE_CONTROL, sameObject } from './lib/r2';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const BUCKET = 'midipro-audio';
@@ -73,10 +74,10 @@ if (argv.includes('--upload')) {
   for (const f of readdirSync(out).filter((f) => f.endsWith('.jpg')).sort()) {
     const key = `blog/${slug}/${f}`;
     const local = join(out, f);
-    const head = await fetch(`${BASE}/${key}`, { method: 'HEAD' });
-    if (head.ok && Number(head.headers.get('content-length')) === statSync(local).size) continue;
+    const head = await fetch(`${BASE}/${key}`, { method: 'HEAD', cache: 'no-store' });
+    if (head.ok && sameObject(readFileSync(local), head.headers.get('etag'))) continue;
     execFileSync('npx', ['wrangler', 'r2', 'object', 'put', `${BUCKET}/${key}`, '--file', local,
-      '--content-type', 'image/jpeg', '--cache-control', 'public, max-age=31536000, immutable', '--remote'], { stdio: 'inherit' });
+      '--content-type', 'image/jpeg', '--cache-control', BLOG_CACHE_CONTROL, '--remote'], { stdio: 'inherit' });
   }
   for (const f of readdirSync(out).filter((f) => f.endsWith('.jpg')).sort()) console.log(`${BASE}/blog/${slug}/${f}`);
 }

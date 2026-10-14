@@ -2,7 +2,7 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { parse } from 'node-html-parser';
-import { BANNED, NUMERIC_SUMMARY } from './lib/copy-rules';
+import { BANNED, NUMERIC_SUMMARY, imageSrcProblem } from './lib/copy-rules';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const DIST = join(ROOT, 'dist');
@@ -51,6 +51,10 @@ for (const file of pages) {
 
   if (!noindex) for (const a of doc.querySelectorAll('a[href]')) if (PRIVATE.some((p) => a.getAttribute('href') === p) && !a.hasAttribute('data-account-link')) fail(`links to private ${a.getAttribute('href')}`);
   for (const img of doc.querySelectorAll('img')) if (!img.hasAttribute('alt')) fail('img without alt');
+  for (const img of doc.querySelectorAll('img')) {
+    const problem = imageSrcProblem(img.getAttribute('src') ?? '');
+    if (problem) fail(problem);
+  }
 }
 
 const home = parse(readFileSync(join(DIST, 'index.html'), 'utf8')).text;
