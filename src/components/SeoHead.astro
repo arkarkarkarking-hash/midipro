@@ -6,6 +6,9 @@ interface Props { title: string; description: string; path: string; noindex?: bo
 const { title, description, path, noindex, ogImage = '/og/default.png', jsonLd = [] } = Astro.props;
 const fullTitle = pageTitle(title);
 const canonical = absolute(path);
+// A blog cover is already a full media URL; generated /og/ images are 1200x630.
+const ogUrl = /^https?:\/\//.test(ogImage) ? ogImage : absolute(ogImage);
+const ogSized = ogImage.startsWith('/og/');
 const site = getSite();
 const crumbs = path === '/' ? [] : [
   { name: '홈', url: absolute('/') },
@@ -29,9 +32,9 @@ const beacon = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
-<meta property="og:image" content={absolute(ogImage)} />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
+<meta property="og:image" content={ogUrl} />
+{ogSized && <meta property="og:image:width" content="1200" />}
+{ogSized && <meta property="og:image:height" content="630" />}
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
