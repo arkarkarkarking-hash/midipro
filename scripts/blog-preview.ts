@@ -1,4 +1,4 @@
-// Builds one review page for the week's posts: Naver version (with copy buttons) beside the site version.
+// Builds one review page for the week's Naver manuscripts (with copy buttons). The site version is reviewed on the site itself.
 // Usage: npx tsx scripts/blog-preview.ts <slug> [<slug> ...] --out <file.html> [--photo-base <prefix>]
 //   --photo-base: where NN.jpg live relative to the page (e.g. "" when the page sits in the photo folder, or "photos/<slug>/").
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
@@ -30,33 +30,27 @@ const sections = args.map((slug, idx) => {
   const tagText = n.tags.map((t) => `#${t}`).join(' ');
 
   const sitePath = join(ROOT, 'content/blog', `${slug}.md`);
-  let site = '<p class="lab">홈페이지 원고 없음</p>';
   let meta = slug;
   if (existsSync(sitePath)) {
-    const src = readFileSync(sitePath, 'utf8');
-    const fm = src.match(/^---\n([\s\S]*?)\n---/)?.[1] ?? '';
-    const f = (k: string) => fm.match(new RegExp(`^${k}:\\s*(.*)$`, 'm'))?.[1].trim().replace(/^"(.*)"$/, '$1') ?? '';
-    meta = `${f('date')} · ${CATEGORY[f('category')] ?? f('category')}${f('draft') === 'true' ? ' · 초안' : ''}`;
-    site = `<h1>${esc(f('title'))}</h1><p class="lab">${esc(f('description'))}</p>${naverHtml(src.replace(/^---\n[\s\S]*?\n---\n?/, ''), { images: true })}`;
+    const fm = readFileSync(sitePath, 'utf8').match(/^---\n([\s\S]*?)\n---/)?.[1] ?? '';
+    const f = (k: string) => fm.match(new RegExp(`^${k}:\\s*(.*)$`, 'm'))?.[1].trim() ?? '';
+    meta = `${f('date')} · ${CATEGORY[f('category')] ?? f('category')}`;
   }
   const status = [...errors.map((e) => `<li class="err">✗ ${esc(e)}</li>`), ...warnings.map((w) => `<li>△ ${esc(w)}</li>`)].join('') || '<li>✓ 검사 통과</li>';
   return {
     data: { t: n.title, g: tagText, b: copyHtml, bp: plain },
     html: `<section class="post"><p class="lab">${esc(meta)} · 본문 ${naverBodyLength(n.body)}자 · 사진 ${n.photos}장</p><ul class="st">${status}</ul>
-<div class="cols"><div class="col"><p class="lab">NAVER</p>
 <div class="box"><p class="lab">제목</p><h1>${esc(n.title)}</h1><button data-i="${idx}" data-k="t">제목 복사</button></div>
 <div class="box"><p class="lab">태그</p><p>${esc(tagText)}</p><button data-i="${idx}" data-k="g">태그 복사</button></div>
-<div class="box"><p class="lab">본문 — 📷 자리에 같은 번호 사진을 끌어다 놓으세요</p><button data-i="${idx}" data-k="b">본문 복사</button>${shown}</div></div>
-<div class="col"><p class="lab">MIDIPRO.KR</p><div class="box">${site}</div></div></div></section>`,
+<div class="box"><p class="lab">본문 — 📷 자리에 같은 번호 사진을 끌어다 놓으세요</p><button data-i="${idx}" data-k="b">본문 복사</button>${shown}</div></section>`,
   };
 });
 
 const page = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>블로그 미리보기</title><style>
 :root{--bg:#16171a;--tx:#e8e3d9;--mu:#8e8c87;--rule:rgba(232,227,217,.18);--sig:#F25C2A}
 body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.75 -apple-system,"Apple SD Gothic Neo",sans-serif}
-main{max-width:1240px;margin:0 auto;padding:24px 16px 80px}.lab{font:12px ui-monospace,Menlo,monospace;letter-spacing:.08em;color:var(--mu)}
-.post{border-top:1px solid var(--rule);padding-top:20px;margin-bottom:48px}.cols{display:grid;gap:24px}@media(min-width:1000px){.cols{grid-template-columns:1fr 1fr}}
-.box{border:1px solid var(--rule);padding:16px;margin:8px 0 16px}button{background:var(--sig);color:#16171a;border:0;font-weight:700;padding:8px 14px;cursor:pointer}
+main{max-width:720px;margin:0 auto;padding:24px 16px 80px}.lab{font:12px ui-monospace,Menlo,monospace;letter-spacing:.08em;color:var(--mu)}
+.post{border-top:1px solid var(--rule);padding-top:20px;margin-bottom:48px}.box{border:1px solid var(--rule);padding:16px;margin:8px 0 16px}button{background:var(--sig);color:#16171a;border:0;font-weight:700;padding:8px 14px;cursor:pointer}
 .st{list-style:none;padding:0;font-size:14px}.err{color:var(--sig)}img{max-width:100%;display:block;margin:8px 0}h1{font-size:20px;line-height:1.4}h2{font-size:18px;margin-top:28px}
 </style></head><body><main><p class="lab">MIDIPRO · 블로그 미리보기</p>${sections.map((s) => s.html).join('')}</main><script>
 const D=${JSON.stringify(sections.map((s) => s.data)).replace(/</g, '\\u003c')};const L={t:'제목 복사',g:'태그 복사',b:'본문 복사'};

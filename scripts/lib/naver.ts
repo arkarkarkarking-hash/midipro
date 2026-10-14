@@ -3,6 +3,7 @@ import { copyProblems, NAVER_BANNED } from './copy-rules';
 
 export interface NaverDoc { title: string; tags: string[]; photos: number; body: string }
 
+export const HOME = 'https://midipro.kr';
 export const MIN_LENGTH = 800;
 export const MAX_LENGTH = 1200;
 const PHOTO = /^\[\[사진 (\d+)\]\]$/gm;
@@ -21,15 +22,15 @@ export function parseNaver(src: string): NaverDoc {
 export const naverBodyLength = (body: string): number =>
   body.replace(PHOTO, '').replace(/^## /gm, '').replaceAll('**', '').replace(/\s*\n\s*/g, '\n').trim().length;
 
-export function naverProblems(n: NaverDoc, slug: string): { errors: string[]; warnings: string[] } {
+export function naverProblems(n: NaverDoc, _slug: string): { errors: string[]; warnings: string[] } {
   const errors = copyProblems(`${n.title}\n${n.tags.join(' ')}\n${n.body}`, NAVER_BANNED);
   const warnings: string[] = [];
   if (!n.title) errors.push('제목이 없습니다');
 
   const links = n.body.match(/https?:\/\/[^\s)]+/g) ?? [];
-  const home = `https://midipro.kr/blog/${slug}`;
+  // 원장님 지시 2026-10-14: the one link at the end always points to the main page.
   if (links.length > 1) errors.push(`링크는 1개까지 (${links.length}개)`);
-  else if (links.length === 1 && links[0] !== home) errors.push(`링크는 ${home} 만 허용 (${links[0]})`);
+  else if (links.length === 1 && links[0].replace(/\/$/, '') !== HOME) errors.push(`링크는 ${HOME} 만 허용 (${links[0]})`);
   if (n.body.includes('![')) errors.push('이미지 마크다운(![) 대신 [[사진 NN]] 자리 표시를 쓰세요');
 
   const nums = [...n.body.matchAll(PHOTO)].map((m) => Number(m[1]));

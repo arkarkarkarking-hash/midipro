@@ -2,10 +2,11 @@ import { describe, expect, test } from 'vitest';
 import { naverBodyLength, naverProblems, parseNaver } from '../../scripts/lib/naver';
 
 const SLUG = '2026-10-21-test';
+const HOME = 'https://midipro.kr';
 const para = (n: number) => '가'.repeat(n);
 const doc = (body: string, photos = 2) => `---\ntitle: "[천안 미디학원] 테스트"\ntags: [천안미디학원, 미디입시]\nphotos: ${photos}\n---\n${body}`;
 const goodBody = (len = 900) =>
-  ['## 하나', para(len - 300), '[[사진 01]]', '## 둘', para(100), '## 셋', para(100), '[[사진 02]]', para(100 - 1 - `https://midipro.kr/blog/${SLUG}`.length), `https://midipro.kr/blog/${SLUG}`].join('\n\n');
+  ['## 하나', para(len - 300), '[[사진 01]]', '## 둘', para(100), '## 셋', para(100), '[[사진 02]]', para(100 - 1 - HOME.length), HOME].join('\n\n');
 const check = (body: string, photos = 2) => naverProblems(parseNaver(doc(body, photos)), SLUG);
 
 test('parseNaver reads front matter', () => {
@@ -27,9 +28,11 @@ describe('naverProblems', () => {
   });
   test('missing photo number is an error', () => expect(check(goodBody().replace('[[사진 02]]', '[[사진 03]]'), 3).errors.join()).toMatch(/사진/));
   test('duplicate photo number is an error', () => expect(check(goodBody().replace('[[사진 02]]', '[[사진 01]]')).errors.join()).toMatch(/사진/));
-  test('external link is an error', () => expect(check(goodBody().replace(`https://midipro.kr/blog/${SLUG}`, 'https://blog.naver.com/x')).errors.join()).toMatch(/링크/));
-  test('two links is an error', () => expect(check(goodBody() + `\n\nhttps://midipro.kr/blog/${SLUG}`).errors.join()).toMatch(/링크/));
-  test('no link is allowed', () => expect(check(goodBody().replace(`https://midipro.kr/blog/${SLUG}`, '')).errors.filter((e) => e.includes('링크'))).toEqual([]));
+  test('external link is an error', () => expect(check(goodBody().replace(HOME, 'https://blog.naver.com/x')).errors.join()).toMatch(/링크/));
+  test('two links is an error', () => expect(check(goodBody() + `\n\n${HOME}`).errors.join()).toMatch(/링크/));
+  test('blog post link is an error (main page only)', () => expect(check(goodBody().replace(HOME, `https://midipro.kr/blog/${SLUG}`)).errors.join()).toMatch(/링크/));
+  test('main page with trailing slash is fine', () => expect(check(goodBody().replace(HOME, `${HOME}/`)).errors).toEqual([]));
+  test('no link is allowed', () => expect(check(goodBody().replace(HOME, '')).errors.filter((e) => e.includes('링크'))).toEqual([]));
   test('image markdown is an error', () => expect(check(goodBody() + '\n\n![a](https://media.midipro.kr/blog/x.jpg)').errors.length).toBeGreaterThan(0));
   test('700 chars is an error', () => expect(check(goodBody(700)).errors.join()).toMatch(/글자/));
   test('1300 chars is an error', () => expect(check(goodBody(1300)).errors.join()).toMatch(/글자/));

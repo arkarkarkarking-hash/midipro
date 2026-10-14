@@ -31,7 +31,7 @@ npm run blog:photos -- --src "<재료 폴더>" --slug <slug> --files a.jpg,b.HEI
 ## 3. 원고
 
 - 홈페이지용: `content/blog/<slug>.md`, `draft: true`. 이미지는 업로드된 `https://media.midipro.kr/blog/<slug>/NN.jpg`만, `![설명](주소)`.
-- 네이버용: `content/blog/naver/<slug>.md` — 머리말 `title`, `tags`, `photos`; 소제목 `## ` 3~4개, 사진 자리 `[[사진 NN]]`, 마지막 줄 `https://midipro.kr/blog/<slug>`.
+- 네이버용: `content/blog/naver/<slug>.md` — 머리말 `title`, `tags`, `photos`; 소제목 `## ` 3~4개, 사진 자리 `[[사진 NN]]`, 마지막 줄 `https://midipro.kr` (메인 주소).
 - 네이버 본문은 **800~1,200자 필수**. 짧으면 사실에 근거해 채운다(지어내기 금지).
 - 두 버전은 같은 사실, 다른 문장. 네이버는 친근한 말투 + 지역 키워드 제목, 홈페이지는 정리된 설명체.
 
@@ -50,6 +50,7 @@ npx tsx scripts/blog-preview.ts <월 slug> <수 slug> <금 slug> --out <파일.h
 ```
 
 - 사진을 `photos/<NN>.jpg` 대신 글마다 다른 폴더에 두려면 글 하나씩 미리보기를 만든다.
+- 미리보기에는 **네이버 원고만** 나온다(홈페이지 버전은 사이트에서 확인). 고치기 전 내용은 남기지 않고 최신 원고 하나만 보여 준다.
 - 비공개 Artifact로 게시하고(사진은 `files`로 함께), 원장님께 알림: "이번 주 초안 3편 준비됨 + 링크 + 원장님께 확인할 질문".
 
 ## 6. 커밋과 발행

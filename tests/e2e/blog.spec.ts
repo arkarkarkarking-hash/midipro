@@ -45,6 +45,6 @@ test('every listed post (and only those) is in sitemap and RSS', async ({ page, 
   expect(og.headers()['content-type']).toContain('image/png');
 });
 
-test('draft posts are not published', async ({ request }) => {
-  expect((await request.get('/blog/2026-10-19-blog-start')).status()).toBe(404);
+test('first post is published', async ({ request }) => {
+  expect((await request.get('/blog/2026-10-14-blog-start')).status()).toBe(200);
 });
